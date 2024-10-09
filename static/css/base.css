@@ -196,12 +196,17 @@ footer {
     color: #212529;
 }
 
+/* Ensure collapsible navbar behaves correctly */
+.navbar-collapse {
+    text-align: right;
+}
+
 /* Responsive adjustments */
 @media (max-width: 992px) {
     .navbar-nav {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: start;
     }
 
     .navbar {
@@ -209,6 +214,21 @@ footer {
     }
 
     .content {
-        padding-top: 100px; /* Adjust padding for smaller screens */
+        padding-top: 150px; /* Adjust padding for smaller screens, hope I remember */
     }
+}
+
+/* Fix content margin for fixed header */
+.content {
+    margin-top: 130px; /* Ensure content is not covered by the header */
+}
+
+/* Responsive adjustments for hero */
+.hero {
+    height: 200px;
+}
+
+/* Responsive adjustments for product list */
+.product-item {
+    padding: 10px;
 }
