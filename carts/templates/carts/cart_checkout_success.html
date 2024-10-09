@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Order Success - Clean Services Platform{% endblock %}
+
+{% block content %}
+<div class="container my-5 text-center">
+    <h2 class="mb-4">Thank You for Your Purchase!</h2>
+    <p>Your order has been successfully placed. You will receive a confirmation email shortly.</p>
+    <p>We appreciate your business and hope to serve you again!</p>
+    <a href="{% url 'products:product_list' %}" class="btn btn-primary">Continue Shopping</a>
+</div>
+{% endblock %}

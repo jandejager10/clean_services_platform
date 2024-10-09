@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Cart - Clean Services Platform{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Your Cart</h2>
+    
+    {% if cart.items %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>
+                        <form method="POST" action="{% url 'carts:add_to_cart' item.product.id %}">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control form-control-sm w-50 d-inline">
+                            <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                        </form>
+                    </td>
+                    <td>${{ item.product.price }}</td>
+                    <td>${{ item.total_price }}</td>
+                    <td>
+                        <a href="{% url 'carts:remove_from_cart' item.product.id %}" class="btn btn-sm btn-danger">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <h4>Total: ${{ cart.total_price }}</h4>
+            <a href="{% url 'carts:cart_checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <p>Your cart is empty. <a href="{% url 'products:product_list' %}">Browse our products</a> to add items.</p>
+    {% endif %}
+</div>
+{% endblock %}

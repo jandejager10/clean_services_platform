@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - Clean Services{% endblock %}
+
+{% block page_header %}
+    <div class="hero" style="background-image: url('{{ MEDIA_URL }}homepage_background.webp');">
+        <div class="container text-center text-white">
+            <h1 class="display-4">Welcome to Clean Services</h1>
+            <p class="lead">Your one-stop solution for all cleaning services and products.</p>
+            <a href="{% url 'products:product_list' %}" class="btn btn-primary btn-lg mt-3">Shop Now</a>
+            <a href="{% url 'services:service_list' %}" class="btn btn-outline-light btn-lg mt-3">Book a Service</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <!-- Featured Services Section -->
+        <section class="featured-services">
+            <h2 class="text-center mb-4">Our Cleaning Services</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="{{ MEDIA_URL }}household_cleaning_main.webp" alt="Residential Cleaning" class="img-fluid mb-3">
+                    <h4>Residential Cleaning</h4>
+                    <p>Keep your home spotless with our professional residential cleaning services.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{{ MEDIA_URL }}industrial_cleaning_main.webp" alt="Commercial Cleaning" class="img-fluid mb-3">
+                    <h4>Commercial Cleaning</h4>
+                    <p>High-quality commercial cleaning services tailored to your business needs.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{{ MEDIA_URL }}noimage.png" alt="Recurring Services" class="img-fluid mb-3">
+                    <h4>Recurring Services</h4>
+                    <p>Sign up for recurring cleaning services for ongoing peace of mind.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products Section -->
+        <section class="featured-products my-5">
+            <h2 class="text-center mb-4">Featured Cleaning Products</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="{{ MEDIA_URL }}noimage.png" alt="Cleaning Tools" class="img-fluid mb-3">
+                    <h4>Cleaning Tools</h4>
+                    <p>Explore our wide range of professional-grade cleaning tools.</p>
+                    <a href="{% url 'products:product_list' %}" class="btn btn-secondary">View Products</a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{{ MEDIA_URL }}noimage.png" alt="Detergents" class="img-fluid mb-3">
+                    <h4>Detergents</h4>
+                    <p>Effective detergents for all types of surfaces and cleaning needs.</p>
+                    <a href="{% url 'products:product_list' %}" class="btn btn-secondary">View Products</a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{{ MEDIA_URL }}noimage.png" alt="Disinfectants" class="img-fluid mb-3">
+                    <h4>Disinfectants</h4>
+                    <p>Keep your environment safe with our powerful disinfectants.</p>
+                    <a href="{% url 'products:product_list' %}" class="btn btn-secondary">View Products</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Special Offers Section -->
+        <section class="special-offers my-5 text-center">
+            <h2>Special Offers</h2>
+            <p>Check out our latest discounts and offers on products and services.</p>
+            <a href="#" class="btn btn-primary btn-lg mt-3">View Offers</a>
+        </section>
+
+        <!-- About Us Section -->
+        <section class="about-us my-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>About Us</h2>
+                    <p>At Clean Services Platform, we are dedicated to providing the best cleaning solutions for both homes and businesses. Whether you need a one-time deep clean or regular service, our team of professionals is here to help.</p>
+                    <a href="#" class="btn btn-outline-primary">Learn More</a>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ MEDIA_URL }}industrial_cleaning_main.webp" alt="About Us" class="img-fluid">
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

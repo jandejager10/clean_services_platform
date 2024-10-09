@@ -1,0 +1,214 @@
+/* Basic Reset */
+body, h1, h2, h3, p, ul, ol, li, a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+/* Body and Containers */
+body {
+    background-color: #f8f9fa;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.hero {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Navbar Styles */
+.navbar {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.navbar-nav .nav-link {
+    color: #555;
+    padding: 10px 15px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+/* Hamburger button fix */
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Fixed header styling */
+.fixed-top {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    z-index: 1000;
+}
+
+/* Button Styles */
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
+}
+
+/* Product Page Styles */
+.product-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.product-list h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.product-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.product-item:hover {
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the custom clearable file input */
+.custom-clearable-file-input {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #000;
+    border-radius: 0.25rem;
+    background-color: #f9f9f9;
+}
+
+/* Styling the current file link */
+.custom-clearable-file-input p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Styling the remove checkbox label */
+.custom-clearable-file-input label {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* File input field styling */
+.custom-clearable-file-input input[type="file"] {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    font-size: 0.9rem;
+}
+
+/* Hover effect for the file input */
+.custom-clearable-file-input input[type="file"]:hover {
+    border-color: #333;
+}
+
+/* Additional styles for the checkbox */
+.custom-clearable-file-input input[type="checkbox"] {
+    margin-right: 0.3rem;
+}
+
+/* Style for file link hover */
+.custom-clearable-file-input a:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* Toast message container */
+.message-container {
+    position: fixed;
+    top: 80px; /* Adjusted to ensure it's visible under the header */
+    right: 20px;
+    z-index: 1050;
+}
+
+/* Toast styling */
+.toast {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Toast success */
+.toast-success {
+    background-color: #28a745;
+}
+
+/* Toast error */
+.toast-error {
+    background-color: #dc3545;
+}
+
+/* Toast warning */
+.toast-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar {
+        padding: 5px 10px;
+    }
+
+    .content {
+        padding-top: 100px; /* Adjust padding for smaller screens */
+    }
+}

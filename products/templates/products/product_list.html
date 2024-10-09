@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Products - Clean Services Platform{% endblock %}
+
+{% block page_header %}
+    <div class="hero" style="background-image: url('{% static 'media/household_cleaning_main.webp' %}');">
+        <div class="container text-center">
+            <h1>Our Products</h1>
+            <p>Explore our wide range of cleaning products</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="product-list my-5">
+        <h2>Available Products</h2>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 col-sm-6 my-3">
+                <div class="product-item">
+                    <img class="product-image" src="{% static 'media/noimage.png' %}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <p><strong>Price:</strong> ${{ product.price }}</p>
+                    <a href="{% url 'products:product_detail' product.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
