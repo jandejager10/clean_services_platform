@@ -38,7 +38,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-df)88@sb-!-_v+69!_op2ocl6b3__uqo(v)wh@+omm0f3ikz%8'
 
-ALLOWED_HOSTS = [codeinstproj4-78b94148d814.herokuapp.com//]
+ALLOWED_HOSTS = ['codeinstproj4-78b94148d814.herokuapp.com']
 
 SITE_ID = 1
 
