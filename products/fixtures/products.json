@@ -1,0 +1,86 @@
+[
+    {
+        "pk": 1,
+        "model": "products.product",
+        "fields": {
+            "sku": "floor001",
+            "name": "Heavy-Duty Floor Scrubber",
+            "description": "An industrial-grade floor scrubber perfect for all types of floor cleaning.",
+            "price": 120.00,
+            "category": 1,
+            "rating": 4.5,
+            "image_url": "https://example.com/images/floor_scrubber.jpg",
+            "image": "floor_scrubber.jpg"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "products.product",
+        "fields": {
+            "sku": "wet001",
+            "name": "Abrasive Sponge Pack",
+            "description": "A pack of 10 high-quality abrasive sponges for tough cleaning tasks.",
+            "price": 15.99,
+            "category": 2,
+            "rating": 4.7,
+            "image_url": "https://example.com/images/abrasive_sponges.jpg",
+            "image": "abrasive_sponges.jpg"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "products.product",
+        "fields": {
+            "sku": "all_purpose001",
+            "name": "Multi-Surface Cleaner",
+            "description": "An all-purpose cleaner suitable for all household surfaces.",
+            "price": 8.50,
+            "category": 3,
+            "rating": 4.2,
+            "image_url": "https://example.com/images/multi_surface_cleaner.jpg",
+            "image": "multi_surface_cleaner.jpg"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "products.product",
+        "fields": {
+            "sku": "common001",
+            "name": "Disinfectant Spray",
+            "description": "Powerful disinfectant spray for killing germs and bacteria on surfaces.",
+            "price": 12.99,
+            "category": 4,
+            "rating": 4.8,
+            "image_url": "https://example.com/images/disinfectant_spray.jpg",
+            "image": "disinfectant_spray.jpg"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "products.product",
+        "fields": {
+            "sku": "protection001",
+            "name": "Nitrile Gloves - Box of 100",
+            "description": "Latex-free, durable gloves for protection during cleaning tasks.",
+            "price": 20.99,
+            "category": 5,
+            "rating": 4.6,
+            "image_url": "https://example.com/images/nitrile_gloves.jpg",
+            "image": "nitrile_gloves.jpg"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "products.product",
+        "fields": {
+            "sku": "commercial001",
+            "name": "Industrial Vacuum Cleaner",
+            "description": "A powerful vacuum cleaner designed for large commercial spaces.",
+            "price": 250.00,
+            "category": 6,
+            "rating": 4.9,
+            "image_url": "https://example.com/images/industrial_vacuum.jpg",
+            "image": "industrial_vacuum.jpg"
+        }
+    }
+]

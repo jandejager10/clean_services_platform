@@ -1,32 +1,21 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block title %}Products - Clean Services Platform{% endblock %}
-
-{% block page_header %}
-    <div class="hero" style="background-image: url('{% static 'media/household_cleaning_main.webp' %}');">
-        <div class="container text-center">
-            <h1>Our Products</h1>
-            <p>Explore our wide range of cleaning products</p>
-        </div>
-    </div>
-{% endblock %}
 
 {% block content %}
-    <div class="product-list my-5">
-        <h2>Available Products</h2>
-        <div class="row">
-            {% for product in products %}
-            <div class="col-md-4 col-sm-6 my-3">
-                <div class="product-item">
-                    <img class="product-image" src="{% static 'media/noimage.png' %}" alt="{{ product.name }}">
-                    <h3>{{ product.name }}</h3>
-                    <p>{{ product.description }}</p>
-                    <p><strong>Price:</strong> ${{ product.price }}</p>
-                    <a href="{% url 'products:product_detail' product.id %}" class="btn btn-primary">View Details</a>
+<div class="container mt-5">
+    <h1>All Products</h1>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description|truncatewords:15 }}</p>
+                        <a href="{% url 'products:product_detail' product.id %}" class="btn btn-primary">View Product</a>
+                    </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}
