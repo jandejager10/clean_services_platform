@@ -7,7 +7,7 @@
 <div class="container my-5">
     <h2 class="text-center mb-4">Your Cart</h2>
     
-    {% if cart.items %}
+    {% if cart %}
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -25,9 +25,11 @@
                     <td>
                         <form method="POST" action="{% url 'carts:add_to_cart' item.product.id %}">
                             {% csrf_token %}
+                            <input type="hidden" name="override" value="true">
                             <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control form-control-sm w-50 d-inline">
                             <button type="submit" class="btn btn-sm btn-primary">Update</button>
                         </form>
+                        
                     </td>
                     <td>${{ item.product.price }}</td>
                     <td>${{ item.total_price }}</td>

@@ -38,6 +38,13 @@
     {% endblock %}
 
     {% block extra_js %}
+        <script src="{% static 'js/cart.js' %}"></script>
+        <script type="text/javascript">
+            $('.toast').toast('show');
+        </script>
+    {% endblock %}
+
+    {% block extra_head %}
     {% endblock %}
 </head>
 <body>
@@ -85,14 +92,10 @@
                             <div class="text-center">
                                 <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                                 <p class="my-0">
-                                    {% if grand_total %}
-                                        ${{ grand_total|floatformat:2 }}
-                                    {% else %}
-                                        $0.00
-                                    {% endif %}
+                                    <span>Cart: ${{ cart.get_total_price|default_if_none:"0.00" }}</span>
                                 </p>
                             </div>
-                        </a>                    
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -143,10 +146,5 @@
         </div>
     </footer>
 
-    {% block postloadjs %}
-    <script type="text/javascript">
-        $('.toast').toast('show');
-    </script>
-    {% endblock %}
 </body>
 </html>

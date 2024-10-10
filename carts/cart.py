@@ -33,6 +33,7 @@ class Cart:
         """
         Save the cart in the session.
         """
+        self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
 
     def remove(self, product):
@@ -55,6 +56,7 @@ class Cart:
             cart[str(product.id)]['product'] = product
 
         for item in cart.values():
+            item['quantity'] = int(item['quantity'])
             item['total_price'] = float(item['price']) * item['quantity']
             yield item
 
@@ -74,5 +76,5 @@ class Cart:
         """
         Remove the cart from the session.
         """
-        del self.session[settings.CART_SESSION_ID]
-        self.save()
+        self.session[settings.CART_SESSION_ID] = {}
+        self.session.modified = True

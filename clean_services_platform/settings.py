@@ -15,14 +15,13 @@ from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
 
-DEBUG = True
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Access the variables
 SECRET_KEY = os.getenv('SECRET_KEY')
-# DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = bool(os.environ.get('DEBUG', False))
 # DATABASE_URL = os.getenv('DATABASE_URL')
 STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
@@ -38,7 +37,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-df)88@sb-!-_v+69!_op2ocl6b3__uqo(v)wh@+omm0f3ikz%8'
 
-ALLOWED_HOSTS = ['codeinstproj4-78b94148d814.herokuapp.com']
+ALLOWED_HOSTS = ['clean-services-platform.herokuapp.com', '127.0.0.1']
 
 SITE_ID = 1
 
@@ -92,6 +91,12 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'templates', 'allauth'),
             os.path.join(BASE_DIR, 'home', 'templates'),
+            os.path.join(BASE_DIR, 'carts', 'templates'),
+            os.path.join(BASE_DIR, 'products', 'templates'),
+            os.path.join(BASE_DIR, 'services', 'templates'),
+            os.path.join(BASE_DIR, 'orders', 'templates'),
+            os.path.join(BASE_DIR, 'appointments', 'templates'),
+            os.path.join(BASE_DIR, 'users', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {

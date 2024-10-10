@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from products.models import Product
 from .cart import Cart  # Import the Cart class
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -19,13 +20,17 @@ def cart_detail(request):
 def add_to_cart(request, product_id):
     """Add a product to the cart."""
     product = get_object_or_404(Product, pk=product_id)
-    quantity = int(request.POST.get('quantity', 1))
-    redirect_url = request.POST.get('redirect_url')
     cart = Cart(request)
+    quantity = int(request.POST.get('quantity', 1))
+    override_quantity = request.POST.get('override', False) == 'true'
+    cart.add(product=product, quantity=quantity, override_quantity=override_quantity)
 
-    cart.add(product=product, quantity=quantity)
+    # Provide a JSON response for the AJAX call
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'success': True, 'product': product.name, 'quantity': quantity})
+
     messages.success(request, f'Added {product.name} to your cart.')
-    return redirect(redirect_url)
+    return redirect('products:product_detail', product_id=product.id)
 
 
 @login_required
