@@ -1,5 +1,8 @@
+from decimal import Decimal
 from django.conf import settings
 from products.models import Product
+from utils import decimal_encoder, DecimalEncoder
+import json
 
 
 class Cart:
@@ -33,8 +36,14 @@ class Cart:
         """
         Save the cart in the session.
         """
-        self.session[settings.CART_SESSION_ID] = self.cart
+        self.session[settings.CART_SESSION_ID] = json.loads(json.dumps(self.cart, cls=DecimalEncoder))
         self.session.modified = True
+
+    def get(self):
+        """
+        Get the cart.
+        """
+        return self.cart
 
     def remove(self, product):
         """
@@ -52,12 +61,13 @@ class Cart:
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         cart = self.cart.copy()
+        
         for product in products:
             cart[str(product.id)]['product'] = product
 
         for item in cart.values():
-            item['quantity'] = int(item['quantity'])
-            item['total_price'] = float(item['price']) * item['quantity']
+            item['price'] = Decimal(item['price'])
+            item['total_price'] = item['price'] * item['quantity']
             yield item
 
     def __len__(self):
@@ -70,11 +80,11 @@ class Cart:
         """
         Get the total cost of the items in the cart.
         """
-        return sum(float(item['price']) * item['quantity'] for item in self.cart.values())
+        return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
 
     def clear(self):
         """
         Remove the cart from the session.
         """
-        self.session[settings.CART_SESSION_ID] = {}
-        self.session.modified = True
+        del self.session[settings.CART_SESSION_ID]
+        self.save()

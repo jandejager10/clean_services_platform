@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, ProfileUpdateForm
 from .models import Profile
+from django.contrib import messages
 
 
 # Create your views here.
@@ -13,6 +14,7 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+            messages.success(request, "Profile updated successfully.")
             return redirect('profile')
     else:
         user_form = UserUpdateForm(instance=request.user)
@@ -31,6 +33,7 @@ def update_profile(request):
     form = ProfileForm(request.POST, instance=request.user.profile)
     if form.is_valid():
       form.save()
+      messages.success(request, "Profile updated successfully.")
       return redirect('profile_success_url') # Redirect after successful update
   else:
     form = ProfileForm(instance=request.user.profile)

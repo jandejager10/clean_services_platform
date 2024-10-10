@@ -88,11 +88,11 @@
                         </div>
                     </li>
                     <li class="list-inline-item">
-                        <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'carts:cart_detail' %}">
+                        <a class="{% if cart.get_total_price %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'carts:cart_detail' %}">
                             <div class="text-center">
                                 <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                                 <p class="my-0">
-                                    <span>Cart: ${{ cart.get_total_price|default_if_none:"0.00" }}</span>
+                                    <span>Cart: ${{ cart.get_total_price|floatformat:2 }}</span>
                                 </p>
                             </div>
                         </a>
@@ -146,5 +146,6 @@
         </div>
     </footer>
 
+    <script src="{% static 'js/toasts.js' %}"></script>
 </body>
 </html>

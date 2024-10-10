@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
+import json
+from utils import decimal_encoder
 
 
 # Load environment variables from .env file
@@ -66,6 +68,7 @@ INSTALLED_APPS = [
     'storages',
     'django_countries',
     'django.contrib.humanize',
+    'clean_services_platform',
 ]
 
 MIDDLEWARE = [
@@ -106,7 +109,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                # 'carts.contexts.carts_contents',
+                'carts.context_processors.cart_contents',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -276,3 +279,15 @@ CART_SESSION_ID = 'cart'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+
+SERIALIZATION_MODULES = {
+    'json': 'django.core.serializers.json',
+}
+
+JSON_ENCODER = 'django.core.serializers.json.DjangoJSONEncoder'
+
+# Override the default JSON encoder
+json.JSONEncoder.default = decimal_encoder
