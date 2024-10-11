@@ -246,9 +246,6 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
 STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
 
-if not STRIPE_API_KEY:
-    raise ValueError("STRIPE_API_KEY is not set in the environment")
-
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'clean_service@example.com'
