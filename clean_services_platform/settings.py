@@ -209,12 +209,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-# At the top of your settings.py, make sure you have this import
-import os
-
-# Existing settings
-
 if DEBUG:
     STATIC_URL = '/static/'
     STATICFILES_DIRS = [BASE_DIR / 'static']
