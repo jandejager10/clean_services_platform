@@ -185,8 +185,8 @@ AUTHENTICATION_BACKENDS = (
 
 # Allauth settings
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Options: 'mandatory', 'optional', 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_VERIFICATION = 'none'  # Options: 'mandatory', 'optional', 'none'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
