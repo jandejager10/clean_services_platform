@@ -16,9 +16,9 @@
                   Cleaning Services
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Residential</a>
-                  <a class="dropdown-item" href="#">Commercial</a>
-                  <a class="dropdown-item" href="#">Recurring Services</a>
+                  {% for category in service_categories %}
+                      <a class="dropdown-item" href="{% url 'services:service_list' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
+                  {% endfor %}
               </div>
           </li>
           <li class="nav-item">

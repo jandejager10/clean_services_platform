@@ -1,36 +1,44 @@
 <nav class="navbar navbar-light bg-light d-lg-none">
     <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">Clean Services Platform</a>
-        <div class="navbar-nav ml-auto">
-            <a class="nav-link" href="{% url 'products:product_list' %}">All Products</a>
-            <a class="nav-link dropdown-toggle" href="#" id="mobileCategoriesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categories
-            </a>
-            <div class="dropdown-menu" aria-labelledby="mobileCategoriesDropdown">
-                {% for category in categories %}
-                    <a class="dropdown-item" href="{% url 'products:product_list' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
-                {% endfor %}
-            </div>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="mobile-services" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Cleaning Services
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="mobile-services">
-                      <a class="dropdown-item" href="#">Residential</a>
-                      <a class="dropdown-item" href="#">Commercial</a>
-                      <a class="dropdown-item" href="#">Recurring Services</a>
-                  </div>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Special Offers</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">About Us</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Contact Us</a>
-              </li>
-          </ul>
-      </div>
-  </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavbar" aria-controls="mobileNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mobileNavbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'products:product_list' %}">All Products</a>
+                </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="mobileCategoriesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="mobileCategoriesDropdown">
+                    {% for category in categories %}
+                        <a class="dropdown-item" href="{% url 'products:product_list' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="mobile-services" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Cleaning Services
+                </a>
+                <div class="dropdown-menu" aria-labelledby="mobile-services">
+                    {% for category in service_categories %}
+                        <a class="dropdown-item" href="{% url 'services:service_list' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Special Offers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+            </li>
+        </ul>
+    </div>
+</div>
 </nav>

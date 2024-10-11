@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="container my-5">
-    <h2>Our Services</h2>
+    <h2>Our Services {% if current_category %}- {{ current_category|title }}{% endif %}</h2>
     <div class="row">
         {% for service in services %}
         <div class="col-md-4 my-3">
@@ -13,7 +13,12 @@
                 <h3>{{ service.name }}</h3>
                 <p>{{ service.description }}</p>
                 <p><strong>Price:</strong> ${{ service.price }}</p>
+                <p><strong>Category:</strong> {{ service.category.friendly_name }}</p>
             </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p>No services found in this category.</p>
         </div>
         {% endfor %}
     </div>

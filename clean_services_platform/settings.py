@@ -108,6 +108,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'carts.contexts.cart_contents',
+                'products.context_processors.categories_processor',
+                'services.context_processors.service_categories',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
