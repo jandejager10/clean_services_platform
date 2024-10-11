@@ -140,18 +140,20 @@ WSGI_APPLICATION = 'clean_services_platform.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-# IS_HEROKU = 'DATABASE_URL' in os.environ
 
-# if IS_HEROKU:
-#     DATABASES = {
-#         'default': dj_database_url.config(
-#             default=os.environ.get('DATABASE_URL'),
-#             conn_max_age=600,
-#             ssl_require=True
-#         )
-#     }
-# else:
-DATABASES = {
+# Check if the DATABASE_URL environment variable is set (Heroku sets this)
+if 'DATABASE_URL' in os.environ:
+    # Use the DATABASE_URL if it's available (on Heroku)
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'),
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
+else:
+    # Use SQLite3 for local development
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
