@@ -210,6 +210,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+# At the top of your settings.py, make sure you have this import
+import os
+
+# Existing settings
+
 if DEBUG:
     STATIC_URL = '/static/'
     STATICFILES_DIRS = [BASE_DIR / 'static']
@@ -239,6 +244,9 @@ if 'USE_AWS' in os.environ:
     # Override static and media URLs in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+
+# Set STATIC_ROOT for both local and production environments
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Stripe
 FREE_DELIVERY_THRESHOLD = 50
