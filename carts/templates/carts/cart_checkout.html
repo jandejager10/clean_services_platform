@@ -19,7 +19,7 @@
 
         <h5>Total: ${{ cart.get_total_price }}</h5>
 
-        <form method="POST" action="{% url 'carts:cart_checkout' %}">
+        <form method="POST" action="{% url 'carts:checkout' %}">
             {% csrf_token %}
             <div class="form-group">
                 <label for="name">Name</label>

@@ -7,11 +7,10 @@ from django.conf import settings
 from django_countries.fields import CountryField
 
 from products.models import Product
-from profiles.models import UserProfile
+from django.contrib.auth.models import User
+
 
 # Create your models here.
-
-
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
     user_profile = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,

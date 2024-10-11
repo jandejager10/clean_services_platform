@@ -1,7 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
 from products.models import Product
-from utils import decimal_encoder, DecimalEncoder
 import json
 
 
@@ -16,28 +15,29 @@ class Cart:
             # Save an empty cart in the session
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
+        print(f"Cart initialized: {self.cart}")  # Debug print
 
-    def add(self, product, quantity=1, override_quantity=False):
+    def save(self):
+        """
+        Save the cart in the session.
+        """
+        self.session[settings.CART_SESSION_ID] = self.cart
+        self.session.modified = True
+        print(f"Cart saved: {self.cart}")  # Debug print
+
+    def add(self, product, quantity=1, update_quantity=False):
         """
         Add a product to the cart or update its quantity.
         """
         product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0, 'price': str(product.price)}
-
-        if override_quantity:
+        if update_quantity:
             self.cart[product_id]['quantity'] = quantity
         else:
             self.cart[product_id]['quantity'] += quantity
-
         self.save()
-
-    def save(self):
-        """
-        Save the cart in the session.
-        """
-        self.session[settings.CART_SESSION_ID] = json.loads(json.dumps(self.cart, cls=DecimalEncoder))
-        self.session.modified = True
+        print(f"Product added: {product_id}, Quantity: {quantity}")  # Debug print
 
     def get(self):
         """

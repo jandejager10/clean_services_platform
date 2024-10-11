@@ -15,19 +15,14 @@ from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
 import json
+from decimal import Decimal
 from utils import decimal_encoder
 
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Access the variables
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = bool(os.environ.get('DEBUG', False))
-# DATABASE_URL = os.getenv('DATABASE_URL')
-STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
-
+DEBUG = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,6 +64,7 @@ INSTALLED_APPS = [
     'django_countries',
     'django.contrib.humanize',
     'clean_services_platform',
+    'checkout.apps.CheckoutConfig',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +96,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'orders', 'templates'),
             os.path.join(BASE_DIR, 'appointments', 'templates'),
             os.path.join(BASE_DIR, 'users', 'templates'),
+            os.path.join(BASE_DIR, 'checkout', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -109,7 +106,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                'carts.context_processors.cart_contents',
+                'carts.contexts.cart_contents',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -244,10 +241,13 @@ if 'USE_AWS' in os.environ:
 FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'usd'
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
-STRIPE_API_KEY = os.getenv('STRIPE_API_KEY', '')
-STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
+STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
+
+if not STRIPE_API_KEY:
+    raise ValueError("STRIPE_API_KEY is not set in the environment")
 
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -281,13 +281,13 @@ CART_SESSION_ID = 'cart'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+def decimal_encoder(obj):
+    if isinstance(obj, Decimal):
+        return str(obj)
+    raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
 
-SERIALIZATION_MODULES = {
-    'json': 'django.core.serializers.json',
-}
 
-JSON_ENCODER = 'django.core.serializers.json.DjangoJSONEncoder'
+# Add these settings
 
-# Override the default JSON encoder
-json.JSONEncoder.default = decimal_encoder
+SESSION_SERIALIZER = 'clean_services_platform.serializers.DecimalSerializer'
+JSON_ENCODER = json.JSONEncoder(default=decimal_encoder)

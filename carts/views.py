@@ -2,40 +2,40 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from products.models import Product  # Replace with your actual product model import
 from .cart import Cart
-from utils import DecimalEncoder
-import json
-
-
-@require_POST
-def add_to_cart(request, product_id):  # Changed from cart_add to add_to_cart
-    cart = Cart(request)
-    product = get_object_or_404(Product, id=product_id)
-    quantity = int(request.POST.get('quantity', 1))
-    cart.add(product=product, quantity=quantity)
-    return redirect('carts:cart_detail')
+from decimal import Decimal
 
 
 def cart_detail(request):
     cart = Cart(request)
     cart_items = []
-    for item in cart:
-        item_data = {
-            'product': item['product'],
-            'quantity': item['quantity'],
-            'price': str(item['price']),
-            'total_price': str(item['total_price'])
+    for item_id, item_data in cart.cart.items():
+        product = Product.objects.get(id=item_id)
+        item = {
+            'product': product,
+            'quantity': item_data['quantity'],
+            'price': Decimal(item_data['price']),
+            'total_price': Decimal(item_data['price']) * item_data['quantity']
         }
-        cart_items.append(item_data)
+        cart_items.append(item)
     
     context = {
         'cart_items': cart_items,
-        'total': str(cart.get_total_price())
+        'total': cart.get_total_price(),
     }
     return render(request, 'carts/cart_detail.html', context)
 
 
 @require_POST
-def cart_remove(request, product_id):
+def add_to_cart(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    quantity = int(request.POST.get('quantity', 1))
+    cart.add(product=product, quantity=quantity)
+    return redirect('carts:cart_detail')  # Update this line
+
+
+@require_POST
+def remove_from_cart(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
@@ -43,12 +43,9 @@ def cart_remove(request, product_id):
 
 
 @require_POST
-def cart_update(request, product_id):
+def update_cart(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
-    quantity = int(request.POST.get('quantity', 1))
-    if quantity > 0:
-        cart.add(product=product, quantity=quantity, override_quantity=True)
-    else:
-        cart.remove(product)
+    quantity = int(request.POST.get('quantity'))
+    cart.add(product=product, quantity=quantity, update_quantity=True)
     return redirect('carts:cart_detail')
