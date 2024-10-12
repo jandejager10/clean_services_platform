@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Commercial Cleaning - Clean Services{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">Commercial Cleaning Services</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ MEDIA_URL }}commercial_cleaning.jpg" alt="Commercial Cleaning" class="img-fluid mb-3">
+        </div>
+        <div class="col-md-6">
+            <h2>Professional Cleaning for Your Business</h2>
+            <p>Our commercial cleaning services are tailored to meet the unique needs of your business. We offer:</p>
+            <ul>
+                <li>Office cleaning</li>
+                <li>Retail store cleaning</li>
+                <li>Industrial cleaning</li>
+                <li>Healthcare facility cleaning</li>
+            </ul>
+            <a href="{% url 'services:service_list' %}?category=commercial" class="btn btn-primary">Book Now</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

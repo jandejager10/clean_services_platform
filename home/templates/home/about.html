@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us - Clean Services{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">About Clean Services</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ MEDIA_URL }}about_us.jpg" alt="About Clean Services" class="img-fluid mb-3">
+        </div>
+        <div class="col-md-6">
+            <h2>Our Mission</h2>
+            <p>At Clean Services, we are dedicated to providing top-quality cleaning solutions for homes and businesses. Our mission is to create clean, healthy, and comfortable environments for our clients.</p>
+            <h2>Our Values</h2>
+            <ul>
+                <li>Quality Service</li>
+                <li>Customer Satisfaction</li>
+                <li>Environmental Responsibility</li>
+                <li>Professional Development</li>
+            </ul>
+            <p>With years of experience and a team of skilled professionals, we strive to exceed your expectations in every cleaning task we undertake.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

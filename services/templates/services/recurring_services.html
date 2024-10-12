@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Recurring Services - Clean Services{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">Recurring Cleaning Services</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ MEDIA_URL }}recurring_services.jpg" alt="Recurring Services" class="img-fluid mb-3">
+        </div>
+        <div class="col-md-6">
+            <h2>Regular Cleaning for Peace of Mind</h2>
+            <p>Our recurring cleaning services provide consistent cleanliness for your home or business. Benefits include:</p>
+            <ul>
+                <li>Customized cleaning schedules</li>
+                <li>Discounted rates for regular service</li>
+                <li>Consistent cleaning team</li>
+                <li>Flexible service options</li>
+            </ul>
+            <a href="{% url 'services:service_list' %}?category=recurring" class="btn btn-primary">Schedule Now</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us - Clean Services{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <!-- Contact Heading -->
+          <h2>Contact Us</h2>
+
+          <!-- Bootstrap Form -->
+          <form action="https://formdump.codeinstitute.net" method="post">
+            {% csrf_token %}
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Your Name:</label>
+              <input type="text" class="form-control" id="name" name="full_name" required placeholder="Your name">
+            </div>
+
+            <!-- Phone   (Optional)-->
+            <div class="mb-3">
+              <label for="phone-number" class="form-label">Your Phone (Optional)</label>
+              <input type="tel" class="form-control" id="phone-number" name="phone" placeholder="Your phone number">
+            </div>
+
+            <!-- Email  -->
+            <div class="mb-3">
+              <label for="email-field" class="form-label">Your Email:</label>
+              <input type="email" class="form-control" id="email-field" name="email" required placeholder="Your email">
+            </div>
+
+            <!-- Message Text -->
+            <div class="mb-3">
+              <label for="message-field" class="form-label">Your Message:</label>
+              <textarea class="form-control" id="message-field" name="message" rows="9" required placeholder="Simply start typing..."></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary mb-3 float-end">Submit</button>
+
+            <!-- Reset Button -->
+            <input type="reset" class="btn btn-secondary mb-3 float-start" value="Reset">
+          </form>
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock %}

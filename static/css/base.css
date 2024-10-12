@@ -20,6 +20,7 @@ body {
     padding: 20px;
 }
 
+/* Layout Styles */
 .hero {
     height: 400px;
     background-size: cover;
@@ -31,7 +32,12 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* Navbar Styles */
+.content {
+    margin-top: 130px;
+}
+
+/* Component Styles */
+/* Navbar */
 .navbar {
     padding: 10px 20px;
     border-bottom: 1px solid #ddd;
@@ -51,7 +57,6 @@ body {
     color: #007bff;
 }
 
-/* Hamburger button fix */
 .navbar-toggler {
     border: none;
     outline: none;
@@ -61,179 +66,53 @@ body {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* Fixed header styling */
 .fixed-top {
     background-color: white;
     border-bottom: 1px solid #ddd;
     z-index: 1000;
 }
 
-/* Button Styles */
+/* Buttons */
 .btn {
     background-color: #007bff;
     color: white;
     border: none;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .btn:hover {
     background-color: #0056b3;
+    opacity: 0.9;
 }
 
-/* Footer Styles */
+/* Cards */
+.card {
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Images */
+.featured-services img, .featured-products img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.about-us img {
+    max-height: 400px;
+    object-fit: cover;
+}
+
+/* Footer */
 footer {
     background-color: #343a40;
     color: white;
     padding: 20px 0;
 }
 
-/* Product Page Styles */
-.product-image {
-    width: 100%;
-    height: auto;
-    margin-bottom: 15px;
-}
-
-.product-list h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.product-item {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 4px;
-    transition: all 0.3s;
-}
-
-.product-item:hover {
-    border-color: #007bff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Style for the custom clearable file input */
-.custom-clearable-file-input {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border: 1px solid #000;
-    border-radius: 0.25rem;
-    background-color: #f9f9f9;
-}
-
-/* Styling the current file link */
-.custom-clearable-file-input p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #333;
-}
-
-/* Styling the remove checkbox label */
-.custom-clearable-file-input label {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: #555;
-}
-
-/* File input field styling */
-.custom-clearable-file-input input[type="file"] {
-    display: block;
-    width: 100%;
-    margin-top: 0.5rem;
-    padding: 0.4rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    background-color: #fff;
-    font-size: 0.9rem;
-}
-
-/* Hover effect for the file input */
-.custom-clearable-file-input input[type="file"]:hover {
-    border-color: #333;
-}
-
-/* Additional styles for the checkbox */
-.custom-clearable-file-input input[type="checkbox"] {
-    margin-right: 0.3rem;
-}
-
-/* Style for file link hover */
-.custom-clearable-file-input a:hover {
-    color: #007bff;
-    text-decoration: underline;
-}
-
-/* Toast message container */
-.message-container {
-    position: fixed;
-    top: 72px;
-    right: 15px;
-    z-index: 99999999999;
-}
-
-/* Toast styling */
-.toast {
-    background-color: #333;
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-/* Toast success */
-.toast-success {
-    background-color: #28a745;
-}
-
-/* Toast error */
-.toast-error {
-    background-color: #dc3545;
-}
-
-/* Toast warning */
-.toast-warning {
-    background-color: #ffc107;
-    color: #212529;
-}
-
-/* Ensure collapsible navbar behaves correctly */
-.navbar-collapse {
-    text-align: right;
-}
-
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    .navbar-nav {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-    }
-
-    .navbar {
-        padding: 5px 10px;
-    }
-
-    .content {
-        padding-top: 150px; /* Adjust padding for smaller screens, hope I remember */
-    }
-}
-
-/* Fix content margin for fixed header */
-.content {
-    margin-top: 130px; /* Ensure content is not covered by the header */
-}
-
-/* Responsive adjustments for hero */
-.hero {
-    height: 200px;
-}
-
-/* Responsive adjustments for product list */
-.product-item {
-    padding: 10px;
-}
-
-/* Additional toast styles */
+/* Toast Styles */
 .custom-toast {
     overflow: visible;
 }
@@ -242,7 +121,6 @@ footer {
     height: 2px;
 }
 
-/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
 .arrow-up {
     width: 0; 
     height: 0; 
@@ -268,4 +146,29 @@ footer {
 
 .arrow-danger {
     border-bottom-color: #dc3545 !important;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .navbar {
+        padding: 5px 10px;
+    }
+
+    .content {
+        padding-top: 150px;
+    }
+
+    .hero {
+        height: 200px;
+    }
+
+    .product-item {
+        padding: 10px;
+    }
 }

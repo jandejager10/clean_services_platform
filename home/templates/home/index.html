@@ -24,19 +24,19 @@
                     <img src="{{ MEDIA_URL }}household_cleaning_main.webp" alt="Residential Cleaning" class="img-fluid mb-3">
                     <h4>Residential Cleaning</h4>
                     <p>Keep your home spotless with our professional residential cleaning services.</p>
-                    <a href="#" class="btn btn-secondary">Learn More</a>
+                    <a href="{% url 'services:residential_cleaning' %}" class="btn btn-secondary">Learn More</a>
                 </div>
                 <div class="col-md-4 text-center">
                     <img src="{{ MEDIA_URL }}industrial_cleaning_main.webp" alt="Commercial Cleaning" class="img-fluid mb-3">
                     <h4>Commercial Cleaning</h4>
                     <p>High-quality commercial cleaning services tailored to your business needs.</p>
-                    <a href="#" class="btn btn-secondary">Learn More</a>
+                    <a href="{% url 'services:commercial_cleaning' %}" class="btn btn-secondary">Learn More</a>
                 </div>
                 <div class="col-md-4 text-center">
                     <img src="{{ MEDIA_URL }}recurring-services.jpg" alt="Recurring Services" class="img-fluid mb-3">
                     <h4>Recurring Services</h4>
                     <p>Sign up for recurring cleaning services for ongoing peace of mind.</p>
-                    <a href="#" class="btn btn-secondary">Learn More</a>
+                    <a href="{% url 'services:recurring_services' %}" class="btn btn-secondary">Learn More</a>
                 </div>
             </div>
         </section>
@@ -79,7 +79,7 @@
                 <div class="col-md-6">
                     <h2>About Us</h2>
                     <p>At Clean Services Platform, we are dedicated to providing the best cleaning solutions for both homes and businesses. Whether you need a one-time deep clean or regular service, our team of professionals is here to help.</p>
-                    <a href="#" class="btn btn-outline-primary">Learn More</a>
+                    <a href="{% url 'home:about' %}" class="btn btn-outline-primary">Learn More</a>
                 </div>
                 <div class="col-md-6">
                     <img src="{{ MEDIA_URL }}industrial_cleaning_main.webp" alt="About Us" class="img-fluid">
