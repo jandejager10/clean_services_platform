@@ -4,21 +4,19 @@
 {% block title %}Services - Clean Services Platform{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-    <h2>Our Services {% if current_category %}- {{ current_category|title }}{% endif %}</h2>
+<div class="container">
+    <h1>Cleaning Services</h1>
     <div class="row">
         {% for service in services %}
-        <div class="col-md-4 my-3">
-            <div class="service-item">
-                <h3>{{ service.name }}</h3>
-                <p>{{ service.description }}</p>
-                <p><strong>Price:</strong> ${{ service.price }}</p>
-                <p><strong>Category:</strong> {{ service.category.friendly_name }}</p>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ service.name }}</h5>
+                    <p class="card-text">{{ service.description }}</p>
+                    <p class="card-text">Price: ${{ service.price }}</p>
+                    <a href="{% url 'appointments:add_appointment' service.id %}" class="btn btn-primary">Make Appointment</a>
+                </div>
             </div>
-        </div>
-        {% empty %}
-        <div class="col-12">
-            <p>No services found in this category.</p>
         </div>
         {% endfor %}
     </div>

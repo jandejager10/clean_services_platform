@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Appointments - Clean Services Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Your Appointments</h1>
+    {% if appointments %}
+        <div class="row">
+            {% for appointment in appointments %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ appointment.service.name }}</h5>
+                            <p class="card-text">Date: {{ appointment.date }}</p>
+                            <p class="card-text">Time: {{ appointment.time }}</p>
+                            <p class="card-text">Status: {{ appointment.get_status_display }}</p>
+                            {% if appointment.status == 'pending' %}
+                                <form method="post" action="{% url 'appointments:confirm_appointment' appointment.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">Confirm Appointment</button>
+                                </form>
+                            {% elif appointment.status == 'confirmed' %}
+                                <a href="{% url 'appointments:cancel_appointment' appointment.id %}" class="btn btn-danger">Cancel Appointment</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have no appointments scheduled.</p>
+    {% endif %}
+    <a href="{% url 'services:service_list' %}" class="btn btn-secondary">Book New Appointment</a>
+</div>
+{% endblock %}

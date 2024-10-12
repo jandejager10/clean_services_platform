@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Confirm Appointment - Clean Services Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Confirm Appointment</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ appointment.service.name }}</h5>
+            <p class="card-text">Date: {{ appointment.date }}</p>
+            <p class="card-text">Time: {{ appointment.time }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Confirm Appointment</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

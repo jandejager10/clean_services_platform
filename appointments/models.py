@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.utils.translation import gettext_lazy as _
 
 from services.models import Service  # Import the Service model
 
@@ -11,6 +12,12 @@ class Appointment(models.Model):
     date = models.DateField()
     time = models.TimeField()
     confirmed = models.BooleanField(default=False)  # Flag to indicate appointment confirmation
+    STATUS_CHOICES = [
+        ('pending', _('Pending')),
+        ('confirmed', _('Confirmed')),
+        ('cancelled', _('Cancelled')),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
     def __str__(self):
         return f"Appointment for {self.user.username} - {self.service.name} on {self.date} at {self.time}"  # Example appointment string
