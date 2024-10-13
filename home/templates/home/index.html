@@ -49,19 +49,19 @@
                     <img src="{{ MEDIA_URL }}assortment-of-cleaning-tools.jpg" alt="Cleaning Tools" class="img-fluid mb-3">
                     <h4>Cleaning Tools</h4>
                     <p>Explore our wide range of professional-grade cleaning tools.</p>
-                    <a href="{% url 'products:product_list' %}" class="btn btn-secondary">View Products</a>
+                    <a href="{% url 'products:product_list' %}?category=all_purpose_tools" class="btn btn-secondary">View Products</a>
                 </div>
                 <div class="col-md-4 text-center">
                     <img src="{{ MEDIA_URL }}detergents.webp" alt="Detergents" class="img-fluid mb-3">
                     <h4>Detergents</h4>
                     <p>Effective detergents for all types of surfaces and cleaning needs.</p>
-                    <a href="{% url 'products:product_list' %}" class="btn btn-secondary">View Products</a>
+                    <a href="{% url 'products:product_list' %}?category=common_cleaning_products" class="btn btn-secondary">View Products</a>
                 </div>
                 <div class="col-md-4 text-center">
                     <img src="{{ MEDIA_URL }}disinfectants.jpg" alt="Disinfectants" class="img-fluid mb-3">
                     <h4>Disinfectants</h4>
                     <p>Keep your environment safe with our powerful disinfectants.</p>
-                    <a href="{% url 'products:product_list' %}" class="btn btn-secondary">View Products</a>
+                    <a href="{% url 'products:product_list' %}?category=common_cleaning_products" class="btn btn-secondary">View Products</a>
                 </div>
             </div>
         </section>
@@ -70,7 +70,7 @@
         <section class="special-offers my-5 text-center">
             <h2>Special Offers</h2>
             <p>Check out our latest discounts and offers on products and services.</p>
-            <a href="#" class="btn btn-primary btn-lg mt-3">View Offers</a>
+            <a href="{% url 'promotions:offers' %}" class="btn btn-primary btn-lg mt-3">View Offers</a>
         </section>
 
         <!-- About Us Section -->
