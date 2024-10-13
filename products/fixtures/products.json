@@ -9,8 +9,8 @@
             "price": 120.00,
             "category": 1,
             "rating": 4.5,
-            "image_url": "https://example.com/images/floor_scrubber.jpg",
-            "image": "floor_scrubber.jpg"
+            "image_url": "https://example.com/images/floor_scrubber.webp",
+            "image": "floor_scrubber.webp"
         }
     },
     {
@@ -37,8 +37,8 @@
             "price": 8.50,
             "category": 3,
             "rating": 4.2,
-            "image_url": "https://example.com/images/multi_surface_cleaner.jpg",
-            "image": "multi_surface_cleaner.jpg"
+            "image_url": "https://example.com/images/multi_surface_cleaner.webp",
+            "image": "multi_surface_cleaner.webp"
         }
     },
     {
@@ -79,8 +79,8 @@
             "price": 250.00,
             "category": 6,
             "rating": 4.9,
-            "image_url": "https://example.com/images/industrial_vacuum.jpg",
-            "image": "industrial_vacuum.jpg"
+            "image_url": "https://example.com/images/industrial_vacuum.webp",
+            "image": "industrial_vacuum.webp"
         }
     }
 ]
