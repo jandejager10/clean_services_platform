@@ -24,7 +24,7 @@
                             {% for item in category.items.all %}
                                 <li class="list-group-item">
                                     <h5>{{ item.question }}</h5>
-                                    <p>{{ item.answer }}</p>
+                                    <p>{{ item.rendered_answer|safe }}</p>
                                 </li>
                             {% endfor %}
                         </ul>
