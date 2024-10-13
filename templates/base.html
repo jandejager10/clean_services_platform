@@ -138,9 +138,23 @@
     </main>
 
     <!-- Footer Section -->
-    <footer>
-        <div class="container text-center py-4">
-            <p>&copy; 2024 Clean Services Platform. All rights reserved.</p>
+    <footer class="bg-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <a href="https://www.facebook.com" target="_blank" class="text-dark me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.twitter.com" target="_blank" class="text-dark me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com" target="_blank" class="text-dark"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="{% url 'faq:faq_list' %}" class="text-dark">FAQs</a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 Clean Services Platform. All rights reserved.</p>
+                </div>
+            </div>
         </div>
     </footer>
 

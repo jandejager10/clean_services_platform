@@ -4,10 +4,10 @@ from django.db import models
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    friendly_name = models.CharField(max_length=255)
+    friendly_name = models.CharField(max_length=255, null=False, blank=True, default="Unnamed Category")
 
     def __str__(self):
-        return self.friendly_name
+        return self.friendly_name or self.name
 
 
 class Service(models.Model):

@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'clean_services_platform',
     'checkout.apps.CheckoutConfig',
+    'faq'
 ]
 
 MIDDLEWARE = [
@@ -99,6 +100,8 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'appointments', 'templates'),
             os.path.join(BASE_DIR, 'users', 'templates'),
             os.path.join(BASE_DIR, 'checkout', 'templates'),
+            os.path.join(BASE_DIR, 'promotions', 'templates'),
+            os.path.join(BASE_DIR, 'faq', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -111,6 +114,7 @@ TEMPLATES = [
                 'carts.contexts.cart_contents',
                 'products.context_processors.categories_processor',
                 'services.context_processors.service_categories',
+                'clean_services_platform.context_processors.global_settings',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
