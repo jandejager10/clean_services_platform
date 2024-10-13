@@ -5,7 +5,8 @@
     <h1>{{ product.name }}</h1>
     <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
     <p>{{ product.description }}</p>
-    <p>Price: ${{ product.price }}</p>
+    <p>Price: £{{ product.price|floatformat:2 }}</p>
+    <p>Price (inc. VAT): £{{ product.price_with_vat|floatformat:2 }}</p>
     
     <form action="{% url 'carts:add_to_cart' product.id %}" method="post">
         {% csrf_token %}

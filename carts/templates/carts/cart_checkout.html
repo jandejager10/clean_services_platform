@@ -12,12 +12,12 @@
         <ul class="list-group mb-4">
             {% for item in cart %}
             <li class="list-group-item">
-                <strong>{{ item.product.name }}</strong> x {{ item.quantity }} - ${{ item.total_price }}
+                <strong>{{ item.product.name }}</strong> x {{ item.quantity }} - £{{ item.total_price }}
             </li>
             {% endfor %}
         </ul>
 
-        <h5>Total: ${{ cart.get_total_price }}</h5>
+        <h5>Total: £{{ cart.get_total_price }}</h5>
 
         <form method="POST" action="{% url 'carts:checkout' %}">
             {% csrf_token %}

@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ service.name }}</h5>
                     <p class="card-text">{{ service.description }}</p>
-                    <p class="card-text">Price: ${{ service.price }}</p>
+                    <p class="card-text">Price: £{{ service.price }}</p>
                     <a href="{% url 'appointments:add_appointment' service.id %}" class="btn btn-primary">Make Appointment</a>
                 </div>
             </div>

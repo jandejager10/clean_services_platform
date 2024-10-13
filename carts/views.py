@@ -1,26 +1,35 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from products.models import Product  # Replace with your actual product model import
+from products.models import Product
 from .cart import Cart
 from decimal import Decimal
+from django.conf import settings
 
 
 def cart_detail(request):
     cart = Cart(request)
     cart_items = []
+    subtotal = Decimal('0.00')
     for item_id, item_data in cart.cart.items():
         product = Product.objects.get(id=item_id)
+        item_total = Decimal(item_data['price']) * item_data['quantity']
+        subtotal += item_total
         item = {
             'product': product,
             'quantity': item_data['quantity'],
             'price': Decimal(item_data['price']),
-            'total_price': Decimal(item_data['price']) * item_data['quantity']
+            'total_price': item_total
         }
         cart_items.append(item)
     
+    vat = subtotal * settings.VAT_RATE
+    total_with_vat = subtotal + vat
+    
     context = {
         'cart_items': cart_items,
-        'total': cart.get_total_price(),
+        'subtotal': subtotal,
+        'vat': vat,
+        'total_with_vat': total_with_vat,
     }
     return render(request, 'carts/cart_detail.html', context)
 
