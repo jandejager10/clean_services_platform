@@ -12,7 +12,7 @@ body, h1, h2, h3, p, ul, ol, li, a {
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 40vh;
     background-color: #f8f9fa;
     line-height: 1.6;
 }
@@ -67,23 +67,34 @@ body {
 }
 
 /* Layout Styles */
-.hero {
-    background-size: cover;
-    background-position: center;
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@media (min-width: 993px) {
+    .hero {
+        background-size: cover;
+        background-position: center;
+        min-height: 600px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-top: 130px;
+        margin-top: -130px;
+        padding-bottom: 20px;
+    }
+
+    .hero .container {
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        border-radius: 10px;
+    }
+
+    .content {
+        margin-top: 130px;
+    }
+
 }
 
-.hero .container {
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 2rem;
-    border-radius: 10px;
-}
-
-.content {
-    margin-top: 130px;
+.hero .container h1,
+.hero .container p {
+    color: whitesmoke;
 }
 
 /* Component Styles */
@@ -213,11 +224,23 @@ footer {
     }
 
     .content {
-        padding-top: 150px;
+        padding-top: 50px;
     }
 
     .hero {
-        height: 200px;
+        height: 60vh; /* Adjust this value as needed */
+        min-height: 300px; /* Ensure a minimum height */
+        padding-top: 100px; /* Adjust based on your header height */
+        padding-bottom: 20px;
+        margin-top: 0;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .hero .container {
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        border-radius: 10px;
     }
 
     .product-item {
@@ -225,14 +248,7 @@ footer {
     }
 
     .content-wrapper {
-        padding-top: 150px; /* mobile header height */
-    }
-}
-
-@media (max-width: 991px) {
-    .navbar-nav {
-        flex-direction: column;
-        align-items: center;
+        padding-top: 80px; /* Adjust based on your mobile header height */
     }
 }
 
