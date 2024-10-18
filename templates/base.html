@@ -48,7 +48,7 @@
     {% endblock %}
 </head>
 <body>
-    <header class="container-fluid fixed-top">
+    <header id="site-header" class="site-header fixed-top">
         <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home:index' %}" class="nav-link main-logo-link">
@@ -120,25 +120,23 @@
         </div>
     </header>
 
-    {% if messages %}
-        <div class="message-container">
-            {% for message in messages %}
-                {% with toast_template="includes/toasts/toast_"|add:message.tags|add:".html" %}
-                    {% include toast_template %}
-                {% endwith %}
-            {% endfor %}
-        </div>
-    {% endif %}
+    <div id="content-wrapper" class="content-wrapper">
+        {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    {% with toast_template="includes/toasts/toast_"|add:message.tags|add:".html" %}
+                        {% include toast_template %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        {% endif %}
 
-    <!-- Main Content Section -->
-    <main class="content" style="margin-top: 100px;">
-        <div class="container">
+        <main class="main-content">
             {% block content %}{% endblock %}
-        </div>
-    </main>
+        </main>
+    </div>
 
-    <!-- Footer Section -->
-    <footer class="bg-light py-4">
+    <footer class="site-footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start">
@@ -159,5 +157,16 @@
     </footer>
 
     <script src="{% static 'js/toasts.js' %}"></script>
+    <script>
+        function adjustContentPadding() {
+            var header = document.getElementById('site-header');
+            var content = document.getElementById('content-wrapper');
+            var headerHeight = header.offsetHeight;
+            content.style.paddingTop = headerHeight + 'px';
+        }
+
+        window.addEventListener('load', adjustContentPadding);
+        window.addEventListener('resize', adjustContentPadding);
+    </script>
 </body>
 </html>

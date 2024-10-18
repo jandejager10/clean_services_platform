@@ -10,14 +10,52 @@ body, h1, h2, h3, p, ul, ol, li, a {
 
 /* Body and Containers */
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: #f8f9fa;
     line-height: 1.6;
 }
 
-.container {
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    z-index: 1000;
+    width: 100%;
+}
+
+.content-wrapper {
+    flex: 1 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.home-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+}
+
+.site-footer {
+    flex-shrink: 0;
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
 }
 
 /* Layout Styles */
@@ -170,5 +208,9 @@ footer {
 
     .product-item {
         padding: 10px;
+    }
+
+    .content-wrapper {
+        padding-top: 150px; /* mobile header height */
     }
 }
