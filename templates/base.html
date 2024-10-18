@@ -57,7 +57,7 @@
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <form method="GET" action="{% url 'products:product_list' %}">
-                    <div class="input-group w-100">
+                    <div class="input-group">
                         <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site">
                         <button class="input-group-append btn btn-black border border-black rounded-0" type="submit">
                             <i class="fas fa-search"></i>
@@ -102,13 +102,13 @@
             </div>
         </div>
         <div class="row bg-white">
-            <nav class="navbar navbar-expand-lg navbar-light w-100">
+            <nav class="navbar navbar-light">
                 <!-- Mobile header: visible on small screens only -->
                 <div class="d-block d-lg-none w-100">
                     {% include 'includes/mobile-top-header.html' %}
                 </div>
                 <!-- Main nav: hidden on small screens, visible on larger screens -->
-                <div class="d-none d-lg-block w-100">
+                <div class="d-none d-lg-block">
                     {% include 'includes/main-nav.html' %}
                 </div>
             </nav>
@@ -119,6 +119,8 @@
             </div>            
         </div>
     </header>
+
+    {% block page_header %}{% endblock %}
 
     <div id="content-wrapper" class="content-wrapper">
         {% if messages %}
