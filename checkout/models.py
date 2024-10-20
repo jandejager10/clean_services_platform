@@ -1,4 +1,5 @@
 import uuid
+from decimal import Decimal
 
 from django.db import models
 from django.db.models import Sum
@@ -86,7 +87,10 @@ class OrderLineItem(models.Model):
         Override the original save method to set the lineitem total
         and update the order total.
         """
-        self.lineitem_total = self.product.price * self.quantity
+        try:
+            self.lineitem_total = self.product.price * int(self.quantity)
+        except (ValueError, TypeError):
+            self.lineitem_total = Decimal('0')
         super().save(*args, **kwargs)
 
     def __str__(self):
