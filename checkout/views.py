@@ -41,7 +41,7 @@ def cache_checkout_data(request):
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    stripe.api_key = settings.STRIPE_SECRET_KEY
+    stripe.api_key = stripe_secret_key
 
     if request.method == 'POST':
         cart = request.session.get('cart', {})
@@ -60,8 +60,10 @@ def checkout(request):
         order_form = OrderForm(form_data)
         if order_form.is_valid():
             order = order_form.save(commit=False)
-            pid = request.POST.get('client_secret').split('_secret')[0]
-            order.stripe_pid = pid
+            pid = request.POST.get('client_secret')
+            if pid:
+                pid = pid.split('_secret')[0]
+                order.stripe_pid = pid
             order.original_cart = json.dumps(cart)
             order.save()
             for item_id, item_data in cart.items():
@@ -79,7 +81,7 @@ def checkout(request):
                         "Please call us for assistance!")
                     )
                     order.delete()
-                    return redirect(reverse('view_cart'))
+                    return redirect(reverse('carts:cart_detail'))
 
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout:checkout_success', args=[order.order_number]))
@@ -91,28 +93,29 @@ def checkout(request):
             messages.error(request, "There's nothing in your cart at the moment")
             return redirect(reverse('products:product_list'))
 
-    current_cart = cart_contents(request)
-    total = current_cart['grand_total']
-    stripe_total = round(total * 100)
+        current_cart = cart_contents(request)
+        total = current_cart['grand_total']
+        stripe_total = round(total * 100)
 
-    try:
-        intent = stripe.PaymentIntent.create(
-            amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY,
-        )
-    except stripe.error.StripeError as e:
-        messages.error(request, f"An error occurred while processing your payment: {str(e)}")
-        return redirect(reverse('carts:cart_detail'))
+        try:
+            intent = stripe.PaymentIntent.create(
+                amount=stripe_total,
+                currency=settings.STRIPE_CURRENCY,
+            )
+        except stripe.error.StripeError as e:
+            messages.error(request, f"An error occurred while processing your payment: {str(e)}")
+            return redirect(reverse('carts:cart_detail'))
+
+        order_form = OrderForm()
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. Did you forget to set it in your environment?')
 
-    order_form = OrderForm()
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
         'stripe_public_key': stripe_public_key,
-        'client_secret': intent.client_secret,
+        'client_secret': intent.client_secret if 'intent' in locals() else '',
     }
 
     return render(request, template, context)
