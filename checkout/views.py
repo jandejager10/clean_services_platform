@@ -15,6 +15,7 @@ from carts.cart import Cart
 import stripe
 import json
 from users.models import UserProfile
+from users.forms import UserProfileForm
 
 # Create your views here.
 
@@ -130,7 +131,7 @@ def checkout_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 
     if request.user.is_authenticated:
-        profile = UserProfile.objects.get(user=request.user)
+        profile, created = UserProfile.objects.get_or_create(user=request.user)
         # Attach the user's profile to the order
         order.user_profile = profile
         order.save()
