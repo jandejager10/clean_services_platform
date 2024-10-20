@@ -14,6 +14,7 @@ from carts.cart import Cart
 
 import stripe
 import json
+from users.models import UserProfile
 
 # Create your views here.
 
