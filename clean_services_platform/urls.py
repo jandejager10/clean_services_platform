@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from home import views as home_views
+from home.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('promotions/', include('promotions.urls', namespace='promotions')),
     path('faq/', include('faq.urls', namespace='faq')),
     path('', include('home.urls', namespace='home')),
+    path('', index, name='home'),
     path('contact/', home_views.contact, name='contact'),
 ]
 

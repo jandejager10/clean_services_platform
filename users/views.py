@@ -30,12 +30,12 @@ def profile(request):
 
 @login_required
 def update_profile(request):
-  if request.method == 'POST':
-    form = ProfileForm(request.POST, instance=request.user.profile)
-    if form.is_valid():
-      form.save()
-      messages.success(request, "Profile updated successfully.")
-      return redirect('profile_success_url') # Redirect after successful update
-  else:
-    form = ProfileForm(instance=request.user.profile)
-  return render(request, 'update_profile.html', {'form': form})
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile updated successfully.")
+            return redirect('profile_success_url')  # Redirect after successful update
+    else:
+        form = ProfileForm(instance=request.user.profile)
+    return render(request, 'users/profile.html', {'form': form})
