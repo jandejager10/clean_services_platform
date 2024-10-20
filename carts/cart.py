@@ -31,7 +31,11 @@ class Cart:
         """
         product_id = str(product.id)
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0, 'price': str(product.price)}
+            self.cart[product_id] = {
+                'quantity': 0,
+                'price': str(product.price),
+                'name': product.name
+            }
         if update_quantity:
             self.cart[product_id]['quantity'] = quantity
         else:
@@ -63,7 +67,11 @@ class Cart:
         cart = self.cart.copy()
         
         for product in products:
-            cart[str(product.id)]['product'] = product
+            cart[str(product.id)]['product'] = {
+                'id': product.id,
+                'name': product.name,
+                'price': str(product.price)
+            }
 
         for item in cart.values():
             item['price'] = Decimal(item['price'])
@@ -88,3 +96,12 @@ class Cart:
         """
         del self.session[settings.CART_SESSION_ID]
         self.save()
+
+    def get_subtotal(self):
+        return self.get_total_price()
+
+    def get_vat(self):
+        return self.get_subtotal() * settings.VAT_RATE
+
+    def get_total_with_vat(self):
+        return self.get_subtotal() + self.get_vat()

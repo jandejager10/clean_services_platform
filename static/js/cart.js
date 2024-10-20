@@ -18,14 +18,32 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Update cart display dynamically
-                    alert(`Added ${data.quantity} of ${data.product} to cart!`);
-                    // You can also add code here to update the cart total in the header dynamically
+                    updateCartDisplay(data.grand_total, data.product_count);
+                    showToast('Product added to cart successfully!');
                 } else {
-                    alert('Error adding product. Please try again.');
+                    console.error('Error adding product to cart');
+                    showToast('Error adding product to cart', 'error');
                 }
             })
-            .catch(error => console.error('Error adding to cart:', error));
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+                showToast('Error adding product to cart', 'error');
+            });
         });
     });
 });
+
+function updateCartDisplay(total, count) {
+    const cartTotalElement = document.querySelector('#cart-total');
+    const cartCountElement = document.querySelector('#cart-count');
+    if (cartTotalElement) {
+        cartTotalElement.textContent = parseFloat(total).toFixed(2);
+    }
+    if (cartCountElement) {
+        cartCountElement.textContent = count;
+    }
+}
+
+function showToast(message, type = 'success') {
+    alert(message); // something still wrong with toasts
+}

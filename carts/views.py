@@ -4,24 +4,14 @@ from products.models import Product
 from .cart import Cart
 from decimal import Decimal
 from django.conf import settings
+from django.http import JsonResponse
+from .contexts import cart_contents
 
 
 def cart_detail(request):
     cart = Cart(request)
-    cart_items = []
-    subtotal = Decimal('0.00')
-    for item_id, item_data in cart.cart.items():
-        product = Product.objects.get(id=item_id)
-        item_total = Decimal(item_data['price']) * item_data['quantity']
-        subtotal += item_total
-        item = {
-            'product': product,
-            'quantity': item_data['quantity'],
-            'price': Decimal(item_data['price']),
-            'total_price': item_total
-        }
-        cart_items.append(item)
-    
+    cart_items = list(cart)
+    subtotal = sum(Decimal(item['price']) * item['quantity'] for item in cart_items)
     vat = subtotal * settings.VAT_RATE
     total_with_vat = subtotal + vat
     
@@ -40,7 +30,14 @@ def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     quantity = int(request.POST.get('quantity', 1))
     cart.add(product=product, quantity=quantity)
-    return redirect('carts:cart_detail')  # Update this line
+    context = cart_contents(request)
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'success': True,
+            'grand_total': '{:.2f}'.format(context['grand_total']),
+            'product_count': context['product_count']
+        })
+    return redirect('carts:cart_detail')
 
 
 @require_POST
