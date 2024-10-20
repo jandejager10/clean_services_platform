@@ -28,7 +28,7 @@ urlpatterns = [
     path('services/', include('services.urls')),
     path('orders/', include('orders.urls')),
     path('carts/', include('carts.urls', namespace='carts')),
-    path('checkout/', include('checkout.urls')),  
+    path('checkout/', include('checkout.urls', namespace='checkout')),
     path('appointments/', include('appointments.urls', namespace='appointments')),
     path('users/', include('users.urls')),
     path('promotions/', include('promotions.urls', namespace='promotions')),

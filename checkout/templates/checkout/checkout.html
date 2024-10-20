@@ -7,7 +7,7 @@
 
 {% block content %}
     <h2>Checkout</h2>
-    <form id="payment-form" method="POST" action="{% url 'checkout' %}">
+    <form id="payment-form" method="POST" action="{% url 'checkout:checkout' %}">
         {% csrf_token %}
         {{ order_form.as_p }}
         <div id="card-element"></div>
