@@ -135,24 +135,33 @@
     
     <script type="text/javascript">
         $('#sort-selector').change(function() {
+            console.log("Sort selector changed");
             var selector = $(this);
             var currentUrl = new URL(window.location);
 
             var selectedVal = selector.val();
+            console.log("Selected value:", selectedVal);
             if(selectedVal != "reset"){
                 var sort = selectedVal.split("_")[0];
                 var direction = selectedVal.split("_")[1];
+                console.log("Sort:", sort, "Direction:", direction);
 
                 currentUrl.searchParams.set("sort", sort);
                 currentUrl.searchParams.set("direction", direction);
 
-                window.location.replace(currentUrl);
+                console.log("New URL:", currentUrl.toString());
+                window.location.href = currentUrl;
             } else {
                 currentUrl.searchParams.delete("sort");
                 currentUrl.searchParams.delete("direction");
 
-                window.location.replace(currentUrl);
+                console.log("Reset URL:", currentUrl.toString());
+                window.location.href = currentUrl;
             }
-        })
+        });
+
+        console.log("jQuery version:", $.fn.jquery);
+        console.log("Sort selector exists:", $('#sort-selector').length > 0);
+        console.log("Sorting script loaded");
     </script>
 {% endblock %}

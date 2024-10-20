@@ -9,7 +9,7 @@
             "price": 120.00,
             "category": 1,
             "rating": 4.5,
-            "image_url": "https://example.com/images/floor_scrubber.webp",
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/floor_scrubber.webp",
             "image": "floor_scrubber.webp"
         }
     },
@@ -23,7 +23,7 @@
             "price": 15.99,
             "category": 2,
             "rating": 4.7,
-            "image_url": "https://example.com/images/abrasive_sponges.jpg",
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/abrasive_sponges.jpg",
             "image": "abrasive_sponges.jpg"
         }
     },
@@ -37,7 +37,7 @@
             "price": 8.50,
             "category": 3,
             "rating": 4.2,
-            "image_url": "https://example.com/images/multi_surface_cleaner.webp",
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/multi_surface_cleaner.webp",
             "image": "multi_surface_cleaner.webp"
         }
     },
@@ -51,7 +51,7 @@
             "price": 12.99,
             "category": 4,
             "rating": 4.8,
-            "image_url": "https://example.com/images/disinfectant_spray.jpg",
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/disinfectant_spray.jpg",
             "image": "disinfectant_spray.jpg"
         }
     },
@@ -65,7 +65,7 @@
             "price": 20.99,
             "category": 5,
             "rating": 4.6,
-            "image_url": "https://example.com/images/nitrile_gloves.jpg",
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/nitrile_gloves.jpg",
             "image": "nitrile_gloves.jpg"
         }
     },
@@ -79,8 +79,22 @@
             "price": 250.00,
             "category": 6,
             "rating": 4.9,
-            "image_url": "https://example.com/images/industrial_vacuum.webp",
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/industrial_vacuum.webp",
             "image": "industrial_vacuum.webp"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 7,
+        "fields": {
+            "sku": "household001",
+            "name": "Detergent Bottle",
+            "description": "A high-quality bottle of detergent for all your cleaning needs.",
+            "price": 9.99,
+            "category": 7,
+            "rating": 4.7,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/detergent_bottle.jpg",
+            "image": "detergent_bottle.jpg"
         }
     }
 ]

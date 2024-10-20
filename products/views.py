@@ -11,7 +11,8 @@ from .forms import ProductForm
 
 
 def all_products(request):
-    """ A view to show all products, including sorting and search queries """
+    print("Entering all_products view")
+    print(f"GET parameters: {request.GET}")
 
     products = Product.objects.all()
     query = None
@@ -23,16 +24,21 @@ def all_products(request):
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
             sort = sortkey
+            print(f"Sorting by: {sort}")
             if sortkey == 'name':
                 sortkey = 'lower_name'
                 products = products.annotate(lower_name=Lower('name'))
-            if sortkey == 'category':
+            elif sortkey == 'category':
                 sortkey = 'category__name'
+            
             if 'direction' in request.GET:
                 direction = request.GET['direction']
+                print(f"Direction: {direction}")
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
+            
             products = products.order_by(sortkey)
+            print(f"Sorted products query: {products.query}")
 
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
@@ -44,11 +50,13 @@ def all_products(request):
             if not query:
                 messages.error(request, "You didn't enter any search criteria!")
                 return redirect(reverse('products:product_list'))
-
+            
             queries = Q(name__icontains=query) | Q(description__icontains=query)
             products = products.filter(queries)
 
     current_sorting = f'{sort}_{direction}'
+    print(f"Final products query: {products.query}")
+    print(f"Current sorting: {current_sorting}")
 
     context = {
         'products': products,
@@ -138,3 +146,41 @@ def delete_product(request, product_id):
     product.delete()
     messages.success(request, 'Product deleted!')
     return redirect(reverse('products:product_list'))
+
+
+def product_list(request):
+    print(f"Sort: {sort}, Direction: {direction}")
+    products = Product.objects.all()
+    query = request.GET.get('q')
+    category = request.GET.get('category')
+    sort = request.GET.get('sort')
+    direction = request.GET.get('direction')
+
+    if query:
+        products = products.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
+    if category:
+        products = products.filter(category__name=category)
+
+    if sort:
+        if sort == 'name':
+            sortkey = 'lower_name'
+            products = products.annotate(lower_name=Lower('name'))
+        elif sort == 'category':
+            sortkey = 'category__name'
+        else:
+            sortkey = sort
+
+        if direction == 'desc':
+            sortkey = f'-{sortkey}'
+     
+        products = products.order_by(sortkey)
+
+    context = {
+        'products': products,
+        'search_term': query,
+        'current_category': category,
+        'current_sorting': f'{sort}_{direction}',
+    }
+
+    return render(request, 'products/product_list.html', context)

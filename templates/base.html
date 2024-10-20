@@ -158,7 +158,7 @@
         </div>
     </footer>
 
-    <script src="{% static 'js/toasts.js' %}"></script>
+    <!-- <script src="{% static 'js/toasts.js' %}"></script> -->
     <script>
         function adjustContentPadding() {
             var header = document.getElementById('site-header');
@@ -169,6 +169,11 @@
 
         window.addEventListener('load', adjustContentPadding);
         window.addEventListener('resize', adjustContentPadding);
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
     </script>
 </body>
 </html>

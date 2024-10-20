@@ -12,6 +12,10 @@
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">{{ product.description|truncatewords:15 }}</p>
                         <a href="{% url 'products:product_detail' product.id %}" class="btn btn-primary">View Product</a>
+                        <a href="{% url 'products:product_list' %}?sort=price&direction=asc" class="dropdown-item">Price (low to high)</a>
+                        <a href="{% url 'products:product_list' %}?sort=price&direction=desc" class="dropdown-item">Price (high to low)</a>
+                        <a href="{% url 'products:product_list' %}?sort=name&direction=asc" class="dropdown-item">Name (A-Z)</a>
+                        <a href="{% url 'products:product_list' %}?sort=name&direction=desc" class="dropdown-item">Name (Z-A)</a>
                     </div>
                 </div>
             </div>
