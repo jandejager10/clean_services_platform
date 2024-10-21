@@ -8,10 +8,8 @@
 
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
-var stripe = Stripe(stripePublicKey);
-var elements = stripe.elements({
-    locale: 'en-GB'
-});
+var stripe = Stripe(stripePublicKey, { locale: 'en-GB' });
+var elements = stripe.elements();
 var card = elements.create('card');
 card.mount('#card-element');
 
@@ -42,20 +40,13 @@ form.addEventListener('submit', function(ev) {
     $('#loading-overlay').fadeToggle(100);
 
     var saveInfo = Boolean($('#id-save-info').attr('checked'));
+    // From using {% csrf_token %} in the form
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
         'save_info': saveInfo,
     };
-
-    // Add client_secret to the form
-    var clientSecretInput = document.createElement('input');
-    clientSecretInput.setAttribute('type', 'hidden');
-    clientSecretInput.setAttribute('name', 'client_secret');
-    clientSecretInput.setAttribute('value', clientSecret);
-    form.appendChild(clientSecretInput);
-
     var url = '/checkout/cache_checkout_data/';
 
     $.post(url, postData).done(function () {
@@ -111,3 +102,4 @@ form.addEventListener('submit', function(ev) {
         location.reload();
     })
 });
+
