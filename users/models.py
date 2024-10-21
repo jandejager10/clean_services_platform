@@ -5,27 +5,6 @@ from django.dispatch import receiver
 from django_countries.fields import CountryField
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Add the fields that you want in your Profile model
-    # For example:
-    address = models.CharField(max_length=255, blank=True)
-    phone_number = models.CharField(max_length=20, blank=True)
-    zipcode = models.CharField(max_length=10, blank=True)
-    city = models.CharField(max_length=100, blank=True)
-    state = models.CharField(max_length=100, blank=True)
-
-    def __str__(self):
-        return f'{self.user.username} Profile'
-
-
-@receiver(post_save, sender=User)
-def create_or_update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-    instance.userprofile.save()
-
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)
@@ -38,3 +17,20 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    address = models.CharField(max_length=255, blank=True)
+    zipcode = models.CharField(max_length=10, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
+
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    UserProfile.objects.get_or_create(user=instance)
+    Profile.objects.get_or_create(user=instance)

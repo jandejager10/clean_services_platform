@@ -1,7 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, UserProfile
+
+
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+    verbose_name_plural = 'User Profile'
 
 
 class ProfileInline(admin.StackedInline):
@@ -10,9 +16,9 @@ class ProfileInline(admin.StackedInline):
     verbose_name_plural = 'Profile'
 
 
-class UserAdmin(BaseUserAdmin):
-    inlines = (ProfileInline,)
+class CustomUserAdmin(BaseUserAdmin):
+    inlines = (UserProfileInline, ProfileInline)
 
 
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)

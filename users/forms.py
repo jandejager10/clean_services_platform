@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, UserProfile
 from django.contrib.auth.models import User
 
 
@@ -14,10 +14,10 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['address', 'phone_number', 'zipcode', 'city', 'state']
+        fields = ['address', 'zipcode', 'city', 'state']
 
 
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = Profile
-        fields = ['address', 'phone_number', 'zipcode', 'city', 'state']  # Add your profile fields here
+        model = UserProfile
+        fields = ['default_phone_number', 'default_street_address1', 'default_street_address2', 'default_town_or_city', 'default_county', 'default_postcode', 'default_country']

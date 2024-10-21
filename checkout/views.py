@@ -15,7 +15,7 @@ from carts.cart import Cart
 import stripe
 import json
 from users.models import UserProfile
-from users.forms import ProfileForm  # Change UserProfileForm to ProfileForm
+from users.forms import ProfileForm
 
 # Create your views here.
 
