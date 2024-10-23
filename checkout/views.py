@@ -72,10 +72,11 @@ def checkout(request):
             for item_id, item_data in cart.items():
                 try:
                     product = Product.objects.get(id=item_id)
+                    quantity = item_data['quantity'] if isinstance(item_data, dict) else item_data
                     order_line_item = OrderLineItem(
                         order=order,
                         product=product,
-                        quantity=item_data,
+                        quantity=quantity,
                     )
                     order_line_item.save()
                 except Product.DoesNotExist:
