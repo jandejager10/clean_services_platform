@@ -47,9 +47,9 @@ def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     stripe.api_key = stripe_secret_key
-    print(f"Secret Key: {stripe_secret_key[:8]}...{stripe_secret_key[-4:]}")
+    print(f"Public Key: {settings.STRIPE_PUBLIC_KEY}")
+    print(f"Secret Key: {settings.STRIPE_SECRET_KEY}")
     if request.method == 'POST':
-        cart = request.session.get('cart', {})
         cart = request.session.get('cart', {})
         form_data = {
             'full_name': request.POST['full_name'],
@@ -212,6 +212,7 @@ def stripe_webhook(request):
         return HttpResponse(status=400)
 
     # Handle the event
+    print(f"Received event: {event}")
     if event['type'] == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
         # Fulfill the purchase or update order status here
@@ -222,6 +223,3 @@ def stripe_webhook(request):
         print("Payment failed.")
 
     return HttpResponse(status=200)
-
-
-
