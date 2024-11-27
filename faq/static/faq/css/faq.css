@@ -1,0 +1,103 @@
+/* FAQ Styles */
+.faq-section {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Category Links */
+.faq-categories {
+    margin-bottom: 2rem;
+}
+
+.category-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 0.25rem;
+}
+
+.category-link:hover {
+    color: var(--primary-color);
+    background-color: var(--light-color);
+}
+
+.category-link.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Accordion Styles */
+.accordion-button {
+    background-color: white;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: var(--primary-color);
+}
+
+.accordion-button::after {
+    transition: transform 0.3s ease;
+}
+
+/* Answer Styles */
+.accordion-body {
+    padding: 1.25rem;
+    line-height: 1.6;
+}
+
+.prominent-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.prominent-link:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Search Box */
+.faq-search {
+    margin-bottom: 2rem;
+}
+
+.faq-search input {
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--light-color);
+    transition: border-color 0.3s ease;
+}
+
+.faq-search input:focus {
+    border-color: var(--primary-color);
+    box-shadow: none;
+}
+
+/* Category Headers */
+.category-header {
+    color: var(--primary-color);
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-color);
+}
+
+/* Animation */
+.accordion-item {
+    transition: transform 0.2s ease;
+}
+
+.accordion-item:hover {
+    transform: translateX(5px);
+} 

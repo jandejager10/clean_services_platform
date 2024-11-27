@@ -1,0 +1,198 @@
+[
+  {
+    "model": "faq.faqcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Household Cleaning Supplies",
+      "slug": "household-cleaning-supplies",
+      "order": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Household Cleaning Products",
+      "slug": "household-cleaning-products",
+      "order": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Business & Office Cleaning",
+      "slug": "business-office-cleaning",
+      "order": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqcategory",
+    "pk": 4,
+    "fields": {
+      "name": "Cleaning Safety & Best Practices",
+      "slug": "cleaning-safety-best-practices",
+      "order": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqcategory",
+    "pk": 5,
+    "fields": {
+      "name": "Green & Eco-Friendly Cleaning",
+      "slug": "green-eco-friendly-cleaning",
+      "order": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqcategory",
+    "pk": 6,
+    "fields": {
+      "name": "Recurring Cleaning Services",
+      "slug": "recurring-cleaning-services",
+      "order": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "question": "What are the essential household cleaning supplies?",
+      "answer": "Essential household cleaning supplies include dusters, squeegees, mops, sponges & scouring pads, brooms, dustpans, scrub brushes, broom & mop handles, and carpet sweepers.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 2,
+    "fields": {
+      "category": 2,
+      "question": "What are common household cleaning products?",
+      "answer": "Common household cleaning products include carpet cleaners, dish detergent & soap, glass & surface cleaners, floor cleaners, oven & grill cleaners, pet odor & stain removers, toilet bowl cleaners, tub & tile cleaners, furniture cleaners & polish, and household disinfectants.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 3,
+    "fields": {
+      "category": 3,
+      "question": "What supplies are recommended for business and office cleaning?",
+      "answer": "Recommended supplies include vacuum cleaners, floor buffers, all-purpose cleaners, glass cleaners, disinfecting wipes, paper towels, microfiber cloths, and sanitizing sprays.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 4,
+    "fields": {
+      "category": 4,
+      "question": "What safety precautions should be taken when using cleaning products?",
+      "answer": "Always read product labels, use gloves, ventilate the area, avoid mixing chemicals, and store cleaning products away from children and pets.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 5,
+    "fields": {
+      "category": 5,
+      "question": "What are some eco-friendly alternatives to common cleaning products?",
+      "answer": "Eco-friendly alternatives include vinegar and baking soda for all-purpose cleaning, castile soap for dishes, lemon juice for stain removal, and biodegradable sponges.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 6,
+    "fields": {
+      "category": 6,
+      "question": "What types of recurring cleaning services are available?",
+      "answer": "Recurring services include weekly or monthly household cleaning, business office cleaning, window washing, carpet cleaning, and deep-cleaning services.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 7,
+    "fields": {
+      "category": 4,
+      "question": "How often should you deep clean your home or office?",
+      "answer": "Deep cleaning should be done at least every 6 months for homes and quarterly for offices to maintain hygiene and cleanliness.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 8,
+    "fields": {
+      "category": 5,
+      "question": "What are the benefits of using green cleaning products?",
+      "answer": "Green cleaning products are safer for the environment, reduce exposure to harmful chemicals, improve indoor air quality, and are often biodegradable.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 9,
+    "fields": {
+      "category": 3,
+      "question": "What is the best way to disinfect an office workspace?",
+      "answer": "Disinfect desks, phones, keyboards, and door handles daily using disinfectant wipes or sprays. Pay attention to shared spaces like conference rooms and break areas.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "faq.faqitem",
+    "pk": 10,
+    "fields": {
+      "category": 6,
+      "question": "How can I set up a recurring service for my business?",
+      "answer": "You can set up a recurring service by <a href=\"{% url 'contact' %}\" class=\"prominent-link\">contacting</a> Clean Services to arrange a custom schedule that fits your business needs, whether it's weekly, bi-weekly, or monthly.",
+      "order": 1,
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  }
+] 

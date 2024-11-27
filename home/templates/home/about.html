@@ -1,29 +1,111 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}About Us - Clean Services Platform{% endblock title %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12">
-        <h1 class="text-center mb-4">About Us</h1>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Our Story</h5>
-                <p class="card-text">
-                    Clean Services Platform was founded with a simple mission: to provide high-quality, 
-                    reliable cleaning services to homes and businesses. We believe in creating clean, 
-                    healthy spaces for our clients while delivering exceptional customer service.
-                </p>
-                
-                <h5 class="card-title mt-4">Our Values</h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Quality Service</li>
-                    <li class="list-group-item">Customer Satisfaction</li>
-                    <li class="list-group-item">Environmental Responsibility</li>
-                    <li class="list-group-item">Professional Excellence</li>
-                </ul>
+<div class="container py-4">
+    <!-- Our Story Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 offset-lg-2">
+            <h1 class="text-center mb-4">Our Story</h1>
+            <div class="card">
+                <div class="card-body">
+                    <p class="lead">The Clean Services story began back in 1999 with the ambition to provide accommodation providers with an extensive and innovative range of products to help operate their business – in short, everything they needed for great hospitality!</p>
+                    <p>With a wealth of experience from running hospitality businesses of our own, we understand many of the challenges faced every day by people managing hotels, running B&Bs and guest houses, or operating holiday lettings and self-catering cottages.</p>
+                    <p>Today, Clean Services is managed by a leadership team with extensive experience across hospitality, retail, logistics and supply chain businesses.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Commitment Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 offset-lg-2">
+            <h2 class="text-center mb-4">Our Commitment</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p>As well as offering over 2,000 products in our range, we are dedicated to making the ordering process as easy as possible for you, whether you choose to buy here on our website or, if you prefer, placing your order with our Customer Services Team.</p>
+                    <p class="lead font-italic">From all of us, thank you for visiting our website and we hope you're delighted with the selection of quality products available.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">The Benefits of Ordering from Clean Solutions</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-truck text-primary"></i> Free Delivery</h5>
+                            <p class="card-text">Our national courier partners will ensure your order is safely delivered right to your door. Next-day delivery is FREE on orders placed before midday Monday to Thursday and over £50 ex VAT.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-box text-primary"></i> Convenient Pack Sizes</h5>
+                            <p class="card-text">We've created smaller packs based on customer feedback, allowing you to buy exactly the quantity you need without storage concerns.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-undo text-primary"></i> Free & Easy Returns</h5>
+                            <p class="card-text">Not 100% happy? Contact us within 30 days of purchase and we'll organize a postage paid return with full refund of the product price.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-headset text-primary"></i> Expert Support</h5>
+                            <p class="card-text">Speak to our fully trained staff for friendly, helpful advice - no hard sell, just honest information and support.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ethical Vision Section -->
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h2 class="text-center mb-4">An Ethical Vision</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p class="lead">As a values-led organisation our aim is to be an ethical, helpful and profitable company by valuing our customers, nurturing our team and by being involved in the local, national and global community.</p>
+                    <p>More than mere words, we put these values into practice every day. Clean Services will never be a purely profits-driven business, and we prefer to provide high quality products at a fair price to our customers, sourced as ethically and sustainably as possible, with the impact on the environment always a consideration.</p>
+                    <p>This also extends to people, both our own employees and the welfare of those employed by our suppliers.</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock content %} 
+{% endblock content %}
+
+{% block extra_css %}
+<style>
+    .card {
+        border: none;
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .fas {
+        margin-right: 8px;
+    }
+    h2 {
+        color: var(--primary-color);
+    }
+    .lead {
+        color: var(--text-secondary);
+    }
+</style>
+{% endblock extra_css %} 

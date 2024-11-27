@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}FAQ Search Results - Clean Services Platform{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'faq/css/faq.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="faq-section">
+        <h1 class="text-center mb-4">FAQ Search Results</h1>
+
+        <!-- Search Box -->
+        <div class="faq-search">
+            <form action="{% url 'faq:faq_search' %}" method="GET" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search FAQs..." 
+                           aria-label="Search FAQs" value="{{ query }}">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results -->
+        {% if query %}
+            <h2 class="mb-3">Results for "{{ query }}"</h2>
+            {% if results %}
+                <div class="accordion" id="searchResults">
+                    {% for faq in results %}
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="heading-{{ faq.id }}">
+                                <button class="accordion-button collapsed" type="button" 
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#collapse-{{ faq.id }}" 
+                                        aria-expanded="false" 
+                                        aria-controls="collapse-{{ faq.id }}">
+                                    {{ faq.question }}
+                                    <small class="ms-2 text-muted">({{ faq.category.name }})</small>
+                                </button>
+                            </h3>
+                            <div id="collapse-{{ faq.id }}" 
+                                 class="accordion-collapse collapse" 
+                                 aria-labelledby="heading-{{ faq.id }}" 
+                                 data-bs-parent="#searchResults">
+                                <div class="accordion-body">
+                                    {{ faq.answer|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    No results found for "{{ query }}". Try different keywords or 
+                    <a href="{% url 'faq:faq_list' %}">browse all FAQs</a>.
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="{% url 'faq:faq_list' %}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Back to All FAQs
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock content %} 
