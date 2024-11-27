@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Clean Services Platform{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron text-center py-5 mb-4">
+            <h1 class="display-4">Welcome to Clean Services Platform</h1>
+            <p class="lead">Your one-stop solution for professional cleaning services</p>
+            <hr class="my-4">
+            <p>Experience the difference with our professional cleaning services</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'home:contact' %}" role="button">Get a Quote</a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{% static 'images/residential-cleaning.jpg' %}" class="card-img-top" alt="Residential Cleaning" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">Residential Cleaning</h5>
+                <p class="card-text">Transform your home with our professional residential cleaning services. We ensure every corner of your home sparkles.</p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success"></i> Deep cleaning</li>
+                    <li><i class="fas fa-check text-success"></i> Regular maintenance</li>
+                    <li><i class="fas fa-check text-success"></i> Custom cleaning plans</li>
+                </ul>
+                <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{% static 'images/commercial_cleaning.jpg' %}" class="card-img-top" alt="Commercial Cleaning" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">Commercial Cleaning</h5>
+                <p class="card-text">Keep your business space pristine with our commercial cleaning solutions. Perfect for offices, retail, and more.</p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success"></i> Office cleaning</li>
+                    <li><i class="fas fa-check text-success"></i> Retail spaces</li>
+                    <li><i class="fas fa-check text-success"></i> Industrial cleaning</li>
+                </ul>
+                <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{% static 'images/recurring-services.jpg' %}" class="card-img-top" alt="Recurring Services" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">Recurring Services</h5>
+                <p class="card-text">Set up regular cleaning schedules that work for you. Weekly, bi-weekly, or monthly options available.</p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success"></i> Flexible scheduling</li>
+                    <li><i class="fas fa-check text-success"></i> Consistent service</li>
+                    <li><i class="fas fa-check text-success"></i> Competitive rates</li>
+                </ul>
+                <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <img src="{% static 'images/about_us.webp' %}" alt="About Us" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-8">
+                        <h2>Why Choose Us?</h2>
+                        <p class="lead">We're committed to providing the highest quality cleaning services with attention to detail and customer satisfaction.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-star text-warning"></i> Professional Staff</li>
+                                    <li><i class="fas fa-star text-warning"></i> Eco-friendly Products</li>
+                                    <li><i class="fas fa-star text-warning"></i> Flexible Scheduling</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-star text-warning"></i> Satisfaction Guaranteed</li>
+                                    <li><i class="fas fa-star text-warning"></i> Competitive Pricing</li>
+                                    <li><i class="fas fa-star text-warning"></i> Fully Insured</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="{% url 'home:about' %}" class="btn btn-outline-primary mt-3">Learn More About Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    .card-img-top {
+        transition: transform 0.3s ease-in-out;
+    }
+    .card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+    .jumbotron {
+        background-color: var(--light-color);
+        border-radius: 0.5rem;
+    }
+</style>
+{% endblock extra_css %} 

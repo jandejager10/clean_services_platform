@@ -1,0 +1,152 @@
+/* Global Styles */
+:root {
+    /* Primary Colors */
+    --primary-color: #00A5B5;      /* Teal - Clean, professional, trustworthy */
+    --secondary-color: #7CB342;    /* Green - Eco-friendly, fresh */
+    
+    /* Supporting Colors */
+    --accent-color: #FFB74D;       /* Warm Orange - Welcoming, energetic */
+    --dark-color: #37474F;         /* Dark Blue-Grey - Professional, solid */
+    --light-color: #F5F7FA;        /* Light Grey - Clean, spacious */
+    
+    /* Feedback Colors */
+    --success-color: #66BB6A;      /* Green */
+    --danger-color: #EF5350;       /* Red */
+    --warning-color: #FFB74D;      /* Orange */
+    --info-color: #29B6F6;         /* Blue */
+
+    /* Text Colors */
+    --text-primary: #37474F;       /* Dark Blue-Grey */
+    --text-secondary: #607D8B;     /* Blue-Grey */
+    --text-light: #90A4AE;         /* Light Blue-Grey */
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation */
+.navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    color: var(--primary-color) !important;
+    font-weight: bold;
+}
+
+.nav-link {
+    color: var(--text-primary) !important;
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Main Content */
+main {
+    flex: 1 0 auto;
+}
+
+/* Cards */
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    transition: transform 0.2s ease-in-out;
+    border-color: #E0E7FF;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer */
+.footer {
+    margin-top: auto;
+    box-shadow: 0 -2px 4px rgba(0,0,0,.1);
+    background-color: var(--light-color) !important;
+    color: var(--text-secondary);
+}
+
+/* Buttons */
+.btn {
+    border-radius: 25px;
+    padding: 8px 20px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #008C9E;
+    border-color: #008C9E;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Forms */
+.form-control {
+    border-radius: 8px;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+}
+
+.toast-container .toast {
+    background-color: white;
+    border-left: 4px solid var(--primary-color);
+}
+
+.toast-success {
+    border-left-color: var(--success-color) !important;
+}
+
+.toast-error {
+    border-left-color: var(--danger-color) !important;
+}
+
+.toast-warning {
+    border-left-color: var(--warning-color) !important;
+}
+
+.toast-info {
+    border-left-color: var(--info-color) !important;
+}
+
+/* Add gradient backgrounds for visual interest */
+.jumbotron {
+    background: linear-gradient(135deg, var(--light-color) 0%, #E0F7FA 100%);
+}
+
+/* Add accent colors for icons */
+.fa-check {
+    color: var(--secondary-color) !important;
+}
+
+.fa-star {
+    color: var(--accent-color) !important;
+}
+ 

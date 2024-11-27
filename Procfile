@@ -1,0 +1,1 @@
+web: gunicorn clean_services_platform.wsgi

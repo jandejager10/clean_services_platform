@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}404 - Page Not Found{% endblock title %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="display-1 text-muted">404</h1>
+            <h2 class="mb-4">Page Not Found</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p class="lead mb-4">
+                        Sorry, we couldn't find the page you're looking for. 
+                        We might be busy cleaning that page.
+                    </p>
+                    <div class="mb-4">
+                        <img src="https://placehold.co/400x200" alt="404 illustration" class="img-fluid rounded">
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <a href="{% url 'home:index' %}" class="btn btn-primary">
+                            Return to Homepage
+                        </a>
+                        <a href="{% url 'home:contact' %}" class="btn btn-outline-secondary">
+                            Contact Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %} 
