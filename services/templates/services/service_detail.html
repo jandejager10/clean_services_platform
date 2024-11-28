@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service.name }} - Clean Services Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'services/css/services.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <!-- Service Image -->
+        <div class="col-12 col-md-6 mb-4">
+            <div class="card">
+                {% if service.image %}
+                    <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}">
+                {% else %}
+                    <img src="{% static 'images/default-service.jpg' %}" class="card-img-top" alt="{{ service.name }}">
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Service Details -->
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">{{ service.name }}</h1>
+                    
+                    <p class="category-badge">
+                        <span class="badge bg-primary">
+                            {{ service.category.friendly_name }}
+                        </span>
+                        {% if service.is_recurring %}
+                            <span class="badge bg-info">Recurring Service</span>
+                        {% endif %}
+                    </p>
+
+                    {% if service.rating %}
+                        <p class="rating">
+                            <i class="fas fa-star text-warning"></i>
+                            <strong>{{ service.rating }}/5</strong>
+                        </p>
+                    {% endif %}
+
+                    <h2 class="price-tag">£{{ service.price }}</h2>
+
+                    <div class="description mb-4">
+                        <h3>Service Description</h3>
+                        <p>{{ service.description }}</p>
+                    </div>
+
+                    {% if service.is_recurring %}
+                        <div class="frequency-options mb-4">
+                            <h3>Service Frequency</h3>
+                            <select class="form-select" id="frequency-selector">
+                                <option value="weekly">Weekly</option>
+                                <option value="bi-weekly">Bi-Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    {% endif %}
+
+                    <div class="booking-section">
+                        <a href="#" class="btn btn-primary btn-lg w-100 mb-2">Book Now</a>
+                        <a href="{% url 'services:services' %}" class="btn btn-outline-secondary w-100">
+                            Back to Services
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3>What's Included</h3>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check text-success"></i> Professional cleaning staff</li>
+                        <li><i class="fas fa-check text-success"></i> All cleaning supplies and equipment</li>
+                        <li><i class="fas fa-check text-success"></i> Eco-friendly cleaning products</li>
+                        <li><i class="fas fa-check text-success"></i> Insurance coverage</li>
+                        <li><i class="fas fa-check text-success"></i> Satisfaction guarantee</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Handle frequency selector changes
+    $('#frequency-selector').change(function() {
+        // Add functionality for frequency changes
+        // This could update pricing or other details
+    });
+</script>
+{% endblock %} 

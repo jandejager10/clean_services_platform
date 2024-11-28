@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Residential Cleaning Services - Clean Services Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'services/css/services.css' %}">
+<style>
+    .hero-image {
+        height: 400px;
+        background: url('{% static "images/residential_cleaning.jpg" %}') center/cover no-repeat;
+        position: relative;
+    }
+    
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+    }
+
+    .service-feature {
+        padding: 1.5rem;
+        border-radius: 8px;
+        transition: transform 0.2s ease;
+    }
+
+    .service-feature:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero-image mb-5">
+    <div class="hero-overlay">
+        <div class="container">
+            <h1 class="display-4">Keep Your Home Spotless</h1>
+            <p class="lead">Professional residential cleaning services for your comfort</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Our Professional Residential Cleaning Services</h2>
+                    <p class="lead text-center mb-5">
+                        Our professional residential cleaning services are designed to keep your home 
+                        clean, fresh, and comfortable.
+                    </p>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="service-feature bg-light">
+                                <h3><i class="fas fa-home text-primary"></i> Regular House Cleaning</h3>
+                                <p>Scheduled cleaning services to maintain a consistently clean home environment.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="service-feature bg-light">
+                                <h3><i class="fas fa-broom text-primary"></i> Deep Cleaning Services</h3>
+                                <p>Thorough cleaning of all areas, including hard-to-reach spaces and detailed attention.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="service-feature bg-light">
+                                <h3><i class="fas fa-box text-primary"></i> Move-in/Move-out Cleaning</h3>
+                                <p>Comprehensive cleaning services for when you're moving in or out of a property.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="service-feature bg-light">
+                                <h3><i class="fas fa-sun text-primary"></i> Spring Cleaning</h3>
+                                <p>Annual deep cleaning service to refresh your home after winter.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'services:category_services' 'home_cleaning' %}" class="btn btn-primary btn-lg">
+                            View Our Residential Cleaning Packages
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

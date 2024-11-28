@@ -1,0 +1,10 @@
+{% extends 'services/services.html' %}
+
+{% block title %}{{ category.friendly_name }} Services - Clean Services Platform{% endblock %}
+
+{% block header_content %}
+<div class="category-header text-center mb-4">
+    <h1>{{ category.friendly_name }}</h1>
+    <p class="lead">Browse our {{ category.friendly_name|lower }} services</p>
+</div>
+{% endblock %} 

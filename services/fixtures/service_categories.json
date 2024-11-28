@@ -1,0 +1,58 @@
+[
+    {
+        "model": "services.category",
+        "pk": 1,
+        "fields": {
+            "name": "home_cleaning",
+            "friendly_name": "Home Cleaning"
+        }
+    },
+    {
+        "model": "services.category",
+        "pk": 2,
+        "fields": {
+            "name": "office_cleaning",
+            "friendly_name": "Office Cleaning"
+        }
+    },
+    {
+        "model": "services.category",
+        "pk": 3,
+        "fields": {
+            "name": "deep_cleaning",
+            "friendly_name": "Deep Cleaning"
+        }
+    },
+    {
+        "model": "services.category",
+        "pk": 4,
+        "fields": {
+            "name": "move_in_move_out_cleaning",
+            "friendly_name": "Move-In/Move-Out Cleaning"
+        }
+    },
+    {
+        "model": "services.category",
+        "pk": 5,
+        "fields": {
+            "name": "post_renovation_cleaning",
+            "friendly_name": "Post-Renovation Cleaning"
+        }
+    },
+    {
+        "model": "services.category",
+        "pk": 6,
+        "fields": {
+            "name": "recurring_home_cleaning",
+            "friendly_name": "Recurring Home Cleaning"
+        }
+    },
+    {
+        "model": "services.category",
+        "pk": 7,
+        "fields": {
+            "name": "recurring_office_cleaning",
+            "friendly_name": "Recurring Office Cleaning"
+        }
+    }
+] 

@@ -11,7 +11,10 @@
             <p class="lead">Your one-stop solution for professional cleaning services</p>
             <hr class="my-4">
             <p>Experience the difference with our professional cleaning services</p>
-            <a class="btn btn-primary btn-lg" href="{% url 'home:contact' %}" role="button">Get a Quote</a>
+            <div class="btn-group">
+                <a class="btn btn-primary btn-lg me-2" href="{% url 'home:contact' %}" role="button">Get a Quote</a>
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'services:services' %}" role="button">Book a Service</a>
+            </div>
         </div>
     </div>
 </div>
@@ -28,7 +31,7 @@
                     <li><i class="fas fa-check text-success"></i> Regular maintenance</li>
                     <li><i class="fas fa-check text-success"></i> Custom cleaning plans</li>
                 </ul>
-                <a href="#" class="btn btn-primary">Learn More</a>
+                <a href="{% url 'services:residential_cleaning' %}" class="btn btn-primary">Learn More</a>
             </div>
         </div>
     </div>
@@ -44,7 +47,7 @@
                     <li><i class="fas fa-check text-success"></i> Retail spaces</li>
                     <li><i class="fas fa-check text-success"></i> Industrial cleaning</li>
                 </ul>
-                <a href="#" class="btn btn-primary">Learn More</a>
+                <a href="{% url 'services:commercial_cleaning' %}" class="btn btn-primary">Learn More</a>
             </div>
         </div>
     </div>
@@ -60,7 +63,7 @@
                     <li><i class="fas fa-check text-success"></i> Consistent service</li>
                     <li><i class="fas fa-check text-success"></i> Competitive rates</li>
                 </ul>
-                <a href="#" class="btn btn-primary">Learn More</a>
+                <a href="{% url 'services:recurring_services' %}" class="btn btn-primary">Learn More</a>
             </div>
         </div>
     </div>

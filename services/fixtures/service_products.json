@@ -1,0 +1,167 @@
+[
+    {
+        "model": "services.service",
+        "pk": 1,
+        "fields": {
+            "category": 1,
+            "name": "Basic Home Cleaning Package",
+            "description": "A standard cleaning service for homes including living areas, kitchens, and bathrooms.",
+            "price": 80.00,
+            "rating": 4.5,
+            "is_recurring": false,
+            "frequency": null,
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 2,
+        "fields": {
+            "category": 2,
+            "name": "Standard Office Cleaning Package",
+            "description": "A comprehensive cleaning service for office spaces, including desks, common areas, and restrooms.",
+            "price": 120.00,
+            "rating": 4.8,
+            "is_recurring": false,
+            "frequency": null,
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 3,
+        "fields": {
+            "category": 3,
+            "name": "Complete Interior Deep Clean (Home/Office)",
+            "description": "An in-depth cleaning service for all interior spaces, including hard-to-reach areas and high-touch surfaces.",
+            "price": 200.00,
+            "rating": 4.9,
+            "is_recurring": false,
+            "frequency": null,
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 4,
+        "fields": {
+            "category": 4,
+            "name": "Home Move-In Ready Package",
+            "description": "A thorough cleaning service to make homes ready for new occupants.",
+            "price": 150.00,
+            "rating": 4.7,
+            "is_recurring": false,
+            "frequency": null,
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 5,
+        "fields": {
+            "category": 5,
+            "name": "Post-Renovation Office Cleanup",
+            "description": "Professional cleanup for office interiors after renovation, including debris and dust removal.",
+            "price": 220.00,
+            "rating": 4.8,
+            "is_recurring": false,
+            "frequency": null,
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 6,
+        "fields": {
+            "category": 6,
+            "name": "Weekly Home Cleaning Service",
+            "description": "Scheduled weekly cleaning service for homes, maintaining a high level of cleanliness.",
+            "price": 75.00,
+            "rating": 4.6,
+            "is_recurring": true,
+            "frequency": "weekly",
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 7,
+        "fields": {
+            "category": 6,
+            "name": "Bi-Weekly Home Cleaning Service",
+            "description": "Bi-weekly home cleaning service for a consistent clean environment.",
+            "price": 70.00,
+            "rating": 4.5,
+            "is_recurring": true,
+            "frequency": "bi-weekly",
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 8,
+        "fields": {
+            "category": 6,
+            "name": "Monthly Home Cleaning Service",
+            "description": "A monthly cleaning service for homes, ensuring periodic deep cleaning and maintenance.",
+            "price": 85.00,
+            "rating": 4.4,
+            "is_recurring": true,
+            "frequency": "monthly",
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 9,
+        "fields": {
+            "category": 7,
+            "name": "Weekly Office Maintenance Package",
+            "description": "Weekly cleaning services for offices to maintain a professional appearance and clean work environment.",
+            "price": 150.00,
+            "rating": 4.7,
+            "is_recurring": true,
+            "frequency": "weekly",
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 10,
+        "fields": {
+            "category": 7,
+            "name": "Bi-Weekly Office Cleaning Service",
+            "description": "Scheduled bi-weekly office cleaning service, keeping the workspace tidy and sanitized.",
+            "price": 140.00,
+            "rating": 4.5,
+            "is_recurring": true,
+            "frequency": "bi-weekly",
+            "image_url": null,
+            "image": null
+        }
+    },
+    {
+        "model": "services.service",
+        "pk": 11,
+        "fields": {
+            "category": 7,
+            "name": "Monthly Office Cleaning Service",
+            "description": "Monthly cleaning services for offices, suitable for smaller spaces or businesses with less foot traffic.",
+            "price": 160.00,
+            "rating": 4.3,
+            "is_recurring": true,
+            "frequency": "monthly",
+            "image_url": null,
+            "image": null
+        }
+    }
+] 
