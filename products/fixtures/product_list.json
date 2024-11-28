@@ -1,0 +1,352 @@
+[
+    {
+        "pk": 1,
+        "model": "products.product",
+        "fields": {
+            "sku": "floor001",
+            "name": "Heavy-Duty Floor Scrubber",
+            "description": "An industrial-grade floor scrubber perfect for all types of floor cleaning.",
+            "price": 120.00,
+            "category": 1,
+            "rating": 4.5,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/floor_scrubber.webp",
+            "image": "floor_scrubber.webp"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "products.product",
+        "fields": {
+            "sku": "wet001",
+            "name": "Abrasive Sponge Pack",
+            "description": "A pack of 10 high-quality abrasive sponges for tough cleaning tasks.",
+            "price": 15.99,
+            "category": 2,
+            "rating": 4.7,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/abrasive_sponges.jpg",
+            "image": "abrasive_sponges.jpg"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "products.product",
+        "fields": {
+            "sku": "all_purpose001",
+            "name": "Multi-Surface Cleaner",
+            "description": "An all-purpose cleaner suitable for all household surfaces.",
+            "price": 8.50,
+            "category": 3,
+            "rating": 4.2,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/multi_surface_cleaner.webp",
+            "image": "multi_surface_cleaner.webp"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "products.product",
+        "fields": {
+            "sku": "common001",
+            "name": "Disinfectant Spray",
+            "description": "Powerful disinfectant spray for killing germs and bacteria on surfaces.",
+            "price": 12.99,
+            "category": 4,
+            "rating": 4.8,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/disinfectant_spray.jpg",
+            "image": "disinfectant_spray.jpg"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "products.product",
+        "fields": {
+            "sku": "protection001",
+            "name": "Nitrile Gloves - Box of 100",
+            "description": "Latex-free, durable gloves for protection during cleaning tasks.",
+            "price": 20.99,
+            "category": 5,
+            "rating": 4.6,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/nitrile_gloves.jpg",
+            "image": "nitrile_gloves.jpg"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "products.product",
+        "fields": {
+            "sku": "commercial001",
+            "name": "Industrial Vacuum Cleaner",
+            "description": "A powerful vacuum cleaner designed for large commercial spaces.",
+            "price": 250.00,
+            "category": 6,
+            "rating": 4.9,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/industrial_vacuum.webp",
+            "image": "industrial_vacuum.webp"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "products.product",
+        "fields": {
+            "sku": "household001",
+            "name": "Detergent Bottle",
+            "description": "A high-quality bottle of detergent for all your cleaning needs.",
+            "price": 9.99,
+            "category": 7,
+            "rating": 4.7,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/detergent_bottle.jpg",
+            "image": "detergent_bottle.jpg"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "products.product",
+        "fields": {
+            "sku": "floor002",
+            "name": "Microfiber Floor Mop",
+            "description": "A lightweight mop with a reusable microfiber head, perfect for cleaning tiles and hardwood floors.",
+            "price": 25.00,
+            "category": 1,
+            "rating": 4.3,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/microfiber_mop.jpg",
+            "image": "microfiber_mop.jpg"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "products.product",
+        "fields": {
+            "sku": "wet002",
+            "name": "Scrub Brush with Handle",
+            "description": "A heavy-duty brush with a comfortable handle for wet work cleaning.",
+            "price": 10.99,
+            "category": 2,
+            "rating": 4.4,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/scrub_brush.jpg",
+            "image": "scrub_brush.jpg"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "products.product",
+        "fields": {
+            "sku": "all_purpose002",
+            "name": "Cleaning Wipes - 100 Pack",
+            "description": "Disposable all-purpose cleaning wipes for quick cleanups.",
+            "price": 7.50,
+            "category": 3,
+            "rating": 4.1,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/cleaning_wipes.jpg",
+            "image": "cleaning_wipes.jpg"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "products.product",
+        "fields": {
+            "sku": "common002",
+            "name": "Glass Cleaner",
+            "description": "Streak-free glass cleaner for windows, mirrors, and other surfaces.",
+            "price": 5.99,
+            "category": 4,
+            "rating": 4.3,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/glass_cleaner.jpg",
+            "image": "glass_cleaner.jpg"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "products.product",
+        "fields": {
+            "sku": "protection002",
+            "name": "Face Masks - Pack of 50",
+            "description": "Comfortable, breathable face masks for added protection during cleaning.",
+            "price": 14.99,
+            "category": 5,
+            "rating": 4.5,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/face_masks.jpg",
+            "image": "face_masks.jpg"
+        }
+    },
+    {
+        "pk": 13,
+        "model": "products.product",
+        "fields": {
+            "sku": "commercial002",
+            "name": "Floor Polishing Machine",
+            "description": "An efficient floor polisher designed for commercial properties.",
+            "price": 300.00,
+            "category": 6,
+            "rating": 4.8,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/floor_polisher.jpg",
+            "image": "floor_polisher.jpg"
+        }
+    },
+    {
+        "pk": 14,
+        "model": "products.product",
+        "fields": {
+            "sku": "household002",
+            "name": "All-Purpose Bathroom Cleaner",
+            "description": "Removes tough stains and disinfects bathroom surfaces.",
+            "price": 6.50,
+            "category": 7,
+            "rating": 4.4,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/bathroom_cleaner.jpg",
+            "image": "bathroom_cleaner.jpg"
+        }
+    },
+    {
+        "pk": 15,
+        "model": "products.product",
+        "fields": {
+            "sku": "floor003",
+            "name": "Tile Scrubber",
+            "description": "A versatile scrubber for cleaning tough tile stains.",
+            "price": 18.00,
+            "category": 1,
+            "rating": 4.2,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/tile_scrubber.jpg",
+            "image": "tile_scrubber.jpg"
+        }
+    },
+    {
+        "pk": 16,
+        "model": "products.product",
+        "fields": {
+            "sku": "wet003",
+            "name": "Mop Bucket with Wringer",
+            "description": "Sturdy mop bucket with a built-in wringer for easy cleaning.",
+            "price": 30.00,
+            "category": 2,
+            "rating": 4.6,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/mop_bucket.jpg",
+            "image": "mop_bucket.jpg"
+        }
+    },
+    {
+        "pk": 17,
+        "model": "products.product",
+        "fields": {
+            "sku": "all_purpose003",
+            "name": "Stain Remover Spray",
+            "description": "Effectively removes tough stains from fabrics and surfaces.",
+            "price": 9.99,
+            "category": 3,
+            "rating": 4.5,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/stain_remover.jpg",
+            "image": "stain_remover.jpg"
+        }
+    },
+    {
+        "pk": 18,
+        "model": "products.product",
+        "fields": {
+            "sku": "common003",
+            "name": "Air Freshener",
+            "description": "Keeps your rooms smelling fresh and clean.",
+            "price": 4.50,
+            "category": 4,
+            "rating": 4.3,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/air_freshener.jpg",
+            "image": "air_freshener.jpg"
+        }
+    },
+    {
+        "pk": 19,
+        "model": "products.product",
+        "fields": {
+            "sku": "protection003",
+            "name": "Protective Apron",
+            "description": "Durable apron to keep your clothes clean during messy tasks.",
+            "price": 8.99,
+            "category": 5,
+            "rating": 4.4,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/protective_apron.jpg",
+            "image": "protective_apron.jpg"
+        }
+    },
+    {
+        "pk": 20,
+        "model": "products.product",
+        "fields": {
+            "sku": "commercial003",
+            "name": "Wet/Dry Commercial Vacuum",
+            "description": "Versatile vacuum that can handle both wet and dry cleaning.",
+            "price": 340.00,
+            "category": 6,
+            "rating": 4.7,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/wet_dry_vacuum.jpg",
+            "image": "wet_dry_vacuum.jpg"
+        }
+    },
+    {
+        "pk": 21,
+        "model": "products.product",
+        "fields": {
+            "sku": "household003",
+            "name": "Dishwashing Liquid",
+            "description": "Gentle yet powerful dishwashing liquid for sparkling clean dishes.",
+            "price": 3.99,
+            "category": 7,
+            "rating": 4.6,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/dishwashing_liquid.jpg",
+            "image": "dishwashing_liquid.jpg"
+        }
+    },
+    {
+        "pk": 22,
+        "model": "products.product",
+        "fields": {
+            "sku": "floor004",
+            "name": "Soft Broom",
+            "description": "A soft bristle broom ideal for sweeping indoor surfaces.",
+            "price": 10.00,
+            "category": 1,
+            "rating": 4.1,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/soft_broom.jpg",
+            "image": "soft_broom.jpg"
+        }
+    },
+    {
+        "pk": 23,
+        "model": "products.product",
+        "fields": {
+            "sku": "wet004",
+            "name": "Rubber Squeegee",
+            "description": "A versatile squeegee for removing excess water from floors and windows.",
+            "price": 7.99,
+            "category": 2,
+            "rating": 4.3,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/rubber_squeegee.jpg",
+            "image": "rubber_squeegee.jpg"
+        }
+    },
+    {
+        "pk": 24,
+        "model": "products.product",
+        "fields": {
+            "sku": "all_purpose004",
+            "name": "Multi-Surface Cleaning Spray",
+            "description": "Effective cleaning spray for kitchen, bathroom, and other surfaces.",
+            "price": 6.50,
+            "category": 3,
+            "rating": 4.3,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/multi_surface_spray.jpg",
+            "image": "multi_surface_spray.jpg"
+        }
+    },
+    {
+        "pk": 25,
+        "model": "products.product",
+        "fields": {
+            "sku": "household004",
+            "name": "Laundry Bleach",
+            "description": "Chlorine bleach for brightening white fabrics and removing tough stains.",
+            "price": 5.99,
+            "category": 7,
+            "rating": 4.4,
+            "image_url": "https://codeinstproj4.s3.eu-north-1.amazonaws.com/media/laundry_bleach.jpg",
+            "image": "laundry_bleach.jpg"
+        }
+    }
+] 

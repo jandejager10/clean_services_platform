@@ -12,8 +12,15 @@
             <hr class="my-4">
             <p>Experience the difference with our professional cleaning services</p>
             <div class="btn-group">
-                <a class="btn btn-primary btn-lg me-2" href="{% url 'home:contact' %}" role="button">Get a Quote</a>
-                <a class="btn btn-outline-primary btn-lg" href="{% url 'services:services' %}" role="button">Book a Service</a>
+                <a class="btn btn-outline-primary btn-lg me-2" href="{% url 'products:products' %}">
+                    Cleaning Products
+                </a>
+                <a class="btn btn-primary btn-lg me-2" href="{% url 'home:contact' %}">
+                    Get a Quote
+                </a>
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'services:services' %}">
+                    Book a Service
+                </a>
             </div>
         </div>
     </div>
@@ -64,6 +71,60 @@
                     <li><i class="fas fa-check text-success"></i> Competitive rates</li>
                 </ul>
                 <a href="{% url 'services:recurring_services' %}" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4 mb-4">
+    <div class="col-12">
+        <h2 class="text-center mb-4">Featured Cleaning Products</h2>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{% static 'images/assortment-of-cleaning-tools.jpg' %}" 
+                 class="card-img-top" alt="Cleaning Tools" 
+                 style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">Cleaning Tools</h5>
+                <p class="card-text">Explore our wide range of professional-grade cleaning tools.</p>
+                <div class="mt-auto">
+                    <a href="{% url 'products:products' %}?category=floor_cleaning_tools,wet_work_tools,all_purpose_tools" 
+                       class="btn btn-primary w-100">View Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{% static 'images/detergents.webp' %}" 
+                 class="card-img-top" alt="Detergents" 
+                 style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">Detergents</h5>
+                <p class="card-text">Effective detergents for all types of surfaces and cleaning needs.</p>
+                <div class="mt-auto">
+                    <a href="{% url 'products:products' %}?category=household_cleaning_supplies,common_cleaning_products" 
+                       class="btn btn-primary w-100">View Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{% static 'images/disinfectants.jpg' %}" 
+                 class="card-img-top" alt="Disinfectants" 
+                 style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">Disinfectants</h5>
+                <p class="card-text">Keep your environment safe with our powerful disinfectants.</p>
+                <div class="mt-auto">
+                    <a href="{% url 'products:products' %}?category=common_cleaning_products" 
+                       class="btn btn-primary w-100">View Products</a>
+                </div>
             </div>
         </div>
     </div>

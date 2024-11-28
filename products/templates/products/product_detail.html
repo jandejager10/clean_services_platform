@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }} - Clean Services Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Product Image -->
+        <div class="col-12 col-md-6 mb-4">
+            <div class="card">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                    <img src="{% static 'images/noimage.png' %}" class="card-img-top" alt="{{ product.name }}">
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">{{ product.name }}</h1>
+                    
+                    <p class="category-badge">
+                        <span class="badge bg-primary">
+                            {{ product.category.friendly_name }}
+                        </span>
+                        <span class="badge bg-secondary">SKU: {{ product.sku }}</span>
+                    </p>
+
+                    {% if product.rating %}
+                        <p class="rating">
+                            <i class="fas fa-star text-warning"></i>
+                            <strong>{{ product.rating }}/5</strong>
+                        </p>
+                    {% endif %}
+
+                    <h2 class="price-tag">£{{ product.price }}</h2>
+
+                    <div class="description mb-4">
+                        <h3>Product Description</h3>
+                        <p>{{ product.description }}</p>
+                    </div>
+
+                    {% if request.user.is_superuser %}
+                        <div class="admin-buttons mb-4">
+                            <a href="{% url 'products:edit_product' product.id %}" 
+                               class="btn btn-warning">
+                                <i class="fas fa-edit"></i> Edit Product
+                            </a>
+                            <button type="button" class="btn btn-danger" 
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <i class="fas fa-trash"></i> Delete Product
+                            </button>
+                        </div>
+                    {% endif %}
+
+                    <div class="purchase-section">
+                        <form class="form" action="#" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="quantity" 
+                                           value="1" min="1" max="99">
+                                    <button class="btn btn-primary" type="submit">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <a href="{% url 'products:products' %}" class="btn btn-outline-primary w-100">
+                            Back to Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+{% if request.user.is_superuser %}
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete "{{ product.name }}"?</p>
+                    <p class="text-danger">This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="{% url 'products:delete_product' product.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %} 

@@ -1,6 +1,6 @@
 # Clean Services Platform
 
-A comprehensive platform for managing cleaning services, built with Django.
+A comprehensive platform for managing cleaning services and products, built with Django.
 
 ## Features
 
@@ -8,6 +8,7 @@ A comprehensive platform for managing cleaning services, built with Django.
 - Landing page with service overview
 - Quick access to quotes and booking
 - Featured services showcase
+- Featured cleaning products section
 - Company information section
 
 ### Services
@@ -22,6 +23,24 @@ A comprehensive platform for managing cleaning services, built with Django.
 - Service filtering and search
 - Detailed service pages
 - Booking functionality
+
+### Products
+- Complete cleaning products catalog
+- Category-based organization:
+  - Floor Cleaning Tools
+  - Wet Work Tools
+  - All-Purpose Tools
+  - Common Cleaning Products
+  - Personal Protection
+  - Commercial Cleaning Supplies
+  - Household Cleaning Supplies
+- Product filtering and search
+- Detailed product pages
+- Admin product management
+- Featured product categories:
+  - Cleaning Tools
+  - Detergents
+  - Disinfectants
 
 ### FAQ
 - Categorized FAQ sections
@@ -43,14 +62,23 @@ A comprehensive platform for managing cleaning services, built with Django.
    - Service details
    - Booking system
 
-3. FAQ
+3. Products
+   - Product catalog
+   - Category management
+   - Product details
+   - Admin CRUD functionality
+   - Image handling
+
+4. FAQ
    - FAQ categories
    - Question management
    - Search functionality
 
 ### Models
-- Category
+- Category (Services)
 - Service
+- Category (Products)
+- Product
 - FAQCategory
 - FAQItem
 
@@ -62,6 +90,8 @@ A comprehensive platform for managing cleaning services, built with Django.
 - Search functionality
 - Category filtering
 - Interactive UI elements
+- Image upload handling
+- Admin product management
 
 ## Installation
 
@@ -88,9 +118,11 @@ python manage.py migrate
 
 5. Load fixture data:
 ```bash
-python manage.py loaddata service_categories.json
-python manage.py loaddata service_products.json
-python manage.py loaddata faq_data.json
+python manage.py loaddata service_categories
+python manage.py loaddata service_products
+python manage.py loaddata product_categories
+python manage.py loaddata product_list
+python manage.py loaddata faq_data
 ```
 
 6. Run the development server:
@@ -110,6 +142,10 @@ python manage.py runserver
 clean_services_platform/
 ├── home/
 ├── services/
+│   ├── fixtures/
+│   ├── static/
+│   └── templates/
+├── products/
 │   ├── fixtures/
 │   ├── static/
 │   └── templates/

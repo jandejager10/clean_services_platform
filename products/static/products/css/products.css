@@ -1,0 +1,77 @@
+/* Product Cards */
+.product-card {
+    transition: transform 0.2s ease-in-out;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Price and Rating */
+.price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.price-tag {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 1rem 0;
+}
+
+.rating {
+    color: var(--text-secondary);
+}
+
+/* Category Filters */
+.category-filters .btn {
+    margin: 0 0.25rem;
+    border-radius: 20px;
+}
+
+/* Sort Selector */
+.sort-select {
+    width: 100%;
+    max-width: 250px;
+    margin-left: auto;
+}
+
+/* Product Detail */
+.category-badge .badge {
+    margin-right: 0.5rem;
+}
+
+.admin-buttons .btn {
+    margin-right: 0.5rem;
+}
+
+/* Custom File Input */
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sort-select {
+        margin: 1rem auto 0;
+    }
+} 

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'home',
     'faq.apps.FAQConfig',
     'services.apps.ServicesConfig',
+    'products.apps.ProductsConfig',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'services.context_processors.categories',
+                'products.context_processors.categories',
             ],
         },
     },

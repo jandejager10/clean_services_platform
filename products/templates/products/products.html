@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Products - Clean Services Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Cleaning Products</h1>
+        </div>
+    </div>
+
+    <!-- Search and Sort -->
+    <div class="row mb-4">
+        <div class="col-12 col-md-6">
+            <form method="GET" action="{% url 'products:products' %}" class="form">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="q" 
+                           placeholder="Search products..." value="{{ search_term|default:'' }}">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="sort-select text-end">
+                <select id="sort-selector" class="form-select">
+                    <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>
+                        Sort by...
+                    </option>
+                    <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>
+                        Price (Low to High)
+                    </option>
+                    <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>
+                        Price (High to Low)
+                    </option>
+                    <option value="rating_desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>
+                        Rating (High to Low)
+                    </option>
+                    <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>
+                        Name (A-Z)
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="category-filters text-center">
+                <a href="{% url 'products:products' %}" 
+                   class="btn {% if not current_categories %}btn-primary{% else %}btn-outline-primary{% endif %} mb-2">
+                    All Products
+                </a>
+                {% for category in product_categories %}
+                    <a href="{% url 'products:products' %}?category={{ category.name }}" 
+                       class="btn {% if category in current_categories %}btn-primary{% else %}btn-outline-primary{% endif %} mb-2">
+                        {{ category.friendly_name }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="row">
+        {% for product in products %}
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card h-100 product-card">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="{% static 'images/noimage.png' %}" class="card-img-top" alt="{{ product.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="price">£{{ product.price }}</span>
+                            {% if product.rating %}
+                                <span class="rating">
+                                    <i class="fas fa-star text-warning"></i> {{ product.rating }}/5
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <a href="{% url 'products:product_detail' product.id %}" 
+                           class="btn btn-outline-primary w-100">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    No products found matching your criteria.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $('#sort-selector').change(function() {
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+        
+        var selectedVal = selector.val();
+        if(selectedVal != "reset"){
+            var sort = selectedVal.split("_")[0];
+            var direction = selectedVal.split("_")[1];
+            
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+            
+            window.location.replace(currentUrl);
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
+            
+            window.location.replace(currentUrl);
+        }
+    });
+</script>
+{% endblock %} 
