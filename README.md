@@ -42,6 +42,16 @@ A comprehensive platform for managing cleaning services and products, built with
   - Detergents
   - Disinfectants
 
+### Authentication & User Management
+- User registration with email verification
+- Login/Logout functionality
+- Password reset capability
+- User profile management
+- Secure authentication flows
+- Custom styled authentication templates
+- Profile information storage
+- Address management
+
 ### FAQ
 - Categorized FAQ sections
 - Searchable questions and answers
@@ -69,7 +79,14 @@ A comprehensive platform for managing cleaning services and products, built with
    - Admin CRUD functionality
    - Image handling
 
-4. FAQ
+4. Accounts
+   - User authentication
+   - Profile management
+   - Email verification
+   - Address storage
+   - Custom templates
+
+5. FAQ
    - FAQ categories
    - Question management
    - Search functionality
@@ -79,6 +96,7 @@ A comprehensive platform for managing cleaning services and products, built with
 - Service
 - Category (Products)
 - Product
+- UserProfile
 - FAQCategory
 - FAQItem
 
@@ -92,6 +110,9 @@ A comprehensive platform for managing cleaning services and products, built with
 - Interactive UI elements
 - Image upload handling
 - Admin product management
+- Email verification
+- User authentication
+- Profile management
 
 ## Installation
 
@@ -125,7 +146,13 @@ python manage.py loaddata product_list
 python manage.py loaddata faq_data
 ```
 
-6. Run the development server:
+6. Configure email settings in .env:
+```plaintext
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=my-app-password
+```
+
+7. Run the development server:
 ```bash
 python manage.py runserver
 ```
@@ -136,6 +163,9 @@ python manage.py runserver
 - Bootstrap 5
 - Pillow (for image handling)
 - Font Awesome 5
+- Django Allauth
+- Django Crispy Forms
+- Crispy Bootstrap5
 
 ## Project Structure
 ```
@@ -149,6 +179,11 @@ clean_services_platform/
 │   ├── fixtures/
 │   ├── static/
 │   └── templates/
+├── accounts/
+│   ├── templates/
+│   │   └── account/
+│   ├── static/
+│   └── migrations/
 ├── faq/
 ├── static/
 └── templates/

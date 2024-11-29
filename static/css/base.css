@@ -1,8 +1,11 @@
 /* Global Styles */
 :root {
     /* Primary Colors */
-    --primary-color: #00A5B5;      /* Teal - Clean, professional, trustworthy */
-    --secondary-color: #7CB342;    /* Green - Eco-friendly, fresh */
+    --primary-color: #0d6efd;
+    --primary-hover: #0b5ed7;
+    --text-color: #212529;
+    --light-color: #f8f9fa;
+    --border-color: #dee2e6;
     
     /* Supporting Colors */
     --accent-color: #FFB74D;       /* Warm Orange - Welcoming, energetic */

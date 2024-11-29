@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Sign Out - Clean Services Platform{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 500px;
+        margin: 2rem auto;
+    }
+
+    .auth-card {
+        border: none;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 10px;
+    }
+
+    .auth-card .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 10px 10px 0 0;
+        padding: 1.5rem;
+        text-align: center;
+        border: none;
+    }
+
+    .auth-card .card-body {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .btn-group-auth {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    .btn-auth {
+        padding: 0.75rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    .logout-message {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container auth-container">
+    <div class="card auth-card">
+        <div class="card-header">
+            <h1 class="h3 mb-0">{% trans "Sign Out" %}</h1>
+        </div>
+        <div class="card-body">
+            <p class="logout-message">{% trans 'Are you sure you want to sign out?' %}</p>
+
+            <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                <div class="btn-group-auth">
+                    <button type="submit" class="btn btn-primary btn-auth">{% trans 'Sign Out' %}</button>
+                    <a href="{% url 'home:index' %}" class="btn btn-outline-secondary btn-auth">{% trans 'Cancel' %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 
