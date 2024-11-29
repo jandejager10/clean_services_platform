@@ -43,6 +43,16 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                            <i class="fas fa-shopping-cart"></i>
+                            {% with total_items=cart|length %}
+                                {% if total_items > 0 %}
+                                    <span class="badge bg-primary">{{ total_items }}</span>
+                                {% endif %}
+                            {% endwith %}
+                        </a>
+                    </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accounts:profile' %}">My Account</a>

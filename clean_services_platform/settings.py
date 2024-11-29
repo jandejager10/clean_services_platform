@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'crispy_forms',
     'crispy_bootstrap5',
+    'cart.apps.CartConfig',
+    'checkout.apps.CheckoutConfig',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +82,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'services.context_processors.categories',
                 'products.context_processors.categories',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -185,3 +188,12 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Crispy Forms Settings
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+# Cart settings
+CART_SESSION_ID = 'cart'
+TAX_RATE = 0.20  # 20% tax rate
+
+# Stripe settings
+STRIPE_CURRENCY = 'gbp'
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')

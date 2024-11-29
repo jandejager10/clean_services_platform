@@ -150,20 +150,123 @@ EMAIL_HOST_USER=cleanservicesplatform@gmail.com
 EMAIL_HOST_PASSWORD=my-app-password
 ```
 
-### Recommendations
-1. Always test email functionality in development using console backend
-2. Use environment variables for sensitive information
-3. Keep authentication templates consistent with site design
-4. Implement proper error handling for auth flows
-5. Test all authentication paths (login, logout, signup, password reset)
-6. Ensure proper signal handling for user profile creation
-7. Maintain consistent styling across all auth templates
 
-### Future Improvements
-1. Add social authentication
-2. Implement enhanced password policies
-3. Add two-factor authentication
-4. Create custom email templates
-5. Add user profile completion tracking
-6. Implement account deletion functionality
+## Issues and Solutions (Cart & Checkout Implementation)
+
+### 1. Site Configuration Error
+**Issue:** Site matching query does not exist error when accessing login page
+**Solution:** 
+- Created management command to ensure site exists
+```python
+# accounts/management/commands/create_default_site.py
+class Command(BaseCommand):
+    def handle(self, *args, **kwargs):
+        if Site.objects.exists():
+            Site.objects.all().delete()
+        Site.objects.create(
+            id=1,
+            domain='127.0.0.1:8000',
+            name='Clean Services Platform'
+        )
+```
+
+### 2. Profile Data Not Loading in Checkout
+**Issue:** User profile data not pre-filling checkout form
+**Solution:**
+- Added UserProfile import to checkout views
+- Updated checkout view to pull profile data
+```python
+# checkout/views.py
+from accounts.models import UserProfile  # Changed from profiles to accounts
+
+if request.user.is_authenticated:
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+        order_form = OrderForm(initial={
+            'full_name': profile.user.get_full_name(),
+            'email': profile.user.email,
+            'phone_number': profile.default_phone_number,
+            # ... other fields
+        })
+```
+
+### 3. Admin Interface Profile Visibility
+**Issue:** Admin couldn't see user profile details
+**Solution:**
+- Added inline admin configuration for UserProfile
+```python
+# accounts/admin.py
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+
+class UserAdmin(BaseUserAdmin):
+    inlines = (UserProfileInline,)
+    list_display = ('email', 'first_name', 'last_name', 'is_staff', 'last_login')
+```
+
+### 4. Order-Profile Relationship
+**Issue:** Orders not linked to user profiles
+**Solution:**
+- Added UserProfile relationship to Order model
+```python
+# checkout/models.py
+class Order(models.Model):
+    user_profile = models.ForeignKey(
+        UserProfile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='orders'
+    )
+```
+
+### 5. Module Import Error
+**Issue:** ModuleNotFoundError: No module named 'profiles'
+**Solution:**
+- Fixed import statement in checkout views
+- Changed from `profiles.models` to `accounts.models`
+- Updated related imports across the project
+
+### 6. Migration Conflicts
+**Issue:** Conflicting migrations in accounts app
+**Solution:**
+- Removed conflicting migration files
+- Created new migration for site creation
+- Applied migrations in correct order:
+```bash
+python manage.py migrate sites
+python manage.py migrate accounts
+python manage.py migrate
+```
+
+### 7. Cart Price Formatting
+**Issue:** Tax and Total amounts in cart showing too many decimal places
+**Solution:**
+- Updated Cart class to use Decimal quantize with ROUND_HALF_UP
+- Added template filters for display formatting
+```python
+# cart/cart.py
+from decimal import Decimal, ROUND_HALF_UP
+
+def get_tax(self):
+    """Calculate tax amount."""
+    tax = self.get_subtotal_price() * Decimal(settings.TAX_RATE)
+    return tax.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+```
+
+```html
+<!-- cart/templates/cart/detail.html -->
+<td colspan="2">
+    <strong>£{{ cart.get_tax|floatformat:2 }}</strong>
+</td>
+```
+
+The changes:
+- Added ROUND_HALF_UP 
+- Used quantize to ensure 2 decimal places in calculations
+- Added floatformat:2 filter in templates
+- Applied to subtotal, tax, and total amounts
+
 

@@ -6,6 +6,7 @@ from django.db.models.functions import Lower
 
 from .models import Product, Category
 from .forms import ProductForm
+from cart.forms import CartAddProductForm
 
 def all_products(request):
     """View to show all products, including sorting and search queries"""
@@ -59,9 +60,11 @@ def all_products(request):
 def product_detail(request, product_id):
     """View to show individual product details"""
     product = get_object_or_404(Product, pk=product_id)
-
+    cart_add_form = CartAddProductForm()
+    
     context = {
         'product': product,
+        'cart_add_form': cart_add_form,
     }
 
     return render(request, 'products/product_detail.html', context)

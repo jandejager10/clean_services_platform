@@ -13,3 +13,12 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.email 
+
+    def save(self, *args, **kwargs):
+        """
+        Override the original save method to update user details
+        """
+        super().save(*args, **kwargs)
+        # Update the order if it exists
+        if hasattr(self, 'order'):
+            self.order.save() 

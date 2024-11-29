@@ -152,4 +152,36 @@ main {
 .fa-star {
     color: var(--accent-color) !important;
 }
+
+/* Cart Styles */
+.cart-icon {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.quantity-select {
+    width: auto !important;
+    display: inline-block !important;
+    margin-right: 1rem;
+}
+
+.cart-table td {
+    vertical-align: middle;
+}
+
+.cart-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.cart-actions {
+    margin-top: 2rem;
+}
  

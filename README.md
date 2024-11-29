@@ -42,6 +42,23 @@ A comprehensive platform for managing cleaning services and products, built with
   - Detergents
   - Disinfectants
 
+### Shopping Cart
+- Session-based cart storage
+- Add/remove products
+- Update quantities
+- Tax calculation (20%)
+- Subtotal and total calculations
+- Persistent across sessions
+- Real-time price updates
+
+### Checkout
+- Secure payment processing with Stripe
+- Order summary
+- Profile data auto-fill
+- Email confirmations
+- Order history
+- Webhook handling
+
 ### Authentication & User Management
 - User registration with email verification
 - Login/Logout functionality
@@ -79,14 +96,26 @@ A comprehensive platform for managing cleaning services and products, built with
    - Admin CRUD functionality
    - Image handling
 
-4. Accounts
+4. Cart
+   - Session management
+   - Price calculations
+   - Quantity updates
+   - Tax handling
+
+5. Checkout
+   - Payment processing
+   - Order management
+   - Email notifications
+   - Webhook handling
+
+6. Accounts
    - User authentication
    - Profile management
    - Email verification
    - Address storage
    - Custom templates
 
-5. FAQ
+7. FAQ
    - FAQ categories
    - Question management
    - Search functionality
@@ -97,6 +126,8 @@ A comprehensive platform for managing cleaning services and products, built with
 - Category (Products)
 - Product
 - UserProfile
+- Order
+- OrderLineItem
 - FAQCategory
 - FAQItem
 
@@ -113,6 +144,9 @@ A comprehensive platform for managing cleaning services and products, built with
 - Email verification
 - User authentication
 - Profile management
+- Shopping cart
+- Secure payments
+- Order tracking
 
 ## Installation
 
@@ -166,6 +200,7 @@ python manage.py runserver
 - Django Allauth
 - Django Crispy Forms
 - Crispy Bootstrap5
+- Stripe
 
 ## Project Structure
 ```
@@ -178,6 +213,14 @@ clean_services_platform/
 ├── products/
 │   ├── fixtures/
 │   ├── static/
+│   └── templates/
+├── cart/
+│   ├── static/
+│   └── templates/
+├── checkout/
+│   ├── static/
+│   │   ├── js/
+│   │   └── css/
 │   └── templates/
 ├── accounts/
 │   ├── templates/
