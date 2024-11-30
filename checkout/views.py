@@ -19,8 +19,9 @@ def checkout(request):
     cart = Cart(request)
 
     if request.method == 'POST':
-        cart = Cart(request)
-
+        # Save the save_info preference to session
+        save_info = 'save_info' in request.POST
+        request.session['save_info'] = save_info
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -34,13 +35,23 @@ def checkout(request):
 
         order_form = OrderForm(form_data)
         if order_form.is_valid():
+            # Get the payment intent ID from the form
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            
+            # Create order but don't save yet
             order = order_form.save(commit=False)
+            order.stripe_pid = pid
             order.user = request.user
-            order.stripe_pid = request.POST.get('client_secret').split('_secret')[0]
             order.save()
 
-            for item in cart:
-                try:
+            try:
+                # Confirm the payment with Stripe
+                stripe.api_key = stripe_secret_key
+                stripe.PaymentIntent.modify(pid, 
+                    metadata={'order_id': order.order_number})
+                
+                # Create the order line items
+                for item in cart:
                     product = Product.objects.get(id=item['product'].id)
                     order_line_item = OrderLineItem(
                         order=order,
@@ -48,16 +59,21 @@ def checkout(request):
                         quantity=item['quantity'],
                     )
                     order_line_item.save()
-                except Product.DoesNotExist:
-                    messages.error(request, "Product not found.")
-                    order.delete()
-                    return redirect(reverse('cart:cart_detail'))
 
-            cart.clear()
-            return redirect(reverse('checkout:checkout_success',
-                                 args=[order.order_number]))
-        else:
-            messages.error(request, 'There was an error with your form.')
+                # Clear the cart and redirect
+                cart.clear()
+                return redirect(reverse('checkout:checkout_success',
+                                     args=[order.order_number]))
+            except stripe.error.StripeError as e:
+                messages.error(request, 
+                    "Payment processing error. Please try again later.")
+                order.delete()
+                return redirect(reverse('cart:cart_detail'))
+            except Exception as e:
+                messages.error(request, 
+                    "There was an error processing your order. Please try again.")
+                order.delete()
+                return redirect(reverse('cart:cart_detail'))
     else:
         if not cart:
             messages.error(request, "Your cart is empty")
@@ -86,10 +102,16 @@ def checkout(request):
         total = current_cart.get_total_price()
         stripe_total = round(total * 100)
         stripe.api_key = stripe_secret_key
-        intent = stripe.PaymentIntent.create(
-            amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY,
-        )
+
+        try:
+            intent = stripe.PaymentIntent.create(
+                amount=stripe_total,
+                currency=settings.STRIPE_CURRENCY,
+            )
+        except stripe.error.StripeError as e:
+            messages.error(request, 
+                "Payment system error. Please try again later.")
+            return redirect(reverse('cart:cart_detail'))
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing.')
@@ -106,9 +128,32 @@ def checkout(request):
 
 def checkout_success(request, order_number):
     """Handle successful checkouts"""
+    save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        # Attach the user's profile to the order
+        order.user_profile = profile
+        order.save()
+
+        # Save the user's info if save_info was checked
+        if save_info:
+            # Always update profile with new order details
+            profile.default_phone_number = order.phone_number
+            profile.default_street_address1 = order.street_address1
+            profile.default_street_address2 = order.street_address2
+            profile.default_town_or_city = order.town_or_city
+            profile.default_county = order.county
+            profile.default_postcode = order.postcode
+            profile.save()
+
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}.')
+
+    # Clean up the session
+    if 'save_info' in request.session:
+        del request.session['save_info']
 
     template = 'checkout/checkout_success.html'
     context = {

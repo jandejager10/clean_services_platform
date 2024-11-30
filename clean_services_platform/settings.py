@@ -191,7 +191,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # Cart settings
 CART_SESSION_ID = 'cart'
-TAX_RATE = 0.20  # 20% tax rate
+TAX_RATE = '0.20'  # Changed to string for proper Decimal conversion
 
 # Stripe settings
 STRIPE_CURRENCY = 'gbp'

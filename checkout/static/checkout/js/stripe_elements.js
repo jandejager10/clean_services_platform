@@ -1,9 +1,6 @@
 /*
-    Core logic/payment flow for this comes from here:
+    Core logic/payment flow from:
     https://stripe.com/docs/payments/accept-a-payment
-
-    CSS from here: 
-    https://stripe.com/docs/stripe-js
 */
 
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
@@ -27,7 +24,11 @@ var style = {
     }
 };
 
-var card = elements.create('card', {style: style});
+var card = elements.create('card', {
+    style: style,
+    hidePostalCode: true,
+    zipCode: false
+});
 card.mount('#card-element');
 
 // Handle realtime validation errors on the card element
@@ -48,7 +49,6 @@ card.addEventListener('change', function (event) {
 
 // Handle form submit
 var form = document.getElementById('payment-form');
-
 form.addEventListener('submit', function(ev) {
     ev.preventDefault();
     card.update({ 'disabled': true});
@@ -56,9 +56,17 @@ form.addEventListener('submit', function(ev) {
     $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
 
+    // Get the client secret
+    var clientSecret = $('#id_client_secret').text().slice(1, -1);
+
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
+            billing_details: {
+                address: {
+                    postal_code: null
+                }
+            }
         }
     }).then(function(result) {
         if (result.error) {

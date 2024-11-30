@@ -3,6 +3,13 @@ from .models import Order
 
 
 class OrderForm(forms.ModelForm):
+    save_info = forms.BooleanField(
+        required=False,
+        initial=True,
+        label='Update my profile with this delivery information',
+        help_text='Check this box to update your saved delivery information'
+    )
+
     class Meta:
         model = Order
         fields = ('full_name', 'email', 'phone_number',
@@ -23,10 +30,14 @@ class OrderForm(forms.ModelForm):
             'postcode': 'Postal Code',
         }
 
-        for field in self.fields:
-            if self.fields[field].required:
-                placeholder = f'{placeholders[field]} *'
+        # Only apply placeholders to non-save_info fields
+        for field_name, field in self.fields.items():
+            if field_name != 'save_info':
+                if field.required:
+                    placeholder = f'{placeholders[field_name]} *'
+                else:
+                    placeholder = placeholders[field_name]
+                field.widget.attrs['placeholder'] = placeholder
+                field.label = False
             else:
-                placeholder = placeholders[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].label = False 
+                field.widget.attrs['class'] = 'form-check-input mt-2'

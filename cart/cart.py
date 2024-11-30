@@ -39,19 +39,22 @@ class Cart:
 
     def get_subtotal_price(self):
         """Calculate total price before tax."""
-        subtotal = sum(
-            Decimal(item['price']) * item['quantity']
-            for item in self.cart.values()
-        )
+        subtotal = Decimal('0.00')
+        for item in self.cart.values():
+            subtotal += Decimal(str(item['price'])) * item['quantity']
         return subtotal.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
     def get_tax(self):
         """Calculate tax amount."""
-        tax = self.get_subtotal_price() * Decimal(settings.TAX_RATE)
+        if not self.cart:
+            return Decimal('0.00')
+        tax = self.get_subtotal_price() * Decimal(str(settings.TAX_RATE))
         return tax.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
     def get_total_price(self):
         """Calculate total price including tax."""
+        if not self.cart:
+            return Decimal('0.00')
         total = self.get_subtotal_price() + self.get_tax()
         return total.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 

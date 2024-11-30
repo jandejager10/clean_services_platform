@@ -40,108 +40,64 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <h2 class="mb-4">Checkout</h2>
-            </div>
-        </div>
-
-        <div class="row">
             <div class="col-12 col-lg-6">
-                <p>Please fill out the form below to complete your order</p>
                 <form id="payment-form" method="POST" action="{% url 'checkout:checkout' %}">
                     {% csrf_token %}
                     <fieldset>
-                        <legend class="fieldset-label small text-black px-2 w-auto">Details</legend>
+                        <legend>Your Details</legend>
                         {{ order_form.full_name | as_crispy_field }}
                         {{ order_form.email | as_crispy_field }}
-                        {{ order_form.phone_number | as_crispy_field }}
                     </fieldset>
                     <fieldset>
-                        <legend class="fieldset-label small text-black px-2 w-auto">Delivery</legend>
+                        <legend>Delivery Information</legend>
+                        {{ order_form.phone_number | as_crispy_field }}
                         {{ order_form.street_address1 | as_crispy_field }}
                         {{ order_form.street_address2 | as_crispy_field }}
                         {{ order_form.town_or_city | as_crispy_field }}
                         {{ order_form.county | as_crispy_field }}
                         {{ order_form.postcode | as_crispy_field }}
+                        <div class="form-group mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="save_info" 
+                                       id="id_save_info" checked>
+                                <label class="form-check-label" for="id_save_info">
+                                    Update my profile with this delivery information
+                                </label>
+                                <small class="form-text text-muted">
+                                    Check this box to update your saved delivery information
+                                </small>
+                            </div>
+                        </div>
                     </fieldset>
                     <fieldset>
-                        <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
+                        <legend>Payment</legend>
+                        <!-- Stripe Card Element -->
                         <div id="card-element"></div>
-                        <div id="card-errors" class="text-danger" role="alert"></div>
+                        <!-- Display form errors -->
+                        <div id="card-errors" role="alert"></div>
+                        <!-- Pass the client secret to the view -->
                         <input type="hidden" value="{{ client_secret }}" name="client_secret">
                     </fieldset>
 
-                    <div class="submit-button text-end mt-5 mb-2">
-                        <a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-dark">
-                            <span class="icon">
-                                <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="font-weight-bold">Adjust Cart</span>
-                        </a>
-                        <button id="submit-button" class="btn btn-dark">
-                            <span class="font-weight-bold">Complete Order</span>
-                            <span class="icon">
-                                <i class="fas fa-lock"></i>
-                            </span>
-                        </button>
-                    </div>
+                    <button id="submit-button" class="btn btn-primary">
+                        <span class="font-weight-bold">Complete Order</span>
+                        <span class="icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </button>
                 </form>
             </div>
-
+            
             <div class="col-12 col-lg-6">
-                <div class="order-summary p-2">
-                    <h4>Order Summary ({{ cart|length }} items)</h4>
-                    <div class="row">
-                        <div class="col-7 offset-2">
-                            <p class="mb-1 mt-0 small text-muted">Item</p>
-                        </div>
-                        <div class="col-3 text-end">
-                            <p class="mb-1 mt-0 small text-muted">Subtotal</p>
-                        </div>
-                    </div>
-                    {% for item in cart %}
-                        <div class="row">
-                            <div class="col-2 mb-1">
-                                <a href="{% url 'products:product_detail' item.product.id %}">
-                                    {% if item.product.image %}
-                                        <img class="w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
-                                    {% else %}
-                                        <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <div class="col-7">
-                                <p class="my-0"><strong>{{ item.product.name }}</strong></p>
-                                <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
-                            </div>
-                            <div class="col-3 text-end">
-                                <p class="my-0 small text-muted">£{{ item.total_price }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <hr class="my-0">
-                    <div class="row text-end">
-                        <div class="col-7 offset-2">
-                            <p class="my-0">Subtotal:</p>
-                            <p class="my-0">Tax:</p>
-                            <p class="my-0"><strong>Total:</strong></p>
-                        </div>
-                        <div class="col-3">
-                            <p class="my-0">£{{ cart.get_subtotal_price }}</p>
-                            <p class="my-0">£{{ cart.get_tax }}</p>
-                            <p class="my-0"><strong>£{{ cart.get_total_price }}</strong></p>
-                        </div>
-                    </div>
-                </div>
+                <!-- Order summary here -->
             </div>
         </div>
     </div>
+
+    <!-- Loading overlay -->
     <div id="loading-overlay">
-        <div class="loading-spinner">
-            <span class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </span>
-        </div>
+        <h1 class="text-light">Processing your payment...</h1>
+        <div class="spinner"></div>
     </div>
 {% endblock %}
 

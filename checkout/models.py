@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from products.models import Product
 from accounts.models import UserProfile
+from decimal import Decimal
 
 
 class Order(models.Model):
@@ -31,7 +32,7 @@ class Order(models.Model):
         """Update total when a line item is added"""
         self.subtotal = self.lineitems.aggregate(
             models.Sum('lineitem_total'))['lineitem_total__sum'] or 0
-        self.tax = self.subtotal * settings.TAX_RATE
+        self.tax = self.subtotal * Decimal(str(settings.TAX_RATE))
         self.total = self.subtotal + self.tax
         self.save()
 

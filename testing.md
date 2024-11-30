@@ -269,4 +269,77 @@ The changes:
 - Added floatformat:2 filter in templates
 - Applied to subtotal, tax, and total amounts
 
+### 8. Profile Update on Checkout
+**Issue:** Profile address not updating when selecting "Update profile" in checkout
+**Solution:**
+- Fixed session handling of save_info flag
+- Updated checkout success view to properly handle profile updates
+```python
+# checkout/views.py
+def checkout_success(request, order_number):
+    save_info = request.session.get('save_info')
+    if request.user.is_authenticated and save_info:
+        profile = UserProfile.objects.get(user=request.user)
+        profile.default_phone_number = order.phone_number
+        profile.default_street_address1 = order.street_address1
+        # ... other fields ...
+        profile.save()
+```
+
+### 9. Checkout Form Save Info Checkbox
+**Issue:** Confusing "False" label on save info checkbox
+**Solution:**
+- Updated checkbox label and styling
+- Added help text for clarity
+```html
+<!-- checkout/templates/checkout/checkout.html -->
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" name="save_info" 
+           id="id_save_info" checked>
+    <label class="form-check-label" for="id_save_info">
+        Update my profile with this delivery information
+    </label>
+    <small class="form-text text-muted">
+        Check this box to update your saved delivery information
+    </small>
+</div>
+```
+
+### 10. Session Cleanup
+**Issue:** Save info preference persisting in session
+**Solution:**
+- Added session cleanup after successful checkout
+```python
+# checkout/views.py
+def checkout_success(request, order_number):
+    # ... process order ...
+    if 'save_info' in request.session:
+        del request.session['save_info']
+```
+
+### 11. Stripe Postal Code Field
+**Issue:** US ZIP code format conflicting with UK postcodes
+**Solution:**
+- Disabled Stripe's postal code field
+- Used our own postcode field instead
+```javascript
+// checkout/static/checkout/js/stripe_elements.js
+var card = elements.create('card', {
+    style: style,
+    hidePostalCode: true,
+    zipCode: false
+});
+
+stripe.confirmCardPayment(clientSecret, {
+    payment_method: {
+        card: card,
+        billing_details: {
+            address: {
+                postal_code: null
+            }
+        }
+    }
+});
+```
+
 

@@ -42,4 +42,15 @@
     justify-content: center;
     margin: 0;
     height: 100%;
+}
+
+#payment-form .form-control {
+    color: #000;
+    border: 1px solid #000;
+}
+
+#card-element {
+    border: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 4px;
 } 
