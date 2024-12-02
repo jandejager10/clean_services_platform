@@ -1,0 +1,19 @@
+.fc-timegrid-slot {
+    height: 3em !important;
+}
+
+.fc-event {
+    cursor: pointer;
+}
+
+.fc-event:hover {
+    opacity: 0.9;
+}
+
+.fc-today {
+    background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
+}
+
+.list-group-item:hover {
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+} 

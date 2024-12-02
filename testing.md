@@ -342,4 +342,81 @@ stripe.confirmCardPayment(clientSecret, {
 });
 ```
 
+### 12. Staff Access to Booking Details
+**Issue:** Staff members received 404 errors when trying to view customer bookings
+**Solution:**
+- Modified booking_detail view to allow staff access to all bookings
+```python
+@login_required
+def booking_detail(request, booking_id):
+    if request.user.is_staff:
+        # Staff can view any booking
+        booking = get_object_or_404(Booking, id=booking_id)
+    else:
+        # Regular users can only view their own bookings
+        booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+```
+
+### 13. Email Notifications
+**Issue:** Booking notification emails not sending, showing error message
+**Solution:**
+- Removed plain text email templates
+- Updated email utility functions to only send HTML emails
+- Added better error handling and debugging
+```python
+def send_booking_pending_email(booking):
+    subject = f'Booking Received - {booking.service.name}'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    to_email = [booking.user.email]
+    
+    context = {
+        'booking': booking,
+        'user': booking.user,
+    }
+    
+    html_content = render_to_string(
+        'bookings/emails/booking_pending.html', context)
+    
+    send_mail(
+        subject,
+        '',  # Empty string for text content
+        from_email,
+        to_email,
+        html_message=html_content,
+        fail_silently=False,
+    )
+```
+
+### 14. Staff Booking Management
+**Issue:** Staff needed interface to manage booking requests
+**Solution:**
+- Added staff menu in navigation
+- Created staff booking management interface
+- Added context processor for pending bookings count
+```python
+def pending_bookings(request):
+    """Add pending bookings count to context for staff members"""
+    if request.user.is_staff:
+        pending_count = Booking.objects.filter(status='pending').count()
+        return {'pending_bookings_count': pending_count}
+    return {}
+```
+
+### 15. Booking Status Workflow
+**Issue:** Needed clear workflow for booking statuses
+**Solution:**
+- Implemented status transitions: pending → confirmed/cancelled
+- Added color coding for different statuses
+- Created separate email templates for each status
+```python
+def get_status_color(status):
+    colors = {
+        'pending': '#ffc107',    # Warning yellow
+        'confirmed': '#28a745',  # Success green
+        'cancelled': '#dc3545',  # Danger red
+        'completed': '#6c757d',  # Secondary gray
+    }
+    return colors.get(status, '#007bff')
+```
+
 

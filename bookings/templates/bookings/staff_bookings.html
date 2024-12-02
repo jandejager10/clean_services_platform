@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Manage Bookings</h1>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link {% if status == 'pending' %}active{% endif %}" 
+                               href="?status=pending">Pending</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if status == 'confirmed' %}active{% endif %}" 
+                               href="?status=confirmed">Confirmed</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if status == 'cancelled' %}active{% endif %}" 
+                               href="?status=cancelled">Cancelled</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if status == 'completed' %}active{% endif %}" 
+                               href="?status=completed">Completed</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Service</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for booking in bookings %}
+                                <tr>
+                                    <td>{{ booking.date }}</td>
+                                    <td>{{ booking.time_slot }}</td>
+                                    <td>{{ booking.service.name }}</td>
+                                    <td>{{ booking.user.get_full_name }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if booking.status == 'confirmed' %}bg-success
+                                            {% elif booking.status == 'pending' %}bg-warning
+                                            {% elif booking.status == 'cancelled' %}bg-danger
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ booking.status|title }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if booking.status == 'pending' %}
+                                        <form method="POST" action="{% url 'bookings:confirm_booking' booking.id %}" 
+                                              class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                Confirm
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="{% url 'bookings:reject_booking' booking.id %}" 
+                                              class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                Reject
+                                            </button>
+                                        </form>
+                                        {% endif %}
+                                        <a href="{% url 'bookings:booking_detail' booking.id %}" 
+                                           class="btn btn-sm btn-info">
+                                            View
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

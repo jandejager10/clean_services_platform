@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">My Bookings</h1>
+            
+            {% if bookings %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in bookings %}
+                            <tr>
+                                <td>{{ booking.service.name }}</td>
+                                <td>{{ booking.date }}</td>
+                                <td>{{ booking.time_slot }}</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if booking.status == 'confirmed' %}bg-success
+                                        {% elif booking.status == 'pending' %}bg-warning
+                                        {% elif booking.status == 'cancelled' %}bg-danger
+                                        {% else %}bg-secondary{% endif %}">
+                                        {{ booking.status|title }}
+                                    </span>
+                                </td>
+                                <td>£{{ booking.service.price }}</td>
+                                <td>
+                                    <a href="{% url 'bookings:booking_detail' booking.id %}" 
+                                       class="btn btn-sm btn-info">
+                                        View Details
+                                    </a>
+                                    {% if booking.status == 'pending' %}
+                                    <form method="POST" 
+                                          action="{% url 'bookings:cancel_booking' booking.id %}"
+                                          class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" 
+                                                class="btn btn-sm btn-danger">
+                                            Cancel
+                                        </button>
+                                    </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    You don't have any bookings yet.
+                </div>
+            {% endif %}
+            
+            <div class="mt-4">
+                <a href="{% url 'bookings:calendar' %}" class="btn btn-primary">
+                    Book a Service
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -75,6 +75,57 @@ A comprehensive platform for managing cleaning services and products, built with
 - Easy navigation between categories
 - Dynamic content loading
 
+### Service Booking System
+
+The site now includes a booking system for services:
+
+#### Features
+- Calendar-based booking interface
+- Time slot selection
+- Booking status management (pending, confirmed, cancelled, completed)
+- Staff approval workflow
+- Email notifications for booking events
+- Staff management interface
+
+#### Booking Process
+1. Customer selects a service
+2. Chooses available date and time slot
+3. Submits booking request
+4. Receives pending confirmation email
+5. Staff reviews and confirms/rejects booking
+6. Customer receives final confirmation/rejection email
+
+#### Staff Features
+- Dedicated staff menu in navigation
+- Pending bookings counter
+- Booking management interface
+- Ability to confirm or reject bookings
+- Access to all booking details
+
+#### Email Notifications
+The system sends HTML emails for:
+- Booking requests (pending)
+- Booking confirmations
+- Booking cancellations
+
+#### Technical Details
+- Built using Django's class-based views
+- FullCalendar.js integration
+- REST API endpoints for calendar events
+- Custom management commands for time slots
+- Staff-specific decorators for access control
+
+#### Dependencies Added
+```
+djangorestframework==3.15.2
+```
+
+#### Environment Variables
+```
+EMAIL_HOST_USER=your-email@example.com
+EMAIL_HOST_PASSWORD=the-app-specific-password
+```
+
 ## Technical Details
 
 ### Apps
@@ -180,13 +231,18 @@ python manage.py loaddata product_list
 python manage.py loaddata faq_data
 ```
 
-6. Configure email settings in .env:
-```plaintext
-EMAIL_HOST_USER=your-email@gmail.com
-EMAIL_HOST_PASSWORD=my-app-password
+6. Create initial calendar time slots:
+```bash
+python manage.py create_timeslots
 ```
 
-7. Run the development server:
+7. Configure email settings in .env:
+```plaintext
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=the-app-password
+```
+
+8. Run the development server:
 ```bash
 python manage.py runserver
 ```

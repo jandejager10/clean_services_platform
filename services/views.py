@@ -62,12 +62,11 @@ def all_services(request):
 
 def service_detail(request, service_id):
     """View to show individual service details"""
-    service = get_object_or_404(Service, pk=service_id)
-
+    service = get_object_or_404(Service, id=service_id)
     context = {
         'service': service,
+        'booking_url': reverse('bookings:create_booking', args=[service_id]),
     }
-
     return render(request, 'services/service_detail.html', context)
 
 

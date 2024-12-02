@@ -61,10 +61,9 @@
                         </div>
                     {% endif %}
 
-                    <div class="booking-section">
-                        <a href="#" class="btn btn-primary btn-lg w-100 mb-2">Book Now</a>
-                        <a href="{% url 'services:services' %}" class="btn btn-outline-secondary w-100">
-                            Back to Services
+                    <div class="card-footer">
+                        <a href="{% url 'bookings:create_booking' service.id %}" class="btn btn-primary">
+                            Book Now
                         </a>
                     </div>
                 </div>

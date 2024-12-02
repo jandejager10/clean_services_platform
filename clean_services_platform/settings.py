@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'cart.apps.CartConfig',
     'checkout.apps.CheckoutConfig',
+    'bookings.apps.BookingsConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +85,7 @@ TEMPLATES = [
                 'services.context_processors.categories',
                 'products.context_processors.categories',
                 'cart.context_processors.cart',
+                'bookings.context_processors.pending_bookings',
             ],
         },
     },

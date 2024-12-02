@@ -64,7 +64,8 @@ form.addEventListener('submit', function(ev) {
             card: card,
             billing_details: {
                 address: {
-                    postal_code: null
+                    postal_code: null,
+                    zipCode: null,
                 }
             }
         }
