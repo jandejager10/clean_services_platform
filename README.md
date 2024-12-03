@@ -55,9 +55,12 @@ A comprehensive platform for managing cleaning services and products, built with
 - Secure payment processing with Stripe
 - Order summary
 - Profile data auto-fill
-- Email confirmations
+- Email confirmations with detailed invoice
 - Order history
 - Webhook handling
+- Automatic tax calculation
+- Order total calculations
+- Billing information storage
 
 ### Authentication & User Management
 - User registration with email verification
@@ -107,6 +110,16 @@ The system sends HTML emails for:
 - Booking requests (pending)
 - Booking confirmations
 - Booking cancellations
+- Order confirmations with invoice
+
+#### Email Features
+- Professional HTML formatting
+- Detailed order/booking information
+- Billing address details
+- Line item breakdown
+- Tax calculations
+- Total summaries
+- Responsive design for all devices
 
 #### Technical Details
 - Built using Django's class-based views

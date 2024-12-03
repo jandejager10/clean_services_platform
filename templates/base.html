@@ -55,6 +55,12 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="staffDropdown">
                                 <li>
+                                    <a class="dropdown-item" href="{% url 'admin:index' %}">
+                                        <i class="fas fa-cogs"></i> Admin Dashboard
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
                                     <a class="dropdown-item" href="{% url 'bookings:staff_bookings' %}">
                                         Manage Bookings
                                         <span class="badge bg-warning rounded-pill">
@@ -62,7 +68,6 @@
                                         </span>
                                     </a>
                                 </li>
-                                <!-- Add other staff menu items here -->
                             </ul>
                         </li>
                     {% endif %}

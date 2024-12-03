@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #28a745; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .footer { text-align: center; padding: 20px; color: #666; }
+        .invoice { border: 1px solid #ddd; padding: 20px; margin: 20px 0; }
+        .invoice-header { border-bottom: 2px solid #ddd; margin-bottom: 20px; padding-bottom: 10px; }
+        .order-items { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .order-items th, .order-items td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        .totals { margin-top: 20px; text-align: right; }
+        .totals p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Order Confirmation</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ order.full_name }},</p>
+            
+            <p>Thank you for your order. Here are your order details:</p>
+            
+            <div class="invoice">
+                <div class="invoice-header">
+                    <h2>INVOICE</h2>
+                    <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+                    <p><strong>Date:</strong> {{ order.created_at|date:"F j, Y" }}</p>
+                </div>
+
+                <div class="billing-info">
+                    <p><strong>Billing Address:</strong></p>
+                    <p>{{ order.full_name }}</p>
+                    <p>{{ order.street_address1 }}</p>
+                    {% if order.street_address2 %}
+                        <p>{{ order.street_address2 }}</p>
+                    {% endif %}
+                    <p>{{ order.town_or_city }}</p>
+                    <p>{{ order.county }}</p>
+                    <p>{{ order.postcode }}</p>
+                </div>
+
+                <table class="order-items">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.lineitems.all %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>£{{ item.product.price }}</td>
+                            <td>£{{ item.lineitem_total }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="totals">
+                    <p><strong>Subtotal:</strong> £{{ order.subtotal }}</p>
+                    <p><strong>Tax (20%):</strong> £{{ order.tax }}</p>
+                    <p><strong>Total:</strong> £{{ order.total }}</p>
+                </div>
+            </div>
+
+            <p>You can view your order details anytime by visiting your account.</p>
+        </div>
+        <div class="footer">
+            <p>Thank you for shopping with us!</p>
+        </div>
+    </div>
+</body>
+</html> 

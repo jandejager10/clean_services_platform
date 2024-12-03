@@ -10,6 +10,7 @@ from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
 from accounts.models import UserProfile
+from .utils import send_order_confirmation_email
 
 
 @login_required
@@ -133,13 +134,10 @@ def checkout_success(request, order_number):
 
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
-        # Attach the user's profile to the order
         order.user_profile = profile
         order.save()
 
-        # Save the user's info if save_info was checked
         if save_info:
-            # Always update profile with new order details
             profile.default_phone_number = order.phone_number
             profile.default_street_address1 = order.street_address1
             profile.default_street_address2 = order.street_address2
@@ -148,12 +146,20 @@ def checkout_success(request, order_number):
             profile.default_postcode = order.postcode
             profile.save()
 
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}.')
+    # Send order confirmation email
+    try:
+        send_order_confirmation_email(order)
+    except Exception as e:
+        messages.warning(request, 
+            'Order confirmation email could not be sent. '
+            'Please check your order history for confirmation.')
 
-    # Clean up the session
-    if 'save_info' in request.session:
-        del request.session['save_info']
+    messages.success(request, f'Order successfully processed! \
+        Your order number is {order_number}. A confirmation \
+        email will be sent to {order.email}.')
+
+    if 'cart' in request.session:
+        del request.session['cart']
 
     template = 'checkout/checkout_success.html'
     context = {

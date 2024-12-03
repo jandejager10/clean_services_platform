@@ -45,6 +45,18 @@ class Order(models.Model):
     def __str__(self):
         return self.order_number
 
+    def get_subtotal(self):
+        """Calculate order subtotal"""
+        return sum(item.line_total for item in self.lineitems.all())
+
+    def get_tax(self):
+        """Calculate tax amount"""
+        return self.get_subtotal() * Decimal('0.20')
+
+    def get_total(self):
+        """Calculate total including tax"""
+        return self.get_subtotal() + self.get_tax()
+
 
 class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
