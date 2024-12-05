@@ -419,4 +419,58 @@ def get_status_color(status):
     return colors.get(status, '#007bff')
 ```
 
+### 16. Calendar Event Navigation
+**Issue:** Clicking on calendar events did not navigate to booking details
+**Solution:**
+- Added event click handler in calendar.js
+- Improved event tooltips with more details
+```javascript
+eventClick: function(info) {
+    var bookingId = info.event.id;
+    if (bookingId) {
+        window.location.href = `/bookings/detail/${bookingId}/`;
+    }
+}
+```
+
+### 17. Staff Booking Interface
+**Issue:** Staff view had confusing/duplicate booking action buttons
+**Solution:**
+- Removed redundant 'Cancel Booking' button from staff view
+- Added clear 'Approve' and 'Reject' buttons
+- Updated navigation to return to correct management page
+```html
+{% if user.is_staff %}
+    <form method="POST" action="{% url 'bookings:confirm_booking' booking.id %}" class="d-inline">
+        <button type="submit" class="btn btn-success me-2">
+            <i class="fas fa-check"></i> Approve Booking
+        </button>
+    </form>
+    <form method="POST" action="{% url 'bookings:reject_booking' booking.id %}" class="d-inline">
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-times"></i> Reject Booking
+        </button>
+    </form>
+{% endif %}
+```
+
+### 18. Calendar Event Display
+**Issue:** Calendar events lacked clear visual status indicators
+**Solution:**
+- Added status-specific colors and styling
+- Included customer name for staff view
+- Improved tooltip information
+```python
+title_parts = [booking.service.name]
+if request.user.is_staff:
+    title_parts.append(f"({booking.user.get_full_name()})")
+title_parts.append(f"[{booking.status.upper()}]")
+
+events.append({
+    'title': " ".join(title_parts),
+    'backgroundColor': get_status_color(booking.status),
+    'className': f'status-{booking.status}',
+})
+```
+
 

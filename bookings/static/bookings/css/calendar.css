@@ -4,10 +4,40 @@
 
 .fc-event {
     cursor: pointer;
+    transition: transform 0.1s ease;
 }
 
 .fc-event:hover {
-    opacity: 0.9;
+    transform: scale(1.02);
+    z-index: 5;
+}
+
+.fc-event-title {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Status-specific colors with better contrast */
+.fc-event.status-pending {
+    background-color: #ffc107;
+    border-color: #e0a800;
+}
+
+.fc-event.status-confirmed {
+    background-color: #28a745;
+    border-color: #218838;
+}
+
+.fc-event.status-cancelled {
+    background-color: #dc3545;
+    border-color: #c82333;
+}
+
+.fc-event.status-completed {
+    background-color: #6c757d;
+    border-color: #5a6268;
 }
 
 .fc-today {

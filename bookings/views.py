@@ -102,19 +102,37 @@ def get_calendar_events(request):
     end_date = datetime.fromisoformat(end.replace('Z', '+00:00'))
     
     # Get bookings in date range
-    bookings = Booking.objects.filter(
-        date__range=[start_date.date(), end_date.date()]
-    ).select_related('time_slot', 'service')
+    if request.user.is_staff:
+        # Staff can see all bookings
+        bookings = Booking.objects.filter(
+            date__range=[start_date.date(), end_date.date()]
+        ).select_related('time_slot', 'service', 'user')
+    else:
+        # Users can only see their own bookings
+        bookings = Booking.objects.filter(
+            date__range=[start_date.date(), end_date.date()],
+            user=request.user
+        ).select_related('time_slot', 'service')
     
     # Format events for FullCalendar
     events = []
     for booking in bookings:
+        title_parts = [booking.service.name]
+        if request.user.is_staff:
+            title_parts.append(f"({booking.user.get_full_name()})")
+        title_parts.append(f"[{booking.status.upper()}]")
+        
         events.append({
             'id': booking.id,
-            'title': f"{booking.service.name} - {booking.status}",
+            'title': " ".join(title_parts),
             'start': f"{booking.date}T{booking.time_slot.start_time}",
             'end': f"{booking.date}T{booking.time_slot.end_time}",
             'backgroundColor': get_status_color(booking.status),
+            'className': f'status-{booking.status}',
+            'extendedProps': {
+                'status': booking.status,
+                'customer': booking.user.get_full_name() if request.user.is_staff else None
+            }
         })
     
     return JsonResponse(events, safe=False)

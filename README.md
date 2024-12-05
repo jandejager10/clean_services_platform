@@ -89,6 +89,9 @@ The site now includes a booking system for services:
 - Staff approval workflow
 - Email notifications for booking events
 - Staff management interface
+- Interactive calendar with event details
+- Status-specific color coding
+- Tooltips with booking information
 
 #### Booking Process
 1. Customer selects a service
@@ -104,6 +107,9 @@ The site now includes a booking system for services:
 - Booking management interface
 - Ability to confirm or reject bookings
 - Access to all booking details
+- Calendar view with customer details
+- Quick access to booking management
+- Streamlined approval workflow
 
 #### Email Notifications
 The system sends HTML emails for:
@@ -120,6 +126,14 @@ The system sends HTML emails for:
 - Tax calculations
 - Total summaries
 - Responsive design for all devices
+
+#### Calendar Features
+- Interactive event display
+- Status-based color coding
+- Hover tooltips with details
+- Click-through to booking details
+- Staff/User specific views
+- Booking time slot selection
 
 #### Technical Details
 - Built using Django's class-based views
