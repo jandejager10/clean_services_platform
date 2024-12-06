@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 import stripe
 
@@ -10,7 +11,7 @@ from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
 from accounts.models import UserProfile
-from .utils import send_order_confirmation_email
+from .utils import send_order_confirmation_email, send_cancellation_confirmation_email
 
 
 @login_required
@@ -43,6 +44,7 @@ def checkout(request):
             order = order_form.save(commit=False)
             order.stripe_pid = pid
             order.user = request.user
+            order.status = 'processing'
             order.save()
 
             try:
@@ -166,4 +168,98 @@ def checkout_success(request, order_number):
         'order': order,
     }
 
-    return render(request, template, context) 
+    return render(request, template, context)
+
+
+@login_required
+def cancel_order(request, order_number):
+    order = get_object_or_404(Order, order_number=order_number, user=request.user)
+    
+    if request.method == 'POST':
+        if order.status in ['pending', 'processing']:
+            try:
+                if order.status == 'pending':
+                    # Immediate cancellation for pending orders
+                    stripe.Refund.create(payment_intent=order.stripe_pid)
+                    order.status = 'cancelled'
+                    messages.success(
+                        request, 
+                        'Order cancelled successfully. Refund will be processed.'
+                    )
+                else:
+                    # Request cancellation for processing orders
+                    order.status = 'cancellation_requested'
+                    messages.success(
+                        request, 
+                        'Cancellation request received. Staff will review it shortly.'
+                    )
+                order.save()
+            except stripe.error.StripeError as e:
+                messages.error(
+                    request, 
+                    'There was an error processing your refund. Please contact support.'
+                )
+        elif order.status == 'cancellation_requested':
+            messages.info(request, 'Your cancellation request is being reviewed.')
+        else:
+            messages.error(request, 'This order cannot be cancelled.')
+        return redirect('accounts:profile')
+    
+    return render(request, 'checkout/cancel_order.html', {'order': order})
+
+
+@staff_member_required
+def staff_orders(request):
+    """Staff view to manage orders"""
+    status = request.GET.get('status', 'cancellation_requested')
+    orders = Order.objects.filter(status=status).order_by('-date')
+    
+    # Get counts for navigation
+    cancellation_count = Order.objects.filter(
+        status='cancellation_requested'
+    ).count()
+    
+    context = {
+        'orders': orders,
+        'status': status,
+        'cancellation_count': cancellation_count,
+    }
+    
+    return render(request, 'checkout/staff_orders.html', context)
+
+
+@staff_member_required
+def approve_cancellation(request, order_number):
+    """Approve an order cancellation request"""
+    if request.method == 'POST':
+        order = get_object_or_404(
+            Order, 
+            order_number=order_number,
+            status='cancellation_requested'
+        )
+        try:
+            # Process refund through Stripe
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe.Refund.create(payment_intent=order.stripe_pid)
+            order.status = 'cancelled'
+            order.save()
+
+            # Send cancellation confirmation email
+            try:
+                send_cancellation_confirmation_email(order)
+            except Exception:
+                messages.warning(
+                    request,
+                    'Cancellation email could not be sent, but refund was processed.'
+                )
+
+            messages.success(
+                request,
+                'Order cancellation approved and refund processed.'
+            )
+        except stripe.error.StripeError:
+            messages.error(
+                request,
+                'Error processing refund. Please try again or contact support.'
+            )
+    return redirect('checkout:staff_orders') 

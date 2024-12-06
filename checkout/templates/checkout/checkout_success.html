@@ -36,15 +36,28 @@
                             {% for item in order.lineitems.all %}
                             <div class="row mb-2">
                                 <div class="col-8">
-                                    <p class="mb-0">{{ item.product.name }} × {{ item.quantity }}</p>
+                                    {{ item.product.name }} x {{ item.quantity }}
                                 </div>
                                 <div class="col-4 text-end">
-                                    <p class="mb-0">£{{ item.lineitem_total }}</p>
+                                    £{{ item.lineitem_total }}
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
                     </div>
+
+                    {% if order.status != 'cancelled' %}
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <form action="{% url 'checkout:cancel_order' order.order_number %}" 
+                                  method="GET" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fas fa-times"></i> Cancel Order
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
 
                     <div class="row mt-3">
                         <div class="col-12">

@@ -184,10 +184,19 @@ def staff_bookings(request):
     status = request.GET.get('status', 'pending')
     bookings = Booking.objects.filter(status=status).order_by('date', 'time_slot')
     
+    # Get counts for navigation
+    pending_count = Booking.objects.filter(status='pending').count()
+    cancellation_count = Booking.objects.filter(
+        status='cancellation_requested'
+    ).count()
+    
     context = {
         'bookings': bookings,
         'status': status,
+        'pending_count': pending_count,
+        'cancellation_count': cancellation_count,
     }
+    
     return render(request, 'bookings/staff_bookings.html', context)
 
 
@@ -214,9 +223,32 @@ def confirm_booking(request, booking_id):
 
 @staff_member_required
 def reject_booking(request, booking_id):
-    """Reject a pending booking"""
+    """Reject a pending booking or approve a cancellation request"""
     if request.method == 'POST':
-        booking = get_object_or_404(Booking, id=booking_id, status='pending')
+        booking = get_object_or_404(
+            Booking, 
+            id=booking_id, 
+            status__in=['pending', 'cancellation_requested']
+        )
+        
+        # If it's a cancellation request, handle it differently
+        if booking.status == 'cancellation_requested':
+            booking.status = 'cancelled'
+            booking.save()
+            try:
+                send_booking_cancelled_email(booking)
+                messages.success(
+                    request, 
+                    'Cancellation request approved and customer notified.'
+                )
+            except Exception:
+                messages.warning(
+                    request, 
+                    'Cancellation approved but notification failed to send.'
+                )
+            return redirect('bookings:staff_bookings')
+        
+        # Handle regular rejection of pending booking
         booking.status = 'cancelled'
         booking.save()
         
@@ -231,4 +263,30 @@ def reject_booking(request, booking_id):
             )
         
     return redirect('bookings:staff_bookings')
+
+
+@login_required
+def request_booking_cancellation(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    
+    if request.method == 'POST':
+        if booking.status == 'confirmed':
+            booking.status = 'cancellation_requested'
+            booking.save()
+            
+            # Notify staff
+            try:
+                send_cancellation_request_email(booking)
+                messages.success(
+                    request, 
+                    'Cancellation request received. Staff will review it shortly.'
+                )
+            except Exception:
+                messages.warning(
+                    request, 
+                    'Cancellation request received but notification failed.'
+                )
+        return redirect('bookings:booking_detail', booking_id=booking_id)
+    
+    return render(request, 'bookings/request_cancellation.html', {'booking': booking})
   

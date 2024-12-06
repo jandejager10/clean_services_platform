@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h1 class="h4 mb-0">Cancel Order</h1>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h5><i class="fas fa-exclamation-triangle"></i> Warning</h5>
+                        <p>You are about to cancel order #{{ order.order_number }}</p>
+                        <ul>
+                            <li>Your payment will be refunded</li>
+                            <li>Refund can take up to 2 business days</li>
+                            <li>Order status will be changed to cancelled</li>
+                        </ul>
+                    </div>
+
+                    <div class="order-summary mb-4">
+                        <h5>Order Summary</h5>
+                        <p><strong>Total:</strong> £{{ order.total }}</p>
+                        <p><strong>Date:</strong> {{ order.date }}</p>
+                    </div>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="confirm-cancel" required>
+                            <label class="form-check-label" for="confirm-cancel">
+                                I understand that this action cannot be undone
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-danger" 
+                                onclick="return confirm('Are you sure you want to cancel this order?')">
+                            Cancel Order
+                        </button>
+                        <a href="{% url 'accounts:profile' %}" class="btn btn-secondary">
+                            Keep Order
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

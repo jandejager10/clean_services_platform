@@ -61,6 +61,10 @@ A comprehensive platform for managing cleaning services and products, built with
 - Automatic tax calculation
 - Order total calculations
 - Billing information storage
+- Order cancellation workflow
+- Refund processing
+- Status management
+- Clear price breakdown with VAT
 
 ### Authentication & User Management
 - User registration with email verification
@@ -71,6 +75,9 @@ A comprehensive platform for managing cleaning services and products, built with
 - Custom styled authentication templates
 - Profile information storage
 - Address management
+- Account deletion with cleanup
+- Order history display
+- Booking history display
 
 ### FAQ
 - Categorized FAQ sections
@@ -92,6 +99,9 @@ The site now includes a booking system for services:
 - Interactive calendar with event details
 - Status-specific color coding
 - Tooltips with booking information
+- Cancellation request workflow
+- Staff review process
+- Email notifications for status changes
 
 #### Booking Process
 1. Customer selects a service
@@ -104,12 +114,16 @@ The site now includes a booking system for services:
 #### Staff Features
 - Dedicated staff menu in navigation
 - Pending bookings counter
+- Cancellation requests counter
 - Booking management interface
 - Ability to confirm or reject bookings
+- Ability to approve cancellations
 - Access to all booking details
 - Calendar view with customer details
 - Quick access to booking management
 - Streamlined approval workflow
+- Order management interface
+- Refund processing
 
 #### Email Notifications
 The system sends HTML emails for:
@@ -324,3 +338,102 @@ clean_services_platform/
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Database Schema
+
+```
++---------------+     +-----------------+     +------------------+
+|    Service    |     |     Booking     |     |    UserProfile   |
++---------------+     +-----------------+     +------------------+
+| id            |     | id              |     | id               |
+| name          |     | user ◆----------+-----+ user            |
+| description   |     | service ◆-------+-----+ phone_number     |
+| price         |     | provider ◆      |     | street_address1  |
+| category ◆    |     | date            |     | street_address2  |
+| rating        |     | time_slot ◆     |     | town_or_city     |
+| is_recurring  |     | status          |     | county           |
+| frequency     |     | notes           |     | postcode         |
++---------------+     +-----------------+     +------------------+
+        ▲                     ▲                       ▲
+        |                     |                       |
+        |                     |                       |
++---------------+     +-----------------+     +------------------+
+|   Category    |     |    TimeSlot     |     |      User       |
++---------------+     +-----------------+     +------------------+
+| id            |     | id              |     | id               |
+| name          |     | start_time      |     | username         |
+| friendly_name |     | end_time        |     | email            |
++---------------+     | is_available    |     | password         |
+                     +-----------------+     +------------------+
+
++---------------+     +-----------------+     +------------------+
+|    Product    |     |      Order      |     |   OrderLineItem  |
++---------------+     +-----------------+     +------------------+
+| id            |     | id              |     | id               |
+| name          |     | user ◆          |     | order ◆          |
+| description   |     | user_profile ◆  |     | product ◆        |
+| price         |     | date            |     | quantity         |
+| category ◆    |     | total           |     | lineitem_total   |
+| rating        |     | stripe_pid      |     +------------------+
+| sku           |     +-----------------+
++---------------+
+
+Legend:
+◆ = Foreign Key relationship
+```
+
+Note:
+- One-to-Many relationships shown with ◆
+- User model is Django's built-in auth.User
+- All models include standard created_at/updated_at timestamps
+- Category model is used by both Products and Services
+
+## Workflow Diagrams
+
+### Booking Workflow
+```
+                                      Staff Actions
+                                           ▲
+                                           |
+  ┌──────────┐    ┌──────────┐    ┌──────────────┐    ┌──────────┐
+  │          │    │          │    │              │    │          │
+  │ Customer ├───►│ Pending  ├───►│   Review     │───►│Confirmed │
+  │ Books    │    │ Status   │    │   by Staff   │    │ Status   │
+  │          │    │          │    │              │    │          │
+  └──────────┘    └────┬─────┘    └──────────────┘    └────┬─────┘
+                       │                                    │
+                       │          ┌──────────┐             │
+                       └─────────►│          │◄────────────┘
+                                 │ Cancelled │
+                                 │          │
+                                 └──────────┘
+```
+
+### Order Workflow
+```
+                                      Staff Review
+                                           ▲
+                                           |
+  ┌──────────┐    ┌──────────┐    ┌──────────────┐    ┌──────────┐
+  │          │    │          │    │  Cancellation │    │          │
+  │ Customer ├───►│Processing├───►│   Requested   ├───►│Cancelled │
+  │ Orders   │    │          │    │              │    │          │
+  │          │    │          │    │              │    │          │
+  └──────────┘    └────┬─────┘    └──────────────┘    └────┬─────┘
+                       │                                    │
+                       │          ┌──────────┐             │
+                       └─────────►│Completed │◄────────────┘
+                                 │          │
+                                 └──────────┘
+
+Legend:
+───► = Status transition
+▲    = Action required
+```
+
+Note:
+- Arrows indicate possible status transitions
+- Staff actions are required at review points
+- Cancellation flows are available at multiple stages
+- Both workflows support customer-initiated and staff-initiated actions
+- Status changes trigger appropriate notifications

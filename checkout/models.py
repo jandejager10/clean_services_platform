@@ -7,6 +7,14 @@ from decimal import Decimal
 
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('processing', 'Processing'),
+        ('cancellation_requested', 'Cancellation Requested'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    ]
+
     order_number = models.CharField(max_length=32, null=False, editable=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='orders')
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
@@ -23,6 +31,11 @@ class Order(models.Model):
     tax = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
+    status = models.CharField(
+        max_length=25,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
 
     def _generate_order_number(self):
         """Generate a random, unique order number using UUID"""

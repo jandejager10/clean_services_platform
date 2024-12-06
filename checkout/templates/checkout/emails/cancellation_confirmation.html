@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #dc3545; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .footer { text-align: center; padding: 20px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Order Cancellation Confirmed</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ order.full_name }},</p>
+            
+            <p>Your order cancellation request has been approved.</p>
+            
+            <h3>Order Details:</h3>
+            <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+            <p><strong>Order Total:</strong> £{{ order.total }}</p>
+            
+            <p>A refund of £{{ order.total }} will be processed to your original payment method. 
+               Please allow up to 2 business days for the refund to appear in your account.</p>
+            
+            <p>If you have any questions about your refund, please don't hesitate to contact us.</p>
+        </div>
+        <div class="footer">
+            <p>Thank you for shopping with Clean Services Platform</p>
+        </div>
+    </div>
+</body>
+</html> 

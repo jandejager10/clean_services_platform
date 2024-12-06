@@ -21,9 +21,15 @@
                                     {% if booking.status == 'confirmed' %}bg-success
                                     {% elif booking.status == 'pending' %}bg-warning
                                     {% elif booking.status == 'cancelled' %}bg-danger
+                                    {% elif booking.status == 'cancellation_requested' %}bg-info
                                     {% else %}bg-secondary{% endif %}">
                                     {{ booking.status|title }}
                                 </span>
+                                {% if booking.status == 'cancellation_requested' %}
+                                <small class="text-muted ms-2">
+                                    (Awaiting staff review)
+                                </small>
+                                {% endif %}
                             </p>
                         </div>
                         <div class="col-md-6">
@@ -71,6 +77,15 @@
                             </form>
                         </div>
                         {% endif %}
+                    {% elif booking.status == 'confirmed' %}
+                        <div class="mt-4">
+                            <form action="{% url 'bookings:request_cancellation' booking.id %}" 
+                                  method="GET" class="d-inline">
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="fas fa-clock"></i> Request Cancellation
+                                </button>
+                            </form>
+                        </div>
                     {% endif %}
                 </div>
             </div>

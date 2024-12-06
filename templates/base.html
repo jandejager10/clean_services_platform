@@ -68,6 +68,14 @@
                                         </span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'checkout:staff_orders' %}">
+                                        Manage Orders
+                                        {% if cancellation_count %}
+                                        <span class="badge bg-danger">{{ cancellation_count }}</span>
+                                        {% endif %}
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     {% endif %}

@@ -473,4 +473,80 @@ events.append({
 })
 ```
 
+### 19. Order Cancellation Workflow
+**Issue:** Order cancellation process needed improvement
+**Solution:**
+- Added cancellation request status
+- Implemented staff approval process
+- Created email notifications
+```python
+STATUS_CHOICES = [
+    ('pending', 'Pending'),
+    ('processing', 'Processing'),
+    ('cancellation_requested', 'Cancellation Requested'),
+    ('completed', 'Completed'),
+    ('cancelled', 'Cancelled'),
+]
+```
+
+### 20. Checkout Price Display
+**Issue:** Tax and total calculations needed clearer display
+**Solution:**
+- Added clear price breakdown
+- Implemented warning about card charge
+- Added VAT information
+```html
+<div class="mt-3">
+    <p class="small text-danger my-0">
+        <span class="icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </span>
+        <span>Your card will be charged <strong>£{{ cart.get_total }}</strong></span>
+    </p>
+    <p class="small text-muted mt-1">
+        This includes VAT at 20% (£{{ cart.get_tax }})
+    </p>
+</div>
+```
+
+### 21. Decimal Precision
+**Issue:** Tax and total calculations showed too many decimal places
+**Solution:**
+- Added decimal quantization
+- Implemented custom template filter
+```python
+@register.filter
+def multiply(value, arg):
+    try:
+        result = Decimal(str(value)) * Decimal(str(arg))
+        return result.quantize(Decimal('0.01'))
+    except (ValueError, TypeError, decimal.InvalidOperation):
+        return 0
+```
+
+### 22. Payment Refund Testing
+**Issue:** Needed to verify Stripe refund functionality
+**Solution:**
+- Implemented refund processing through Stripe API
+- Tested with real transactions
+- Verified refund status updates
+- ```
+- Test Results:
+- Amount     Currency    Status      Payment Method
+- £10.20     GBP        Refunded    **** 4242
+- £10.20     GBP        Incomplete   —
+- £34.18     GBP        Refunded    **** 4242
+- £23.98     GBP        Succeeded   **** 4242
+- £23.98     GBP        Succeeded   **** 4242
+- ```
++ 
++ ![Stripe Refund Test Results](static/images/stripe_refund_tests.png)
+  
+  The test results show:
+  - Successful refund processing
+  - Correct status updates
+  - Proper handling of different payment states
+  - Integration with Stripe working as expected
+  - Multiple transaction types handled correctly
+
 

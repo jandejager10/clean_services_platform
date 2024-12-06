@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h1 class="h4 mb-0">Request Booking Cancellation</h1>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle"></i> Information</h5>
+                        <p>You are requesting to cancel a confirmed booking.</p>
+                        <ul>
+                            <li>Staff will be notified of your request</li>
+                            <li>You will receive an email when staff reviews your request</li>
+                            <li>The booking will remain active until staff approves cancellation</li>
+                        </ul>
+                    </div>
+
+                    <div class="booking-summary mb-4">
+                        <h5>Booking Details</h5>
+                        <p><strong>Service:</strong> {{ booking.service.name }}</p>
+                        <p><strong>Date:</strong> {{ booking.date }}</p>
+                        <p><strong>Time:</strong> {{ booking.time_slot }}</p>
+                        <p><strong>Status:</strong> 
+                            <span class="badge bg-success">{{ booking.status|title }}</span>
+                        </p>
+                    </div>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="confirm-request" required>
+                            <label class="form-check-label" for="confirm-request">
+                                I understand that my request needs staff approval
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-warning" 
+                                onclick="return confirm('Are you sure you want to request cancellation?')">
+                            Request Cancellation
+                        </button>
+                        <a href="{% url 'bookings:booking_detail' booking.id %}" 
+                           class="btn btn-secondary">
+                            Keep Booking
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
