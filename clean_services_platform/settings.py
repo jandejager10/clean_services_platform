@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-h%5m7$itwgmcp7j%-_&2+!lf6!(f0pd^-mm5m!5^96n7saz!xk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEVELOPMENT' in os.environ
 
-ALLOWED_HOSTS = ['https://codeinstproj4-resub-79196432a6ce.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['codeinstproj4-resub-79196432a6ce.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -99,12 +99,23 @@ WSGI_APPLICATION = 'clean_services_platform.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DATABASE_URL' in os.environ:
+    # Use the DATABASE_URL if it's available (on Heroku)
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'),
+            conn_max_age=600,
+            ssl_require=True
+        )
     }
-}
+else:
+    # Use SQLite3 for local development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
