@@ -397,7 +397,7 @@ Note:
                                            |
   ┌──────────┐    ┌──────────┐    ┌──────────────┐    ┌──────────┐
   │          │    │          │    │              │    │          │
-  │ Customer ├───►│ Pending  ├───►│   Review     │───►│Confirmed │
+  │ Customer ├���──►│ Pending  ├───►│   Review     │───►│Confirmed │
   │ Books    │    │ Status   │    │   by Staff   │    │ Status   │
   │          │    │          │    │              │    │          │
   └──────────┘    └────┬─────┘    └──────────────┘    └────┬─────┘
@@ -437,3 +437,29 @@ Note:
 - Cancellation flows are available at multiple stages
 - Both workflows support customer-initiated and staff-initiated actions
 - Status changes trigger appropriate notifications
+
+## Deployment
+
+### Heroku Deployment
+
+1. Create a Heroku account and install Heroku CLI
+2. Create a new Heroku app
+3. Set up required environment variables:
+   - SECRET_KEY
+   - STRIPE_PUBLIC_KEY
+   - STRIPE_SECRET_KEY
+   - EMAIL_HOST_USER
+   - EMAIL_HOST_PASSWORD
+4. Add PostgreSQL database
+5. Deploy using Gunicorn
+6. Run migrations and load initial data
+
+### Environment Variables Required
+```
+SECRET_KEY=your-secret-key
+STRIPE_PUBLIC_KEY=your-stripe-public-key
+STRIPE_SECRET_KEY=your-stripe-secret-key
+EMAIL_HOST_USER=your-email
+EMAIL_HOST_PASSWORD=your-email-password
+DATABASE_URL=your-database-url
+```
