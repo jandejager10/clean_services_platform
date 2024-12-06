@@ -8,18 +8,19 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.AlterField(
             model_name='order',
             name='status',
             field=models.CharField(
                 choices=[
                     ('pending', 'Pending'),
                     ('processing', 'Processing'),
+                    ('cancellation_requested', 'Cancellation Requested'),
                     ('completed', 'Completed'),
                     ('cancelled', 'Cancelled'),
                 ],
                 default='pending',
-                max_length=20
+                max_length=25
             ),
         ),
     ] 
