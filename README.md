@@ -397,7 +397,7 @@ Note:
                                            |
   ┌──────────┐    ┌──────────┐    ┌──────────────┐    ┌──────────┐
   │          │    │          │    │              │    │          │
-  │ Customer ├���──►│ Pending  ├───►│   Review     │───►│Confirmed │
+  │ Customer ├──►│ Pending  ├───►│   Review     │───►│Confirmed │
   │ Books    │    │ Status   │    │   by Staff   │    │ Status   │
   │          │    │          │    │              │    │          │
   └──────────┘    └────┬─────┘    └──────────────┘    └────┬─────┘
@@ -463,3 +463,24 @@ EMAIL_HOST_USER=your-email
 EMAIL_HOST_PASSWORD=your-email-password
 DATABASE_URL=your-database-url
 ```
+
+## Color Scheme
+
+The platform uses a professional teal-based color scheme:
+
+```css
+/* Primary Colors */
+--primary-color: #00ACC1;      /* Bright Teal */
+--primary-hover: #007C91;      /* Darker Teal */
+
+/* Supporting Colors */
+--accent-color: #FFA726;       /* Warm Orange */
+--dark-color: #37474F;         /* Dark Blue-Grey */
+--secondary-color: #4DB6AC;    /* Light Teal */
+```
+
+This color scheme was chosen to:
+- Convey cleanliness and professionalism
+- Provide clear visual hierarchy
+- Ensure accessibility and readability
+- Create a cohesive brand identity

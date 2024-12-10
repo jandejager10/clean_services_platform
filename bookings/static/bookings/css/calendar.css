@@ -41,9 +41,9 @@
 }
 
 .fc-today {
-    background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
+    background-color: rgba(0, 172, 193, 0.1) !important;
 }
 
 .list-group-item:hover {
-    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    background-color: rgba(0, 172, 193, 0.1);
 } 

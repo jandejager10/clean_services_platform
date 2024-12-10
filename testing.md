@@ -532,13 +532,6 @@ def multiply(value, arg):
 - Verified refund status updates
 - ```
 - Test Results:
-- Amount     Currency    Status      Payment Method
-- £10.20     GBP        Refunded    **** 4242
-- £10.20     GBP        Incomplete   —
-- £34.18     GBP        Refunded    **** 4242
-- £23.98     GBP        Succeeded   **** 4242
-- £23.98     GBP        Succeeded   **** 4242
-- ```
 + 
 + ![Stripe Refund Test Results](static/images/stripe_refund_tests.png)
   
@@ -549,4 +542,161 @@ def multiply(value, arg):
   - Integration with Stripe working as expected
   - Multiple transaction types handled correctly
 
+## User Story Testing Procedures
+
+### Customer Features Testing
+
+#### Authentication & Profile Testing
+1. Account Registration
+   - Navigate to registration page
+   - Enter valid email and password
+   - Verify email verification link received
+   - Confirm account via email link
+   - Expected: Account created and verified
+
+2. Profile Management
+   - Log into account
+   - Update profile information
+   - Save changes
+   - Verify updates displayed correctly
+   - Expected: Profile changes saved and visible
+
+#### Service Booking Testing
+1. Service Browsing
+   - View services list
+   - Check each service category
+   - Verify service details display
+   - Test on mobile and desktop
+   - Expected: All services visible with correct details
+
+2. Booking Process
+   - Select a service
+   - Choose date and time
+   - Complete booking form
+   - Submit booking
+   - Check confirmation email
+   - Expected: Booking created and confirmed
+
+3. Booking Management
+   - View booking history
+   - Test booking cancellation
+   - Check status updates
+   - Verify email notifications
+   - Expected: All booking actions work correctly
+
+#### Shopping Testing
+1. Product Browsing
+   - Browse product categories
+   - View product details
+   - Test product search
+   - Check responsive layout
+   - Expected: Products display correctly on all devices
+
+2. Cart Functions
+   - Add products to cart
+   - Update quantities
+   - Remove items
+   - Check tax calculations
+   - Expected: Cart updates correctly with accurate totals
+
+3. Checkout Process
+   - Proceed to checkout
+   - Enter shipping details
+   - Complete payment
+   - Verify order confirmation
+   - Expected: Order processes successfully
+
+#### Support Features Testing
+1. FAQ Access
+   - Navigate to FAQ section
+   - Test search functionality
+   - Browse categories
+   - Check mobile display
+   - Expected: FAQs accessible and searchable
+
+2. Contact Support
+   - Find contact form
+   - Submit test message
+   - Check response
+   - Verify on mobile
+   - Expected: Contact form works on all devices
+
+### Staff Features Testing
+
+#### Booking Management Testing
+1. Booking Overview
+   - Log in as staff
+   - View pending bookings
+   - Process test booking
+   - Update booking status
+   - Expected: All booking management functions work
+
+2. Booking Details
+   - Select specific booking
+   - View all booking details
+   - Test status updates
+   - Check email triggers
+   - Expected: Complete booking information available
+
+#### Order Management Testing
+1. Order Processing
+   - View order list
+   - Process test order
+   - Update order status
+   - Check customer notifications
+   - Expected: Orders processed correctly
+
+2. Refund Processing
+   - Locate refund request
+   - Process test refund
+   - Verify Stripe integration
+   - Check confirmation emails
+   - Expected: Refunds process successfully
+
+#### Content Management Testing
+1. Product Updates
+   - Add new test product
+   - Edit existing product
+   - Update product images
+   - Check display
+   - Expected: Product changes save and display correctly
+
+2. Service Management
+   - Update service details
+   - Modify pricing
+   - Edit service descriptions
+   - Verify changes
+   - Expected: Service updates reflect correctly
+
+### Responsive Design Testing Checklist
+
+#### Desktop (1920x1080)
+- [ ] Navigation menu fully visible
+- [ ] Images properly sized
+- [ ] Tables display all columns
+- [ ] Forms properly aligned
+
+#### Laptop (1366x768)
+- [ ] Content scales appropriately
+- [ ] No horizontal scrolling
+- [ ] Images resize correctly
+- [ ] Forms maintain structure
+
+#### Tablet (768x1024)
+- [ ] Menu collapses to hamburger
+- [ ] Touch targets adequate size
+- [ ] Tables scroll horizontally
+- [ ] Forms stack vertically
+
+#### Mobile (375x667)
+- [ ] Content readable without zooming
+- [ ] Images scale to viewport
+- [ ] Forms fill mobile width
+- [✅] Navigation usable on small screen
+
+### Testing Status Key
+✅ Pass
+❌ Fail
+⏳ Pending
+🔄 Retest Required
 
