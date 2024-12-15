@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}404 - Page Not Found{% endblock title %}
 
@@ -15,7 +16,10 @@
                         We might be busy cleaning that page.
                     </p>
                     <div class="mb-4">
-                        <img src="https://placehold.co/400x200" alt="404 illustration" class="img-fluid rounded">
+                        <img src="{% static 'images/404-image.jpg' %}" 
+                             onerror="this.src='{% static 'images/noimage.png' %}'"
+                             alt="404 illustration" 
+                             class="img-fluid rounded">
                     </div>
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <a href="{% url 'home:index' %}" class="btn btn-primary">

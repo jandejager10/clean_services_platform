@@ -51,11 +51,21 @@ class Cart:
         tax = self.get_subtotal_price() * Decimal(str(settings.TAX_RATE))
         return tax.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
+    def get_delivery_cost(self):
+        """Calculate delivery cost based on total"""
+        subtotal = self.get_subtotal()
+        if subtotal >= Decimal('50.00'):
+            return Decimal('0.00')
+        return Decimal('3.00')
+
     def get_total_price(self):
-        """Calculate total price including tax."""
+        """Calculate total price including tax and delivery"""
         if not self.cart:
             return Decimal('0.00')
-        total = self.get_subtotal_price() + self.get_tax()
+        subtotal = self.get_subtotal_price()
+        tax = self.get_tax()
+        delivery = self.get_delivery_cost()
+        total = subtotal + tax + delivery
         return total.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
     def clear(self):
