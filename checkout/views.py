@@ -148,13 +148,18 @@ def checkout_success(request, order_number):
             profile.default_postcode = order.postcode
             profile.save()
 
-    # Send order confirmation email
-    try:
-        send_order_confirmation_email(order)
-    except Exception as e:
-        messages.warning(request, 
-            'Order confirmation email could not be sent. '
-            'Please check your order history for confirmation.')
+    # Send order confirmation email only if not sent
+    if not order.confirmation_email_sent:
+        try:
+            send_order_confirmation_email(order)
+            order.confirmation_email_sent = True
+            order.save()
+        except Exception as e:
+            messages.warning(
+                request,
+                'Order confirmation email could not be sent. '
+                'Please check your order history for confirmation.'
+            )
 
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
@@ -263,3 +268,31 @@ def approve_cancellation(request, order_number):
                 'Error processing refund. Please try again or contact support.'
             )
     return redirect('checkout:staff_orders') 
+
+
+@login_required
+def order_detail(request, order_number):
+    order = get_object_or_404(Order, order_number=order_number)
+
+    # Check if user is authorized to view this order
+    if request.user != order.user and not request.user.is_staff:
+        messages.error(request, 'You are not authorized to view this order.')
+        return redirect('home')
+
+    template = 'checkout/order_detail.html'
+    context = {
+        'order': order,
+    }
+
+    return render(request, template, context)
+
+
+def payment_success(request, order_number):
+    order = get_object_or_404(Order, order_number=order_number)
+    
+    if order.status == 'pending':
+        order.status = 'processing'
+        order.send_confirmation_email()  # Will only send if not already sent
+        order.save()
+        
+    return redirect('checkout:order_detail', order_number=order_number)

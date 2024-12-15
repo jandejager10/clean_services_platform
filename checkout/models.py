@@ -37,6 +37,7 @@ class Order(models.Model):
         choices=STATUS_CHOICES,
         default='pending'
     )
+    confirmation_email_sent = models.BooleanField(default=False)
 
     def _generate_order_number(self):
         """Generate a random, unique order number using UUID"""
@@ -70,6 +71,13 @@ class Order(models.Model):
     def get_total(self):
         """Calculate total including tax"""
         return self.get_subtotal() + self.get_tax()
+
+    def send_confirmation_email(self):
+        """Send the confirmation email if not already sent"""
+        if not self.confirmation_email_sent:
+            # Send email logic here
+            self.confirmation_email_sent = True
+            self.save()
 
 
 class OrderLineItem(models.Model):
