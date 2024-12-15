@@ -39,7 +39,7 @@ def checkout(request):
         if order_form.is_valid():
             # Get the payment intent ID from the form
             pid = request.POST.get('client_secret').split('_secret')[0]
-            
+
             # Create order but don't save yet
             order = order_form.save(commit=False)
             order.stripe_pid = pid
@@ -50,9 +50,9 @@ def checkout(request):
             try:
                 # Confirm the payment with Stripe
                 stripe.api_key = stripe_secret_key
-                stripe.PaymentIntent.modify(pid, 
+                stripe.PaymentIntent.modify(pid,
                     metadata={'order_id': order.order_number})
-                
+
                 # Create the order line items
                 for item in cart:
                     product = Product.objects.get(id=item['product'].id)
@@ -68,13 +68,13 @@ def checkout(request):
                 return redirect(reverse('checkout:checkout_success',
                                      args=[order.order_number]))
             except stripe.error.StripeError as e:
-                messages.error(request, 
-                    "Payment processing error. Please try again later.")
+                messages.error(request,
+                               "Payment processing error. Please try again later.")
                 order.delete()
                 return redirect(reverse('cart:cart_detail'))
             except Exception as e:
-                messages.error(request, 
-                    "There was an error processing your order. Please try again.")
+                messages.error(request,
+                               "There was an error processing your order. Please try again.")
                 order.delete()
                 return redirect(reverse('cart:cart_detail'))
     else:
@@ -112,8 +112,8 @@ def checkout(request):
                 currency=settings.STRIPE_CURRENCY,
             )
         except stripe.error.StripeError as e:
-            messages.error(request, 
-                "Payment system error. Please try again later.")
+            messages.error(request,
+                           "Payment system error. Please try again later.")
             return redirect(reverse('cart:cart_detail'))
 
     if not stripe_public_key:
@@ -179,7 +179,7 @@ def checkout_success(request, order_number):
 @login_required
 def cancel_order(request, order_number):
     order = get_object_or_404(Order, order_number=order_number, user=request.user)
-    
+
     if request.method == 'POST':
         if order.status in ['pending', 'processing']:
             try:
@@ -188,14 +188,14 @@ def cancel_order(request, order_number):
                     stripe.Refund.create(payment_intent=order.stripe_pid)
                     order.status = 'cancelled'
                     messages.success(
-                        request, 
+                        request,
                         'Order cancelled successfully. Refund will be processed.'
                     )
                 else:
                     # Request cancellation for processing orders
                     order.status = 'cancellation_requested'
                     messages.success(
-                        request, 
+                        request,
                         'Cancellation request received. Staff will review it shortly.'
                     )
                 order.save()
@@ -209,7 +209,7 @@ def cancel_order(request, order_number):
         else:
             messages.error(request, 'This order cannot be cancelled.')
         return redirect('accounts:profile')
-    
+
     return render(request, 'checkout/cancel_order.html', {'order': order})
 
 
@@ -218,18 +218,18 @@ def staff_orders(request):
     """Staff view to manage orders"""
     status = request.GET.get('status', 'cancellation_requested')
     orders = Order.objects.filter(status=status).order_by('-date')
-    
+
     # Get counts for navigation
     cancellation_count = Order.objects.filter(
         status='cancellation_requested'
     ).count()
-    
+
     context = {
         'orders': orders,
         'status': status,
         'cancellation_count': cancellation_count,
     }
-    
+
     return render(request, 'checkout/staff_orders.html', context)
 
 
@@ -289,12 +289,12 @@ def order_detail(request, order_number):
 
 def payment_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
-    
+
     if order.status == 'pending':
         order.status = 'processing'
         order.send_confirmation_email()  # Will only send if not already sent
         order.save()
-        
+
     return redirect('checkout:order_detail', order_number=order_number)
 
 
@@ -303,13 +303,13 @@ def complete_order(request, order_number):
     """Mark an order as completed and send shipping notification"""
     if request.method == 'POST':
         order = get_object_or_404(
-            Order, 
+            Order,
             order_number=order_number,
             status='processing'
         )
         order.status = 'completed'
         order.save()
-        
+
         try:
             send_order_shipped_email(order)
             messages.success(
@@ -321,5 +321,5 @@ def complete_order(request, order_number):
                 request,
                 'Order marked as completed but shipping notification failed to send.'
             )
-            
+
     return redirect('checkout:staff_orders')

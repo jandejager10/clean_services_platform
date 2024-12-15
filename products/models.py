@@ -17,13 +17,13 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    category = models.ForeignKey('Category', null=True, blank=True, 
-                               on_delete=models.SET_NULL)
+    category = models.ForeignKey('Category', null=True, blank=True,
+                                 on_delete=models.SET_NULL)
     name = models.CharField(max_length=254)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     rating = models.DecimalField(
-        max_digits=3, 
+        max_digits=3,
         decimal_places=2,
         null=True,
         blank=True,
@@ -33,11 +33,11 @@ class Product(models.Model):
         ]
     )
     sku = models.CharField(max_length=254, null=True, blank=True)
-    
+
     # Change this field to use static files instead of media
     image = models.CharField(
-        max_length=254, 
-        null=True, 
+        max_length=254,
+        null=True,
         blank=True,
         help_text="Image filename from static/images/ directory"
     )

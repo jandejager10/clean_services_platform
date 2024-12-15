@@ -1,51 +1,48 @@
-from django.shortcuts import render
-from django.core.mail import send_mail
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from .forms import ContactForm
 from django.conf import settings
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.shortcuts import redirect, render
+
+from .forms import ContactForm
+
 
 def index(request):
     return render(request, 'home/index.html')
 
+
 def about(request):
     return render(request, 'home/about.html')
+
 
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            # Send email to admin
+            data = form.cleaned_data
+            # Send to admin
             send_mail(
-                subject=f"Contact Form: {form.cleaned_data['subject']}",
-                message=f"From: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\n\nMessage:\n{form.cleaned_data['message']}",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                f"Contact Form: {data['subject']}",
+                f"From: {data['name']}\nEmail: {data['email']}\n\n"
+                f"Message:\n{data['message']}",
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.DEFAULT_FROM_EMAIL],
                 fail_silently=False,
             )
-            
-            # Send confirmation to user
+            # Send to user
             send_mail(
-                subject='Contact Form Received - Clean Services Platform',
-                message=f"""Dear {form.cleaned_data['name']},
-
-Thank you for contacting us. We have received your message and will respond shortly.
-
-Your message details:
-Subject: {form.cleaned_data['subject']}
-Message:
-{form.cleaned_data['message']}
-
-Best regards,
-Clean Services Platform Team""",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[form.cleaned_data['email']],
+                'Contact Form Received - Clean Services Platform',
+                f"Dear {data['name']},\n\nThank you for contacting us. "
+                f"We have received your message and will respond shortly.\n\n"
+                f"Your message details:\nSubject: {data['subject']}\n"
+                f"Message:\n{data['message']}\n\nBest regards,\n"
+                "Clean Services Platform Team",
+                settings.DEFAULT_FROM_EMAIL,
+                [data['email']],
                 fail_silently=False,
             )
-            
             messages.success(request, 'Your message has been sent successfully!')
             return redirect('home:contact')
     else:
         form = ContactForm()
 
-    return render(request, 'home/contact.html', {'form': form}) 
+    return render(request, 'home/contact.html', {'form': form})

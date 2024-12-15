@@ -12,7 +12,8 @@ class UserProfileInline(admin.StackedInline):
 
 class UserAdmin(BaseUserAdmin):
     inlines = (UserProfileInline,)
-    list_display = ('email', 'first_name', 'last_name', 'is_staff', 'last_login')
+    list_display = ('email', 'first_name', 'last_name', 'is_staff',
+                    'last_login')
     list_filter = ('is_staff', 'is_superuser', 'is_active')
 
 
@@ -25,4 +26,4 @@ admin.site.register(User, UserAdmin)
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'default_phone_number', 'default_town_or_city')
     search_fields = ['user__email', 'default_phone_number', 'default_postcode']
-    list_filter = ('default_town_or_city', 'default_county') 
+    list_filter = ('default_town_or_city', 'default_county')

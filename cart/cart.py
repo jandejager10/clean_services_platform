@@ -99,4 +99,3 @@ class Cart:
 
     def get_tax(self):
         return self.get_subtotal() * Decimal('0.20')
- 

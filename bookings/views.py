@@ -28,22 +28,22 @@ def booking_calendar(request):
 def create_booking(request, service_id):
     """Create a new booking"""
     service = get_object_or_404(Service, id=service_id)
-    
+
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
             booking.user = request.user
             booking.service = service
-            
+
             # Assign available service provider
             provider = ServiceProvider.objects.filter(
                 services=service, is_available=True).first()
             if provider:
                 booking.provider = provider
-            
+
             booking.save()
-            
+
             # Send pending notification with error logging
             try:
                 send_booking_pending_email(booking)
@@ -57,7 +57,7 @@ def create_booking(request, service_id):
                     request, 
                     f'Booking created but notification email failed: {str(e)}'
                 )
-            
+
             return redirect('bookings:booking_detail', booking.id)
     else:
         form = BookingForm(initial={'service': service})
@@ -78,7 +78,7 @@ def booking_detail(request, booking_id):
     else:
         # Regular users can only view their own bookings
         booking = get_object_or_404(Booking, id=booking_id, user=request.user)
-    
+
     context = {
         'booking': booking,
     }
@@ -99,11 +99,11 @@ def get_calendar_events(request):
     """Return events for the calendar"""
     start = request.GET.get('start')
     end = request.GET.get('end')
-    
+
     # Convert to datetime objects
     start_date = datetime.fromisoformat(start.replace('Z', '+00:00'))
     end_date = datetime.fromisoformat(end.replace('Z', '+00:00'))
-    
+
     # Get bookings in date range
     if request.user.is_staff:
         # Staff can see all bookings
@@ -116,7 +116,7 @@ def get_calendar_events(request):
             date__range=[start_date.date(), end_date.date()],
             user=request.user
         ).select_related('time_slot', 'service')
-    
+
     # Format events for FullCalendar
     events = []
     for booking in bookings:
@@ -124,7 +124,7 @@ def get_calendar_events(request):
         if request.user.is_staff:
             title_parts.append(f"({booking.user.get_full_name()})")
         title_parts.append(f"[{booking.status.upper()}]")
-        
+
         events.append({
             'id': booking.id,
             'title': " ".join(title_parts),
@@ -137,7 +137,7 @@ def get_calendar_events(request):
                 'customer': booking.user.get_full_name() if request.user.is_staff else None
             }
         })
-    
+
     return JsonResponse(events, safe=False)
 
 
@@ -156,12 +156,12 @@ def get_status_color(status):
 def cancel_booking(request, booking_id):
     """Cancel a booking"""
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
-    
+
     if request.method == 'POST':
         if booking.status == 'pending':
             booking.status = 'cancelled'
             booking.save()
-            
+
             try:
                 send_booking_cancelled_email(booking)
                 messages.success(
@@ -175,9 +175,9 @@ def cancel_booking(request, booking_id):
                 )
         else:
             messages.error(request, 'This booking cannot be cancelled.')
-        
+
         return redirect('bookings:my_bookings')
-    
+
     return redirect('bookings:booking_detail', booking_id=booking_id)
 
 
@@ -186,20 +186,20 @@ def staff_bookings(request):
     """Staff view to manage bookings"""
     status = request.GET.get('status', 'pending')
     bookings = Booking.objects.filter(status=status).order_by('date', 'time_slot')
-    
+
     # Get counts for navigation
     pending_count = Booking.objects.filter(status='pending').count()
     cancellation_count = Booking.objects.filter(
         status='cancellation_requested'
     ).count()
-    
+
     context = {
         'bookings': bookings,
         'status': status,
         'pending_count': pending_count,
         'cancellation_count': cancellation_count,
     }
-    
+
     return render(request, 'bookings/staff_bookings.html', context)
 
 
@@ -210,7 +210,7 @@ def confirm_booking(request, booking_id):
         booking = get_object_or_404(Booking, id=booking_id, status='pending')
         booking.status = 'confirmed'
         booking.save()
-        
+
         # Send confirmation email
         try:
             send_booking_confirmation_email(booking)
@@ -220,7 +220,7 @@ def confirm_booking(request, booking_id):
                 request, 
                 'Booking confirmed but confirmation email failed to send.'
             )
-        
+
     return redirect('bookings:staff_bookings')
 
 
@@ -229,11 +229,11 @@ def reject_booking(request, booking_id):
     """Reject a pending booking or approve a cancellation request"""
     if request.method == 'POST':
         booking = get_object_or_404(
-            Booking, 
-            id=booking_id, 
+            Booking,
+            id=booking_id,
             status__in=['pending', 'cancellation_requested']
         )
-        
+
         # If it's a cancellation request, handle it differently
         if booking.status == 'cancellation_requested':
             booking.status = 'cancelled'
@@ -246,25 +246,25 @@ def reject_booking(request, booking_id):
                 )
             except Exception:
                 messages.warning(
-                    request, 
+                    request,
                     'Cancellation approved but notification failed to send.'
                 )
             return redirect('bookings:staff_bookings')
-        
+
         # Handle regular rejection of pending booking
         booking.status = 'cancelled'
         booking.save()
-        
+
         # Send cancellation email
         try:
             send_booking_cancelled_email(booking)
             messages.success(request, 'Booking rejected and email sent.')
         except Exception:
             messages.warning(
-                request, 
+                request,
                 'Booking rejected but notification email failed to send.'
             )
-        
+
     return redirect('bookings:staff_bookings')
 
 
@@ -274,7 +274,7 @@ def request_booking_cancellation(request, booking_id):
     if booking.status == 'confirmed':
         booking.status = 'cancellation_requested'
         booking.save()
-        
+
         try:
             # Send email to customer
             subject = 'Booking Cancellation Request Received'
@@ -285,7 +285,7 @@ def request_booking_cancellation(request, booking_id):
                     'user': request.user,
                 }
             )
-            
+
             send_mail(
                 subject=subject,
                 message='',
@@ -294,7 +294,7 @@ def request_booking_cancellation(request, booking_id):
                 html_message=html_message,
                 fail_silently=False,
             )
-            
+
             messages.success(
                 request,
                 'Your cancellation request has been submitted and is pending review.'
@@ -305,9 +305,8 @@ def request_booking_cancellation(request, booking_id):
                 'Cancellation request received but email notification failed. '
                 'Please check your email settings.'
             )
-            
+
         return redirect('bookings:booking_detail', booking_id=booking_id)
     else:
         messages.error(request, 'Only confirmed bookings can be cancelled.')
         return redirect('bookings:booking_detail', booking_id=booking_id)
-  

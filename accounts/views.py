@@ -44,10 +44,10 @@ def delete_account(request):
     if request.method == 'POST':
         user = request.user
         email = user.email  # Store email before deletion
-        
+
         # Set Stripe API key
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        
+
         # Cancel any pending orders
         orders = Order.objects.filter(user=user, status='pending')
         for order in orders:
@@ -55,20 +55,20 @@ def delete_account(request):
             stripe.Refund.create(payment_intent=order.stripe_pid)
             order.status = 'cancelled'
             order.save()
-        
+
         # Cancel any pending bookings
         bookings = Booking.objects.filter(user=user, status='pending')
         for booking in bookings:
             booking.status = 'cancelled'
             booking.save()
-            
+
         try:
             send_account_deletion_email(user)
         except Exception as e:
             print(f"Failed to send deletion email: {e}")
-            
+
         user.delete()
         messages.success(request, 'Your account has been successfully deleted.')
         return redirect('home:index')
-    
-    return render(request, 'accounts/delete_account.html') 
+
+    return render(request, 'accounts/delete_account.html')

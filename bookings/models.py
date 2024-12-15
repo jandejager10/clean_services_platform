@@ -16,8 +16,8 @@ class TimeSlot(models.Model):
 
 class ServiceProvider(models.Model):
     """Model for service providers/staff"""
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, 
-                              on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE)
     services = models.ManyToManyField(Service)
     is_available = models.BooleanField(default=True)
     bio = models.TextField(blank=True)
@@ -44,17 +44,17 @@ class Booking(models.Model):
         ('monthly', 'Monthly'),
     ]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, 
-                           on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    provider = models.ForeignKey(ServiceProvider, 
-                               on_delete=models.SET_NULL, null=True)
+    provider = models.ForeignKey(ServiceProvider,
+                                 on_delete=models.SET_NULL, null=True)
     date = models.DateField()
     time_slot = models.ForeignKey(TimeSlot, on_delete=models.CASCADE)
-    status = models.CharField(max_length=30, choices=STATUS_CHOICES, 
-                            default='pending')
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES,
+                              default='pending')
     frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES,
-                               default='one-off')
+                                 default='one-off')
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -63,4 +63,4 @@ class Booking(models.Model):
         ordering = ['-date', '-time_slot__start_time']
 
     def __str__(self):
-        return f"{self.service} - {self.date} {self.time_slot}" 
+        return f"{self.service} - {self.date} {self.time_slot}"

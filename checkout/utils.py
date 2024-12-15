@@ -12,7 +12,7 @@ def send_order_confirmation_email(order):
     context = {
         'order': order,
     }
-    
+
     html_content = render_to_string(
         'checkout/emails/order_confirmation.html', context)
 
@@ -23,21 +23,22 @@ def send_order_confirmation_email(order):
         to_email,
         html_message=html_content,
         fail_silently=False,
-    ) 
+    )
+
 
 def send_cancellation_confirmation_email(order):
     """Send cancellation confirmation email to customer"""
     subject = f'Order Cancellation Confirmed - {order.order_number}'
     from_email = settings.DEFAULT_FROM_EMAIL
     to_email = [order.email]
-    
+
     context = {
         'order': order,
     }
-    
+
     html_content = render_to_string(
         'checkout/emails/cancellation_confirmation.html', context)
-    
+
     send_mail(
         subject,
         '',
@@ -45,7 +46,8 @@ def send_cancellation_confirmation_email(order):
         to_email,
         html_message=html_content,
         fail_silently=False,
-    ) 
+    )
+
 
 def send_order_shipped_email(order):
     """Send order shipped notification email to customer"""
@@ -53,22 +55,22 @@ def send_order_shipped_email(order):
         subject = f'Order Shipped - {order.order_number}'
         from_email = settings.DEFAULT_FROM_EMAIL
         to_email = [order.email]
-        
+
         context = {
             'order': order,
         }
-        
+
         # Try to render template
         try:
             html_content = render_to_string(
-                'checkout/emails/order_shipped.html', 
+                'checkout/emails/order_shipped.html',
                 context
             )
-            print(f"Template rendered successfully")  # Debug print
+            print("Template rendered successfully")  # Debug print
         except Exception as template_error:
-            print(f"Template error: {str(template_error)}")
+            print(f"Template error: {template_error}")
             raise
-        
+
         # Try to send email
         try:
             send_mail(
@@ -83,7 +85,7 @@ def send_order_shipped_email(order):
         except Exception as mail_error:
             print(f"Email sending error: {str(mail_error)}")
             raise
-            
+
     except Exception as e:
         print(f"Error in send_order_shipped_email: {str(e)}")
-        raise 
+        raise

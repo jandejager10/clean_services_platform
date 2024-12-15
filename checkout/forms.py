@@ -13,8 +13,8 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ('full_name', 'email', 'phone_number',
-                 'street_address1', 'street_address2',
-                 'town_or_city', 'county', 'postcode',)
+                  'street_address1', 'street_address2',
+                  'town_or_city', 'county', 'postcode',)
 
     def __init__(self, *args, **kwargs):
         """Add placeholders and classes, remove auto-generated labels"""

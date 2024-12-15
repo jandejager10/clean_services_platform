@@ -37,13 +37,13 @@ def all_services(request):
             query = request.GET['q']
             if not query:
                 messages.error(
-                    request, 
+                    request,
                     "You didn't enter any search criteria!"
                 )
                 return redirect(reverse('services'))
-            
+
             queries = (
-                Q(name__icontains=query) | 
+                Q(name__icontains=query) |
                 Q(description__icontains=query)
             )
             services = services.filter(queries)
@@ -110,4 +110,4 @@ def commercial_cleaning(request):
             category__name='office_cleaning'
         ).order_by('price')
     }
-    return render(request, 'services/commercial_cleaning.html', context) 
+    return render(request, 'services/commercial_cleaning.html', context)
