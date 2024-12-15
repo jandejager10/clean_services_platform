@@ -9,6 +9,9 @@ from django.http import JsonResponse
 from datetime import datetime, timedelta
 from .utils import send_booking_confirmation_email, send_booking_cancelled_email, send_booking_pending_email
 from django.contrib.admin.views.decorators import staff_member_required
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
 
 
 @login_required
@@ -268,25 +271,43 @@ def reject_booking(request, booking_id):
 @login_required
 def request_booking_cancellation(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
-    
-    if request.method == 'POST':
-        if booking.status == 'confirmed':
-            booking.status = 'cancellation_requested'
-            booking.save()
+    if booking.status == 'confirmed':
+        booking.status = 'cancellation_requested'
+        booking.save()
+        
+        try:
+            # Send email to customer
+            subject = 'Booking Cancellation Request Received'
+            html_message = render_to_string(
+                'bookings/emails/cancellation_request_received.html',
+                {
+                    'booking': booking,
+                    'user': request.user,
+                }
+            )
             
-            # Notify staff
-            try:
-                send_cancellation_request_email(booking)
-                messages.success(
-                    request, 
-                    'Cancellation request received. Staff will review it shortly.'
-                )
-            except Exception:
-                messages.warning(
-                    request, 
-                    'Cancellation request received but notification failed.'
-                )
+            send_mail(
+                subject=subject,
+                message='',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[request.user.email],
+                html_message=html_message,
+                fail_silently=False,
+            )
+            
+            messages.success(
+                request,
+                'Your cancellation request has been submitted and is pending review.'
+            )
+        except Exception as e:
+            messages.warning(
+                request,
+                'Cancellation request received but email notification failed. '
+                'Please check your email settings.'
+            )
+            
         return redirect('bookings:booking_detail', booking_id=booking_id)
-    
-    return render(request, 'bookings/request_cancellation.html', {'booking': booking})
+    else:
+        messages.error(request, 'Only confirmed bookings can be cancelled.')
+        return redirect('bookings:booking_detail', booking_id=booking_id)
   

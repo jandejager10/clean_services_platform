@@ -1,0 +1,21 @@
+{% extends "emails/base_email.html" %}
+
+{% block content %}
+<h2>Booking Cancellation Request Received</h2>
+
+<p>Dear {{ user.get_full_name }},</p>
+
+<p>We have received your request to cancel the following booking:</p>
+
+<div style="margin: 20px 0; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+    <p><strong>Service:</strong> {{ booking.service.name }}</p>
+    <p><strong>Date:</strong> {{ booking.date }}</p>
+    <p><strong>Time:</strong> {{ booking.time_slot }}</p>
+</div>
+
+<p>Your request is being reviewed by our staff. We will notify you once the cancellation has been processed.</p>
+
+<p>If you have any questions, please don't hesitate to contact us.</p>
+
+<p>Thank you for using our services.</p>
+{% endblock %} 
