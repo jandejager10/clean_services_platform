@@ -10,9 +10,10 @@ class Order(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('processing', 'Processing'),
-        ('cancellation_requested', 'Cancellation Requested'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
+        ('cancellation_requested', 'Cancellation Requested'),
+        ('refunded', 'Refunded'),
     ]
 
     order_number = models.CharField(max_length=32, null=False, editable=False)
@@ -32,7 +33,7 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
     status = models.CharField(
-        max_length=25,
+        max_length=30,
         choices=STATUS_CHOICES,
         default='pending'
     )

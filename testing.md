@@ -782,3 +782,19 @@ Updated the Site framework configuration to use correct domain:
 - [✅] Account verification links work correctly
 - [✅] Password reset links use correct domain
 
+## Booking Cancellation Email Notification
+
+### Problem
+Users not receiving email confirmation when requesting booking cancellation.
+
+### Solution
+1. Added email notification in request_booking_cancellation view
+2. Created email template for cancellation requests
+3. Added proper error handling for email sending
+
+### Verification
+- [✅] Users receive email when requesting cancellation
+- [✅] Email contains correct booking details
+- [✅] Staff still receives cancellation request
+- [✅] Proper error messages shown if email fails
+
