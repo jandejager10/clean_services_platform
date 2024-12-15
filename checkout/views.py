@@ -11,7 +11,7 @@ from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
 from accounts.models import UserProfile
-from .utils import send_order_confirmation_email, send_cancellation_confirmation_email
+from .utils import send_order_confirmation_email, send_cancellation_confirmation_email, send_order_shipped_email
 
 
 @login_required
@@ -296,3 +296,30 @@ def payment_success(request, order_number):
         order.save()
         
     return redirect('checkout:order_detail', order_number=order_number)
+
+
+@staff_member_required
+def complete_order(request, order_number):
+    """Mark an order as completed and send shipping notification"""
+    if request.method == 'POST':
+        order = get_object_or_404(
+            Order, 
+            order_number=order_number,
+            status='processing'
+        )
+        order.status = 'completed'
+        order.save()
+        
+        try:
+            send_order_shipped_email(order)
+            messages.success(
+                request, 
+                f'Order {order_number} marked as completed and shipping notification sent.'
+            )
+        except Exception as e:
+            messages.warning(
+                request,
+                'Order marked as completed but shipping notification failed to send.'
+            )
+            
+    return redirect('checkout:staff_orders')

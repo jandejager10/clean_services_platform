@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            margin: 0;
+            padding: 0;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        .header { 
+            background-color: #28a745; 
+            color: white; 
+            padding: 20px; 
+            text-align: center; 
+        }
+        .content { 
+            padding: 20px; 
+        }
+        .footer { 
+            text-align: center; 
+            padding: 20px; 
+            color: #666; 
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Your Order Has Been Shipped!</h1>
+        </div>
+
+        <div class="content">
+            <p>Dear {{ order.full_name }},</p>
+            
+            <p>Great news! Your order has been packed and shipped.</p>
+            
+            <div style="margin: 20px 0; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+                <h3>Order Details:</h3>
+                <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+                <p><strong>Order Date:</strong> {{ order.date|date:"F j, Y" }}</p>
+                
+                <h4>Items Shipped:</h4>
+                <ul style="list-style: none; padding-left: 0;">
+                    {% for item in order.lineitems.all %}
+                    <li style="margin-bottom: 10px;">
+                        {{ item.quantity }}x {{ item.product.name }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3>Shipping Address:</h3>
+                <p>{{ order.full_name }}</p>
+                <p>{{ order.street_address1 }}</p>
+                {% if order.street_address2 %}
+                    <p>{{ order.street_address2 }}</p>
+                {% endif %}
+                <p>{{ order.town_or_city }}</p>
+                {% if order.county %}
+                    <p>{{ order.county }}</p>
+                {% endif %}
+                <p>{{ order.postcode }}</p>
+            </div>
+
+            <p>If you have any questions about your shipment, please don't hesitate to contact us.</p>
+            
+            <p>Thank you for shopping with Clean Services Platform!</p>
+        </div>
+
+        <div class="footer">
+            <p>Clean Services Platform - Professional Cleaning Supplies</p>
+        </div>
+    </div>
+</body>
+</html> 
