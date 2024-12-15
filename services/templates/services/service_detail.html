@@ -13,11 +13,9 @@
         <!-- Service Image -->
         <div class="col-12 col-md-6 mb-4">
             <div class="card">
-                {% if service.image %}
-                    <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}">
-                {% else %}
-                    <img src="{% static 'images/default-service.jpg' %}" class="card-img-top" alt="{{ service.name }}">
-                {% endif %}
+                <img src="{% static service.get_detail_image %}" 
+                     class="img-fluid rounded shadow" 
+                     alt="{{ service.name }}">
             </div>
         </div>
 

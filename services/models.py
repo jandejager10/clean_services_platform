@@ -40,3 +40,26 @@ class Service(models.Model):
     
     def __str__(self):
         return self.name 
+    
+    def get_detail_image(self):
+        """Returns the appropriate detail image for this service"""
+        image_mapping = {
+            'home_cleaning': 'images/house-cleaning-detail.jpg',
+            'office_cleaning': 'images/office-maintenance.jpg',
+            'deep_cleaning': 'images/sanitization-service.jpg',
+            'move_in_move_out_cleaning': 'images/property-turnover.jpg',
+            'post_renovation_cleaning': 'images/builders-clean.jpg',
+            'recurring_home_cleaning': 'images/scheduled-maintenance.jpg',
+            'recurring_office_cleaning': 'images/recurring-office-clean.jpg',
+        }
+        
+        # Get service type from category and clean it
+        service_type = self.category.name.lower().strip()
+        print(f"Service type: {service_type}")  # Debug print
+        print(f"Available mappings: {list(image_mapping.keys())}")  # Debug print
+        
+        # Get mapped image or default
+        image = image_mapping.get(service_type, 'images/noimage.png')
+        print(f"Mapped image: {image}")  # Debug print
+        
+        return image
