@@ -1,6 +1,6 @@
 # Clean Services Platform
 
-A comprehensive platform for managing cleaning services and products, built with Django.
+An e-commerce platform for cleaning supplies and services, built with Django.
 
 ## Features
 
@@ -416,12 +416,12 @@ Note:
                                            |
   ┌──────────┐    ┌──────────┐    ┌──────────────┐    ┌──────────┐
   │          │    │          │    │  Cancellation │    │          │
-  │ Customer ├───►│Processing├───►│   Requested   ├───►│Cancelled │
+  │ Customer ├───►│Processing├───►│   Requested   ├��──►│Cancelled │
   │ Orders   │    │          │    │              │    │          │
   │          │    │          │    │              │    │          │
-  └──────────┘    └────┬─────┘    └──────────────┘    └────┬─────┘
+  └───���──────┘    └────┬─────┘    └──────────────┘    └────┬─────┘
                        │                                    │
-                       │          ┌──────────┐             │
+                       │          ┌───���──────┐             │
                        └─────────►│Completed │◄────────────┘
                                  │          │
                                  └──────────┘
@@ -484,3 +484,7 @@ This color scheme was chosen to:
 - Provide clear visual hierarchy
 - Ensure accessibility and readability
 - Create a cohesive brand identity
+
+## Image Credits
+- iStock by Getty Images (https://www.istockphoto.com) - 404 error page robot illustration
+- Unsplash (https://unsplash.com) - Product and service images

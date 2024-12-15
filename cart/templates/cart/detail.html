@@ -48,6 +48,16 @@
                     <td colspan="2"><strong>£{{ cart.get_subtotal_price|floatformat:2 }}</strong></td>
                 </tr>
                 <tr class="table-light">
+                    <td colspan="3"><strong>Delivery</strong></td>
+                    <td colspan="2">
+                        {% if cart.get_subtotal >= 50 %}
+                            <strong>FREE</strong>
+                        {% else %}
+                            <strong>£3.00</strong>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr class="table-light">
                     <td colspan="3"><strong>Tax (20%)</strong></td>
                     <td colspan="2"><strong>£{{ cart.get_tax|floatformat:2 }}</strong></td>
                 </tr>
