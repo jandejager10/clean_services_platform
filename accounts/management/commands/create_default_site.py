@@ -3,16 +3,25 @@ from django.contrib.sites.models import Site
 
 
 class Command(BaseCommand):
-    help = 'Creates the default site for the application'
+    help = 'Creates or updates the default site'
 
     def handle(self, *args, **kwargs):
-        if Site.objects.exists():
-            self.stdout.write('Deleting existing sites...')
-            Site.objects.all().delete()
-
-        site = Site.objects.create(
+        # Get or create site with ID 1
+        site, created = Site.objects.get_or_create(
             id=1,
-            domain='127.0.0.1:8000',
-            name='Clean Services Platform'
+            defaults={
+                'domain': 'codeinstproj4-resub-79196432a6ce.herokuapp.com',
+                'name': 'Clean Services Platform'
+            }
         )
-        self.stdout.write(self.style.SUCCESS(f'Successfully created site: {site.name}')) 
+
+        if not created:
+            site.domain = 'codeinstproj4-resub-79196432a6ce.herokuapp.com'
+            site.name = 'Clean Services Platform'
+            site.save()
+
+        self.stdout.write(
+            self.style.SUCCESS(
+                f'Successfully {"created" if created else "updated"} site: {site.domain}'
+            )
+        ) 

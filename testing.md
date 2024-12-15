@@ -700,3 +700,113 @@ def multiply(value, arg):
 ⏳ Pending
 🔄 Retest Required
 
+## Product Image Path Resolution
+
+### Problem
+Product images were being searched for in the `/media/` directory but were actually stored in `/static/images/`. This caused images not to display correctly.
+
+### Solution
+1. Updated Product model to use CharField for image paths:
+```python
+image = models.CharField(
+    max_length=254, 
+    null=True, 
+    blank=True,
+    help_text="Image filename from static/images/ directory"
+)
+```
+
+2. Added get_image_url method to Product model:
+```python
+def get_image_url(self):
+    """Returns the correct static URL for the image"""
+    if self.image:
+        return f'images/{self.image}'
+    return 'images/noimage.png'
+```
+
+3. Created migration to update image field:
+```bash
+python manage.py makemigrations products
+python manage.py migrate products
+```
+
+4. Added management command to update existing image paths:
+```python
+# products/management/commands/update_product_images.py
+class Command(BaseCommand):
+    help = 'Updates product image paths to use static files'
+
+    def handle(self, *args, **kwargs):
+        products = Product.objects.all()
+        updated = 0
+
+        for product in products:
+            if product.image:
+                filename = product.image.name.split('/')[-1]
+                product.image = filename
+                product.save()
+                updated += 1
+```
+
+### Implementation Steps
+1. Created migration file `0002_update_product_image_field.py`
+2. Updated product templates to use static tag
+3. Moved product images from media to static/images directory
+4. Ran management command to update database records
+
+### Verification
+- [✅] Product images display correctly in development
+- [✅] Product images display correctly on Heroku
+- [✅] No 404 errors for image files
+- [✅] Default 'noimage.png' displays when needed
+
+### Notes
+- All product images should now be stored in `static/images/`
+- Image paths in database only store filename, not full path
+- Static file handling manages the full path resolution
+- Works consistently in both development and production
+
+## Site Domain Configuration
+
+### Problem
+Email confirmations showed example.com instead of the correct domain name.
+
+### Solution
+Updated the Site framework configuration to use correct domain:
+- Domain: codeinstproj4-resub-79196432a6ce.herokuapp.com
+- Name: Clean Services Platform
+
+### Verification
+- [✅] Email confirmations show correct domain
+- [✅] Account verification links work correctly
+- [✅] Password reset links use correct domain
+
+## Site Configuration Error
+
+### Problem
+Site matching query does not exist error after deleting default site.
+
+### Solution
+Created management command to ensure default site exists:
+```python
+# accounts/management/commands/create_default_site.py
+site, created = Site.objects.get_or_create(
+    id=1,
+    defaults={
+        'domain': 'codeinstproj4-resub-79196432a6ce.herokuapp.com',
+        'name': 'Clean Services Platform'
+    }
+)
+```
+
+### Implementation
+1. Created management command
+2. Ran command on Heroku
+3. Verified site configuration
+
+### Verification
+- [✅] Site exists with correct domain
+- [✅] Email confirmations work
+- [✅] No more DoesNotExist errors
+
