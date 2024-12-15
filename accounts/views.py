@@ -8,6 +8,7 @@ from bookings.models import Booking
 from .forms import UserProfileForm
 import stripe
 from django.conf import settings
+from .utils import send_account_deletion_email
 
 
 @login_required
@@ -42,6 +43,8 @@ def profile(request):
 def delete_account(request):
     if request.method == 'POST':
         user = request.user
+        email = user.email  # Store email before deletion
+        
         # Set Stripe API key
         stripe.api_key = settings.STRIPE_SECRET_KEY
         
@@ -59,7 +62,11 @@ def delete_account(request):
             booking.status = 'cancelled'
             booking.save()
             
-        # Delete the user account
+        try:
+            send_account_deletion_email(user)
+        except Exception as e:
+            print(f"Failed to send deletion email: {e}")
+            
         user.delete()
         messages.success(request, 'Your account has been successfully deleted.')
         return redirect('home:index')

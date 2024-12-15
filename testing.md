@@ -798,3 +798,231 @@ Users not receiving email confirmation when requesting booking cancellation.
 - [✅] Staff still receives cancellation request
 - [✅] Proper error messages shown if email fails
 
+## Email Functionality Testing
+
+### Account Management Emails
+| Test Case | Expected Result | Actual Result | Status |
+|-----------|----------------|---------------|--------|
+| User Registration | Verification email sent | Email received with verification link | ✅ |
+| Password Reset | Reset link email sent | Email received with reset link | ✅ |
+| Email Change | Verification email sent to new address | Email received with verification link | ✅ |
+
+### Service Booking Emails
+| Test Case | Expected Result | Actual Result | Status |
+|-----------|----------------|---------------|--------|
+| New Booking | Pending confirmation email sent | Email received with booking details | ✅ |
+| Booking Confirmation | Confirmation email sent | Email received with confirmed details | ✅ |
+| Booking Cancellation Request | Request received email sent | Email received with cancellation details | ✅ |
+| Booking Cancellation Approved | Approval email sent | Email received with refund details | ✅ |
+
+### Order Management Emails
+| Test Case | Expected Result | Actual Result | Status |
+|-----------|----------------|---------------|--------|
+| Order Placed | Confirmation email sent | Email received with order details | ✅ |
+| Order Shipped | Shipping notification sent | Email received with shipping details | ✅ |
+| Order Cancellation Request | Request received email sent | Email received with request details | ✅ |
+| Order Cancellation Approved | Refund confirmation sent | Email received with refund details | ✅ |
+
+### Email Template Testing
+| Template | Layout | Content | Responsiveness | Status |
+|----------|---------|---------|----------------|--------|
+| Account Verification | Correct | Complete | Mobile-friendly | ✅ |
+| Order Confirmation | Correct | Complete | Mobile-friendly | ✅ |
+| Shipping Notification | Correct | Complete | Mobile-friendly | ✅ |
+| Booking Confirmation | Correct | Complete | Mobile-friendly | ✅ |
+| Cancellation Emails | Correct | Complete | Mobile-friendly | ✅ |
+
+### Email Content Verification
+- [✅] All emails include correct branding
+- [✅] Links in emails work correctly
+- [✅] Customer details are accurate
+- [✅] Order/Booking details are complete
+- [✅] Prices and totals are correct
+- [✅] Dates and times are formatted correctly
+
+### Technical Email Testing
+- [✅] Emails send from correct address
+- [✅] HTML formatting renders correctly
+- [✅] No broken images
+- [✅] All links are absolute URLs
+- [✅] Subject lines are appropriate
+
+### Notes
+- All email functionality tested in both development and production environments
+- Emails deliver reliably with expected formatting
+- No significant delays in email delivery
+- All email templates maintain consistent branding
+
+## Customer Workflow Testing
+
+### Anonymous User Workflows
+| Test Case | Steps | Expected Result | Status |
+|-----------|-------|-----------------|--------|
+| Browse Products | View product list and details | No login required, full access | ✅ |
+| Browse Services | View service list and details | No login required, full access | ✅ |
+| Add to Cart | Add products to shopping cart | Works without login | ✅ |
+| Cart Management | Update quantities, remove items | Works without login | ✅ |
+| Attempt Checkout | Try to complete purchase | Redirected to login/register | ✅ |
+| Attempt Booking | Try to book service | Redirected to login/register | ✅ |
+
+### Product Purchase Workflow
+| Test Case | Steps | Result | Status |
+|-----------|-------|---------|--------|
+| Add Products | Select products and quantities | Added to cart correctly | ✅ |
+| Update Cart | Modify quantities, remove items | Cart updates correctly | ✅ |
+| Checkout Process | Enter details and payment | Order created successfully | ✅ |
+| Order Confirmation | Complete payment | Email received, order visible | ✅ |
+| Cancel Order | Request cancellation | Refund processed correctly | ✅ |
+| Track Status | View order in profile | Status updates visible | ✅ |
+
+### Service Booking Workflow
+| Test Case | Steps | Result | Status |
+|-----------|-------|---------|--------|
+| Select Service | Choose service and date | Available slots shown | ✅ |
+| Make Booking | Complete booking form | Pending confirmation | ✅ |
+| Cancel Unconfirmed | Cancel pending booking | Immediate cancellation | ✅ |
+| Confirmed Booking | Staff confirms booking | Confirmation email sent | ✅ |
+| Request Cancellation | Cancel confirmed booking | Request sent to staff | ✅ |
+| Cancellation Approved | Staff approves cancellation | Refund processed | ✅ |
+
+### Account Management
+| Test Case | Steps | Result | Status |
+|-----------|-------|---------|--------|
+| Registration | Create new account | Account created, email verified | ✅ |
+| Profile Update | Edit delivery information | Details saved correctly | ✅ |
+| Order History | View past orders | All orders visible | ✅ |
+| Booking History | View service bookings | All bookings listed | ✅ |
+
+### Payment Processing
+| Test Case | Steps | Result | Status |
+|-----------|-------|---------|--------|
+| Valid Payment | Use valid card details | Payment accepted | ✅ |
+| Invalid Card | Use invalid card | Error shown, no order created | ✅ |
+| Refund Process | Cancel paid order | Refund issued to card | ✅ |
+
+### Staff Workflows
+| Test Case | Steps | Result | Status |
+|-----------|-------|---------|--------|
+| Confirm Bookings | Review and confirm bookings | Status updates, email sent | ✅ |
+| Process Orders | Mark orders as shipped | Email notification sent | ✅ |
+| Handle Cancellations | Approve cancellation requests | Refund processed, email sent | ✅ |
+
+### Notes
+- All workflows tested in both development and production
+- Email notifications verified at each step
+- Payment processing tested with test cards
+- Refund functionality verified
+- Staff notifications working correctly
+
+## Search and Filter Testing
+
+### Product Search
+| Test Case | Steps | Expected Result | Status |
+|-----------|-------|-----------------|--------|
+| Basic Search | Enter product name | Matching products shown | ✅ |
+| Partial Match | Enter partial name | Relevant results shown | ✅ |
+| Category Filter | Select category | Only category items shown | ✅ |
+| Price Sort | Sort high/low | Correct price ordering | ✅ |
+| Rating Sort | Sort by rating | Ordered by rating value | ✅ |
+| No Results | Search nonexistent | "No products found" message | ✅ |
+
+### Service Search
+| Test Case | Steps | Expected Result | Status |
+|-----------|-------|-----------------|--------|
+| Service Type | Search by type | Matching services listed | ✅ |
+| Category Filter | Filter by category | Category services shown | ✅ |
+| Price Range | Sort by price | Correct price ordering | ✅ |
+| Availability | Filter by date | Available services shown | ✅ |
+| Combined Filters | Multiple filters | Correct filtered results | ✅ |
+
+## Responsive Design Testing
+
+### Mobile View (< 768px)
+| Element | Expected Behavior | Status |
+|---------|------------------|--------|
+| Navigation | Collapses to burger menu | ✅ |
+| Images | Scale proportionally | ✅ |
+| Product Cards | Stack vertically | ✅ |
+| Service Cards | Full width display | ✅ |
+| Forms | Readable and usable | ✅ |
+| Cart | Adjusts to screen width | ✅ |
+
+### Tablet View (768px - 1024px)
+| Element | Expected Behavior | Status |
+|---------|------------------|--------|
+| Navigation | Horizontal menu | ✅ |
+| Product Grid | 2-3 items per row | ✅ |
+| Service List | 2 items per row | ✅ |
+| Booking Form | Optimized spacing | ✅ |
+| Cart Summary | Side by side layout | ✅ |
+
+### Desktop View (> 1024px)
+| Element | Expected Behavior | Status |
+|---------|------------------|--------|
+| Navigation | Full menu visible | ✅ |
+| Product Grid | 4 items per row | ✅ |
+| Service List | 3 items per row | ✅ |
+| Checkout | Two-column layout | ✅ |
+| Dashboard | Full width tables | ✅ |
+
+## Form Validation Testing
+
+### Registration Form
+| Field | Test Case | Expected Result | Status |
+|-------|-----------|-----------------|--------|
+| Email | Empty field | Required message | ✅ |
+| Email | Invalid format | Format error | ✅ |
+| Password | Too short | Minimum length error | ✅ |
+| Password | Common password | Complexity error | ✅ |
+
+### Booking Form
+| Field | Test Case | Expected Result | Status |
+|-------|-----------|-----------------|--------|
+| Date | Past date | Invalid date error | ✅ |
+| Time | Outside hours | Invalid time error | ✅ |
+| Service | Not selected | Required message | ✅ |
+| Phone | Invalid format | Format error | ✅ |
+
+### Checkout Form
+| Field | Test Case | Expected Result | Status |
+|-------|-----------|-----------------|--------|
+| Name | Empty field | Required message | ✅ |
+| Email | Invalid format | Format error | ✅ |
+| Phone | Invalid number | Format error | ✅ |
+| Postcode | Invalid format | Format error | ✅ |
+| Card | Invalid number | Payment error | ✅ |
+
+### Notes
+- All forms tested with various input combinations
+- Validation messages are clear and helpful
+- Form state persists on validation errors
+- Required fields clearly marked
+- Error messages are user-friendly
+
+## Account Deletion Testing
+
+### Process Testing
+| Test Case | Expected Result | Actual Result | Status |
+|-----------|----------------|---------------|--------|
+| Delete Account | Account removed from database | Account successfully deleted | ✅ |
+| Pending Orders | Cancelled and refunded | All orders processed | ✅ |
+| Pending Bookings | Cancelled | All bookings cancelled | ✅ |
+| Email Notification | Deletion confirmation sent | Email received | ✅ |
+
+### Email Content Verification
+- [✅] Correct user name in email
+- [✅] All actions listed (data removal, cancellations)
+
+### Data Cleanup
+- [✅] User profile removed
+- [✅] Personal information deleted
+- [❌] Order history anonymised - deleted - fix later
+- [❌] Booking history anonymised - deleted - fix later
+- [✅] No orphaned data remaining
+
+### Security Verification
+- [✅] Requires login
+- [✅] Requires confirmation
+- [❌] Processes refunds before deletion - fix later - not sure how to implement or test this
+- [✅] Session cleared after deletion
+

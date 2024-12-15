@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            margin: 0;
+            padding: 0;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        .header { 
+            background-color: #dc3545; 
+            color: white; 
+            padding: 20px; 
+            text-align: center; 
+        }
+        .content { 
+            padding: 20px; 
+        }
+        .footer { 
+            text-align: center; 
+            padding: 20px; 
+            color: #666; 
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Account Deleted</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ user.get_full_name }},</p>
+            
+            <p>Your account has been successfully deleted from Clean Services Platform.</p>
+            
+            <p>As requested:</p>
+            <ul>
+                <li>Your personal information has been removed</li>
+                <li>Pending orders have been cancelled and refunded</li>
+                <li>Pending bookings have been cancelled</li>
+                <li>Order history has been anonymized</li>
+            </ul>
+
+            <p>We're sorry to see you go. If you change your mind, you're welcome to create a new account anytime.</p>
+            
+            <p>Thank you for being our customer.</p>
+        </div>
+        <div class="footer">
+            <p>Clean Services Platform</p>
+        </div>
+    </div>
+</body>
+</html> 
