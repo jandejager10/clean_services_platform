@@ -34,6 +34,7 @@ class Booking(models.Model):
         ('confirmed', 'Confirmed'),
         ('cancelled', 'Cancelled'),
         ('completed', 'Completed'),
+        ('cancellation_requested', 'Cancellation Requested'),
     ]
 
     FREQUENCY_CHOICES = [
@@ -50,7 +51,7 @@ class Booking(models.Model):
                                on_delete=models.SET_NULL, null=True)
     date = models.DateField()
     time_slot = models.ForeignKey(TimeSlot, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, 
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES, 
                             default='pending')
     frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES,
                                default='one-off')
